@@ -1,7 +1,7 @@
 /* ==========================================================================
    奶娃启动器 · NaiWa Launcher — 官网脚本
-   纯原生 JS，无依赖。只做五件事：下载链接配置、移动端菜单、滚动淡入、
-   手风琴、下载弹层。所有逻辑都做了降级：JS 失效时页面内容照常可读。
+   纯原生 JS，无依赖。只做这些事：下载链接配置、移动端菜单、滚动淡入、
+   手风琴、蓝奏云按钮复制访问密码。所有逻辑都做了降级：JS 失效时页面内容照常可读。
    ========================================================================== */
 
 (function () {
@@ -11,8 +11,11 @@
      【集中配置区】部署时只改这两块就够了。
      ====================================================================== */
 
-  /** 当前版本号：会同步到页面上所有 data-version 的位置 */
-  var VERSION = "0.5.1";
+  /**
+   * 当前版本号。页面上**不显示**版本号（用户要求不标注版本），
+   * 这里只用于拼免安装包的文件名：NaiWaLauncher-<VERSION>-portable-x64.zip
+   */
+  var VERSION = "0.5.2";
 
   /**
    * 下载地址。留 "#" 或空字符串时，对应按钮会自动禁用并显示「即将上线」，
@@ -62,10 +65,8 @@
     return explicit || "";
   }
 
+  /* 版本号不再渲染到页面（站点不标注版本），只留给下载文件名用 */
   function hydrateVersion() {
-    var nodes = document.querySelectorAll("[data-version]");
-    for (var i = 0; i < nodes.length; i++) nodes[i].textContent = VERSION;
-
     var portableName = document.querySelector('[data-dl-file-name="portable"]');
     if (portableName) portableName.textContent = fileName("portable");
   }
@@ -336,6 +337,76 @@
   anchors.forEach(function (a) {
     a.addEventListener("click", function () {
       if (navOpen) setNav(false);
+    });
+  });
+
+  /* ---------- 7. 蓝奏云：点击下载按钮时顺手复制访问密码 ---------- */
+
+  var copyButtons = Array.prototype.slice.call(document.querySelectorAll("[data-copy]"));
+  var copyHint = document.getElementById("copy-hint");
+  var hintTimer = 0;
+
+  function showCopyHint(text, isError) {
+    if (!copyHint) return;
+    copyHint.textContent = text;
+    copyHint.classList.toggle("is-error", !!isError);
+    copyHint.classList.add("is-on");
+    if (hintTimer) window.clearTimeout(hintTimer);
+    hintTimer = window.setTimeout(
+      function () {
+        copyHint.classList.remove("is-on");
+      },
+      isError ? 10000 : 2000
+    );
+  }
+
+  /* 剪贴板 API 不可用（非安全上下文 / 无权限）时的兜底：临时 textarea + execCommand */
+  function legacyCopy(text) {
+    var area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.top = "-1000px";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    var ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch (err) {
+      ok = false;
+    }
+    document.body.removeChild(area);
+    return ok;
+  }
+
+  function copyPassword(btn) {
+    var text = btn.getAttribute("data-copy") || "";
+    if (!text) return;
+
+    function done() {
+      showCopyHint("已复制访问密码 " + text, false);
+    }
+    function failed() {
+      /* 不静默失败：直接告诉用户复制失败，并把密码明文放出来自己选 */
+      showCopyHint("自动复制失败，请手动复制访问密码 " + text, true);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () {
+        if (legacyCopy(text)) done();
+        else failed();
+      });
+      return;
+    }
+    if (legacyCopy(text)) done();
+    else failed();
+  }
+
+  copyButtons.forEach(function (btn) {
+    /* 不拦截默认行为：链接照常在新标签页打开 */
+    btn.addEventListener("click", function () {
+      copyPassword(btn);
     });
   });
 

@@ -894,6 +894,7 @@ button { font: inherit; color: inherit; }
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
 }
+.links--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .linkcard {
   position: relative;
   display: flex;
@@ -967,7 +968,11 @@ a.linkcard.is-off:hover { transform: none; border-color: var(--line); box-shadow
   gap: 8px;
   margin-top: 22px;
 }
-.credits-list li {
+.credits-list li { display: flex; }
+.credits-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   padding: 6px 13px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
@@ -975,7 +980,24 @@ a.linkcard.is-off:hover { transform: none; border-color: var(--line); box-shadow
   color: var(--ink-soft);
   font-size: 0.8125rem;
   font-weight: 600;
+  transition: color 0.18s var(--ease), background-color 0.18s var(--ease),
+    border-color 0.18s var(--ease), transform 0.18s var(--ease);
 }
+.credits-list a:hover,
+.credits-list a:focus-visible {
+  border-color: var(--rose-400);
+  background: var(--rose-050);
+  color: var(--rose-600);
+  transform: translateY(-1px);
+}
+.credits-list a::after {
+  content: "↗";
+  font-size: 0.75rem;
+  color: var(--muted-soft);
+  transition: color 0.18s var(--ease);
+}
+.credits-list a:hover::after,
+.credits-list a:focus-visible::after { color: var(--rose-600); }
 .credits .fineprint { margin-top: 22px; max-width: 640px; }
 
 /* ---------- 15. 页脚 ---------- */
@@ -1163,12 +1185,131 @@ body.nav-open { overflow: hidden; }
   .hero-actions .btn { flex: 1 1 100%; }
   .acc-btn { padding: 18px 2px; font-size: 0.9375rem; }
   .path-hint { font-size: 0.75rem; }
-  .chips li, .cores li, .credits-list li { font-size: 0.75rem; padding: 5px 11px; }
+  .chips li, .cores li { font-size: 0.75rem; padding: 5px 11px; }
+  .credits-list a { font-size: 0.75rem; padding: 5px 11px; }
   .footer-nav { gap: 6px 16px; font-size: 0.8125rem; }
   .site-footer { padding-block: 42px 36px; }
 }
 
-/* ---------- 19. 无障碍与动效偏好 ---------- */
+/* ---------- 19. 蓝奏云次要按钮与「已复制」提示 ---------- */
+.hero-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px 14px;
+  margin-top: 12px;
+  color: var(--muted-soft);
+  font-size: 0.8125rem;
+}
+.hero-hint-note { letter-spacing: 0.01em; }
+.copy-hint {
+  display: inline-block;
+  max-width: 100%;
+  padding: 4px 12px;
+  border: 1px solid var(--rose-100);
+  border-radius: 999px;
+  background: var(--rose-050);
+  color: var(--rose-600);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity 0.24s var(--ease), transform 0.24s var(--ease);
+  pointer-events: none;
+}
+.copy-hint.is-on { opacity: 1; transform: none; }
+.copy-hint.is-error {
+  border-color: var(--gold-300);
+  background: var(--gold-100);
+  color: var(--gold-600);
+  pointer-events: auto;
+  user-select: all;
+}
+
+/* ---------- 20. 更新日志页（changelog.html） ---------- */
+.cl-page {
+  padding-top: calc(var(--header-h) + 72px);
+  padding-bottom: 92px;
+}
+/* 更新日志里常有长路径 / 长链接，网格项必须允许收缩，否则窄屏会顶出横向滚动 */
+.clog { display: grid; gap: 52px; }
+.clog-entry { display: grid; gap: 12px; min-width: 0; }
+.clog-ver {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+.clog-ver::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rose-500);
+  box-shadow: 0 0 0 4px var(--rose-050);
+}
+.clog-body { display: grid; gap: 22px; min-width: 0; }
+.clog-sec { display: grid; gap: 10px; min-width: 0; }
+.clog-group { font-size: 1.0125rem; font-weight: 700; }
+.clog-body p {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.82;
+  overflow-wrap: anywhere;
+}
+.clog-list li,
+.clog-body > ul li {
+  position: relative;
+  min-width: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.82;
+  overflow-wrap: anywhere;
+}
+.clog-list,
+.clog-body > ul { display: grid; gap: 9px; min-width: 0; }
+.clog-list li + li,
+.clog-body > ul li + li { margin-top: 0; }
+.clog-list li::before,
+.clog-body > ul li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--rose-400);
+}
+.clog-list ul { display: grid; gap: 7px; margin-top: 8px; }
+.clog-list ul li::before { background: var(--gold-500); }
+.clog-scroll {
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+.clog-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.clog-table th,
+.clog-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+.clog-table th { color: var(--ink); font-weight: 700; font-size: 0.8125rem; }
+.clog-table td { color: var(--muted); }
+.cl-cta { display: flex; justify-content: center; margin-top: 36px; }
+
+/* ---------- 21. 无障碍与动效偏好 ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *,

@@ -6,6 +6,7 @@
 ```
 HTML/
 ├── index.html              页面结构（单页，含 Hero / 功能 / 分区展示 / 下载 / 更新日志 / FAQ / 社区）
+├── changelog.html          更新日志独立页（页头/导航/页脚与首页同源，内容为 CHANGELOG.md 的静态镜像）
 ├── README.md               本文件
 ├── assets/
 │   ├── css/style.css       全部样式（设计令牌 + 组件 + 三档断点 + 深色偏好）
@@ -18,7 +19,8 @@ HTML/
 
 ## 一、改下载地址与版本号
 
-**只改 `assets/js/main.js` 顶部这一块**，页面上所有下载按钮、版本号都由它渲染：
+**只改 `assets/js/main.js` 顶部这一块**，页面上所有下载按钮都由它渲染
+（`VERSION` 只用来拼免安装包文件名，**不会渲染到页面**——站点不标注版本号）：
 
 ```js
 /** 当前版本号：会同步到页面上所有 data-version 的位置 */
@@ -41,7 +43,8 @@ var DOWNLOAD = {
   `https://github.com/JIJIGUOWANG123/NaiWaLauncher/releases`（即 `DOWNLOAD.source`）。
 - 想换成自己的下载站？把 `DOWNLOAD.source` 换成你的地址即可，其余按钮跟着变。
 - 把某一项留成 `"#"` 或空字符串，对应按钮会自动禁用并显示「即将上线」，**不会把用户送到 404**。
-- 版本号：改 `VERSION` 一处，页面里所有 `data-version` 的位置（导航下方小字、下载区标题）自动同步。
+- 版本号：页面上**不显示**任何版本号（用户明确要求「页面不标注版本」），`VERSION` 只影响便携包文件名。
+  不要再加 `data-version` 元素——`hydrateVersion()` 已经不再往页面写版本号。
 
 ### 页面里链接是怎么来的
 
@@ -121,22 +124,40 @@ OSS / COS / R2 这类直接上传目录、把 `index.html` 设为默认首页即
 
 ---
 
-## 四、内容与配置清单（部署前逐项确认）
+## 四、更新日志页（`changelog.html`）
+
+这一页与 `index.html` 共用同一套页头、导航、页脚和 `assets/js/main.js`，
+内容区是**静态写死的 HTML**（来源：仓库根目录的 `CHANGELOG.md`）。
+
+- 转换规则：`## 版本号` → 版本标题、`###` → 小标题、`- ` → 列表项；只做转义，**不改内容**。
+- 页面顶部有一行「完整历史见 GitHub：CHANGELOG.md」，指向仓库里的原文。
+- **为什么不做动态拉取**：本站 CSP 是 `default-src 'self'`，页面自己也承诺不发外部请求；
+  用 `fetch()` 去拉 GitHub 会同时踩 CSP、CORS 与国内网络不稳三个坑，静态写入一次最稳。
+- 如果以后确实要改成运行时拉取，需要**同时**放宽两处：
+  1. `<meta http-equiv="Content-Security-Policy">` 的 `connect-src` 放行目标域名
+     （例如 `connect-src 'self' https://raw.githubusercontent.com`，当前只有 `'self'`）；
+  2. 目标地址要允许跨域（raw.githubusercontent.com 允许；api.github.com 有速率限制）。
+- 改完 `CHANGELOG.md` 后要重新生成这一页：替换 `<div class="clog">…</div>` 里的内容即可，
+  导航与页脚不用动（导航里的「更新日志」在首页是指向 `changelog.html` 的链接，在本页高亮自己）。
+
+---
+
+## 五、内容与配置清单（部署前逐项确认）
 
 | 位置 | 内容 | 状态 |
 | --- | --- | --- |
 | `main.js` → `DOWNLOAD.source` | GitHub Releases 地址 | 已配置 |
 | `main.js` → `REPO_URL` | `https://github.com/JIJIGUOWANG123/NaiWaLauncher` | 已配置 |
-| `main.js` → `VERSION` | `0.5.1` | 已配置 |
+| `main.js` → `VERSION` | `0.5.1`（只用于便携包文件名，页面不显示） | 已配置 |
 | 页脚 | ICP 备案号 / 公网安备 | **待填写**（`<span class="beian-placeholder">`） |
-| 社区区 | 麦块社区 / 交流群 | **待填写**（当前为「地址待配置」占位卡） |
+| 社区区 | GitHub 仓库 / Releases / 交流群（QQ 群 619915692） | 已配置（麦块社区卡片已按要求移除） |
 | `<head>` | `og:image` 用的是相对路径 `assets/img/home.png` | 建议上线后改成绝对 URL |
 
 > `og:image` 必须是**绝对 URL**（`https://你的域名/assets/img/home.png`），部分平台不解析相对路径。
 
 ---
 
-## 五、设计说明
+## 六、设计说明
 
 - **配色**：主色玫红 `#cb2245` / `#ed4661`，点缀暖金 `#ecb85d` / `#f2d495`；
   底色近白 `#fffdfc`，正文 `#17151a`，次要文字 `#6c6772`。全部收敛在 `style.css` 顶部的 CSS 变量里。
@@ -155,10 +176,10 @@ OSS / COS / R2 这类直接上传目录、把 `index.html` 设为默认首页即
 
 ---
 
-## 六、验收脚本（可选，仅本地用）
+## 七、验收脚本（可选，仅本地用）
 
-`.verify/verify.js` 是一个无头 Electron 脚本：加载页面、收集控制台输出、跑 DOM 断言、
-按 1440 / 820 / 390 三档整页截图到 `.preview/`。
+`.verify/verify.js` 是一个无头 Electron 脚本：加载 `index.html` 与 `changelog.html`、收集控制台输出、
+跑 DOM 断言、按 1440 / 820 / 390 三档整页截图到 `.preview/`（另出一张 `changelog.html` 的整页图）。
 
 ```powershell
 # 在仓库根目录
