@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>奶娃启动器 NaiWa Launcher — 免费开源的 Minecraft Java 版启动器</title>
+<meta name="description" content="奶娃启动器（NaiWa Launcher）是一款免费、开源、无广告的 Windows Minecraft Java 版启动器：Modrinth / CurseForge / 麦块三源资源、实例即目录、八种服务端核心、五种模组加载器、JDK 自动匹配与启动失败诊断。" />
+<meta name="author" content="奶龙" />
+<meta name="theme-color" content="#ed4661" />
+<meta name="color-scheme" content="light dark" />
+<!-- 内容安全策略：本站不发外部请求。若启用 Google Fonts 那一行，需把 fonts.googleapis.com / fonts.gstatic.com 加进 style-src 与 font-src。 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; connect-src 'self'; form-action 'none'" />
+<link rel="icon" type="image/png" href="assets/img/logo.png" />
+<link rel="apple-touch-icon" href="assets/img/logo.png" />
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:site_name" content="奶娃启动器 NaiWa Launcher" />
+<meta property="og:title" content="奶娃启动器 NaiWa Launcher — 免费开源的 Minecraft Java 版启动器" />
+<meta property="og:description" content="三源资源库、实例即目录、八种服务端核心、五种模组加载器、JDK 自动匹配与启动失败诊断。免费、开源、无广告。" />
+<meta property="og:image" content="assets/img/home.png" />
+<meta property="og:image:width" content="1440" />
+<meta property="og:image:height" content="900" />
+<meta property="og:image:alt" content="奶娃启动器首页截图" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="奶娃启动器 NaiWa Launcher" />
+<meta name="twitter:description" content="免费、开源、无广告的 Minecraft Java 版启动器。" />
+<meta name="twitter:image" content="assets/img/home.png" />
+
+<!-- 字体：默认走系统字体栈，离线也能正常显示。
+     如果希望使用 Google Fonts 的 Inter，取消下面一行的注释即可（网络不通时会自动回退到系统栈）。 -->
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" /> -->
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#top" aria-label="奶娃启动器，回到页面顶部">
+      <img class="brand-logo" src="assets/img/logo.png" alt="" width="36" height="36" />
+      <span class="brand-name">奶娃启动器<em>NaiWa Launcher</em></span>
+    </a>
+
+    <nav class="nav" id="primary-nav" aria-label="主导航">
+      <ul class="nav-list">
+        <li><a href="#features">功能</a></li>
+        <li><a href="#download">下载</a></li>
+        <li><a href="#faq">常见问题</a></li>
+        <li><a href="#changelog">更新日志</a></li>
+        <li><a href="#community">社区</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="nav-source" data-dl="repo" data-dl-keep-label href="#" rel="noopener">开放源代码</a>
+        <a class="btn btn-primary btn-sm" href="https://github.com/JIJIGUOWANG123/NaiWaLauncher/releases" target="_blank" rel="noopener noreferrer" data-dl="source" data-dl-text>下载</a>
+      </div>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="打开菜单">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span>开源 · 免费 · 无广告</p>
+      <h1>把 Minecraft 启动这件事，<br /><em>认真做完。</em></h1>
+      <p class="lead">奶娃启动器是一款面向 Windows 的 Minecraft Java 版启动器。三个资源源一个搜索框搜完，一个实例就是一个文件夹，八种服务端核心与五种模组加载器随你下；JDK 自动匹配、启动失败自动诊断，崩溃不用自己猜。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="https://github.com/JIJIGUOWANG123/NaiWaLauncher/releases" target="_blank" rel="noopener noreferrer" data-dl="source" data-dl-text>下载启动器</a>
+      </div>
+      <p class="hero-meta">Windows x64 · 从 GitHub Releases 下载 · <span data-version>0.5.1</span> · Electron + React · MIT License</p>
+
+      <div class="hero-shot">
+        <div class="shot-stack">
+          <img class="shot shot-back" src="assets/img/settings.png" alt="设置页预览：下载源、内存与 JDK 配置" width="1440" height="900" decoding="async" />
+          <img class="shot shot-front" src="assets/img/home.png" alt="奶娃启动器首页：实例卡片、开始游戏按钮、最近游玩、实时启动日志与三张统计卡" width="1440" height="900" fetchpriority="high" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip" aria-label="产品要点">
+    <ul class="container strip-list">
+      <li>MIT 开源</li>
+      <li>无广告 · 无捆绑</li>
+      <li>CurseForge 免 Key</li>
+      <li>微软正版登录</li>
+      <li>不碰你的存档</li>
+    </ul>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">功能</p>
+        <h2>该做的事都做完了，剩下的交给你玩</h2>
+        <p class="section-lead">从下载资源到开一个服，中间那些麻烦步骤，能自动化的一律自动化，不能自动化的至少说清楚原因。</p>
+      </header>
+
+      <div class="fgrid">
+        <article class="fcard reveal" data-n="01">
+          <span class="fcard-num">01</span>
+          <h3>三源资源库</h3>
+          <p>Modrinth、CurseForge、麦块社区同时搜索，模组 / 光影 / 资源包 / 插件 / 整合包一处装完，装之前先选目标：实例还是服务端。</p>
+        </article>
+        <article class="fcard reveal" data-n="02" style="--d:60ms">
+          <span class="fcard-num">02</span>
+          <h3>CurseForge 不填 Key 也能用</h3>
+          <p>走社区镜像 MCIM（MCMirror），不用申请 API Key 就能搜索与下载；类别名跟随界面语言，中文界面就是中文分类。</p>
+        </article>
+        <article class="fcard reveal" data-n="03" style="--d:120ms">
+          <span class="fcard-num">03</span>
+          <h3>实例就是目录</h3>
+          <p>一个实例等于 <code>versions\&lt;实例名&gt;\</code> 一个文件夹：版本 json、jar、mods、config、saves 同处一室，和 PCL2 的习惯一致。</p>
+        </article>
+        <article class="fcard reveal" data-n="04">
+          <span class="fcard-num">04</span>
+          <h3>版本隔离</h3>
+          <p>每个实例的模组、配置、存档互不影响。删实例就是把那个文件夹删掉，不给你留一堆说不清来源的残留。</p>
+        </article>
+        <article class="fcard reveal" data-n="05" style="--d:60ms">
+          <span class="fcard-num">05</span>
+          <h3>内存跟着机器走</h3>
+          <p>内存上限按本机物理内存自动给出建议值，正常游玩不折腾参数；运行中还能一键清理掉多余的内存占用。</p>
+        </article>
+        <article class="fcard reveal" data-n="06" style="--d:120ms">
+          <span class="fcard-num">06</span>
+          <h3>八种服务端核心</h3>
+          <p>Vanilla、Paper、Purpur、Folia、Fabric、Forge、NeoForge、Arclight 一键下载；插件与模组可启用、停用、更新、删除。</p>
+        </article>
+        <article class="fcard reveal" data-n="07">
+          <span class="fcard-num">07</span>
+          <h3>启动失败诊断</h3>
+          <p>内置规则先给结论，需要更细的可以接 DeepSeek 做一次 AI 分析，或直接把崩溃报告送去在线分析页。</p>
+        </article>
+        <article class="fcard reveal" data-n="08" style="--d:60ms">
+          <span class="fcard-num">08</span>
+          <h3>五种加载器 + 原版</h3>
+          <p>Fabric、Quilt、Forge、NeoForge、LiteLoader 自由组合；JDK 按版本自动匹配，从多个源下载，缺什么补什么。</p>
+        </article>
+        <article class="fcard reveal" data-n="09" style="--d:120ms">
+          <span class="fcard-num">09</span>
+          <h3>三种联机方式</h3>
+          <p>局域网直连、樱花穿透、陶瓦联机都内置好了。开个房间给朋友，不用先教对方怎么配网络。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section split" id="resources">
+    <div class="container split-inner">
+      <div class="split-text reveal">
+        <p class="eyebrow">资源</p>
+        <h2>三个源，一个搜索框</h2>
+        <p>Modrinth、CurseForge、麦块社区并列搜索，同一个模组在不同源出现的重复结果会合并展示，来源、文件名、大小都写清楚，不用猜自己点的是哪一个。</p>
+        <ul class="ticks">
+          <li>模组、光影、资源包、插件、整合包五类资源</li>
+          <li>类别名跟随界面语言（中 / 英 / 日）</li>
+          <li>安装前先选目标：某个实例，还是某个服务端</li>
+          <li>没选目标时安装按钮直接置灰并写明原因</li>
+        </ul>
+        <ul class="chips">
+          <li>Modrinth</li>
+          <li>CurseForge</li>
+          <li>麦块社区</li>
+        </ul>
+      </div>
+      <figure class="split-shot reveal">
+        <img src="assets/img/resources.png" alt="资源页：模组搜索框、筛选项与资源卡片列表" width="1440" height="900" loading="lazy" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section split split--flip" id="instances">
+    <div class="container split-inner">
+      <div class="split-text reveal">
+        <p class="eyebrow">实例</p>
+        <h2>一个实例，就是一个文件夹</h2>
+        <p>版本描述、主 jar、natives、mods、config、saves 全在同一个目录里，启动器自己的记录放在旁边的 <code>naiwa\instance.json</code>。想把实例拷到别的盘、发给朋友、或者和 PCL2 换着用，拷一个文件夹就够。</p>
+        <ul class="ticks">
+          <li>版本隔离：模组与存档互不干扰</li>
+          <li>老布局实例可以在实例页一键迁移，不点也照旧能启动</li>
+          <li>内存上限自动跟随本机物理内存，可手动改</li>
+          <li>运行中一键清理内存占用，不用重启</li>
+        </ul>
+        <p class="path-hint"><span>实例路径</span><code>.minecraft\versions\&lt;实例名&gt;\</code></p>
+      </div>
+      <figure class="split-shot reveal">
+        <img src="assets/img/settings.png" alt="设置页：下载源选择、内存上限、JDK 与启动参数" width="1440" height="900" loading="lazy" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section split" id="servers">
+    <div class="container split-inner">
+      <div class="split-text reveal">
+        <p class="eyebrow">开服</p>
+        <h2>开服不用先去论坛翻帖子</h2>
+        <p>选核心、选版本、点下载，其余交给启动器。开完还能在同一个界面里管插件和模组：看数量、搜索、刷新、打开目录，启用 / 停用 / 更新 / 删除都在这里。</p>
+        <ul class="cores">
+          <li>Vanilla</li>
+          <li>Paper</li>
+          <li>Purpur</li>
+          <li>Folia</li>
+          <li>Fabric</li>
+          <li>Forge</li>
+          <li>NeoForge</li>
+          <li>Arclight</li>
+        </ul>
+        <p class="fineprint">Paper / Purpur / Folia 走插件，Fabric / Forge / NeoForge 走模组，Arclight 两者都有；原版服务端不显示插件入口，并说明原因。停用不会删文件，只是把 <code>.jar</code> 改名成 <code>.jar.disabled</code>。</p>
+      </div>
+      <figure class="split-shot reveal">
+        <img src="assets/img/servers.png" alt="开服页：服务端卡片，含核心、版本与启动按钮" width="1440" height="900" loading="lazy" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section split split--flip" id="fun">
+    <div class="container split-inner">
+      <div class="split-text reveal">
+        <p class="eyebrow">娱乐与个性化</p>
+        <h2>启动器也可以有点人味</h2>
+        <p>每日人品按日期固定、每日一言可以换成你自己的 API，GitHub 加速下载与自定义文件下载各有一个入口，下载默认落在 <code>&lt;根目录&gt;\DL</code>。</p>
+        <ul class="ticks">
+          <li>背景：本地图片 / 视频、随机图 API、Steam 壁纸引擎（带缩略图预览，每页 20 张）</li>
+          <li>界面语言：中文 / English / 日本語</li>
+          <li>每日人品按日期固定，不吃重复刷新的运气</li>
+          <li>自定义文件下载默认存到 <code>&lt;根目录&gt;\DL</code></li>
+        </ul>
+      </div>
+      <figure class="split-shot reveal">
+        <img src="assets/img/fun.png" alt="娱乐页：每日人品、每日一言、GitHub 加速下载与自定义文件下载" width="1440" height="900" loading="lazy" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="launch">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">还有这些</p>
+        <h2>账户、启动、更新、下载源</h2>
+        <p class="section-lead">一些不常被提起、但每天都在用的部分。</p>
+      </header>
+      <div class="cg">
+        <article class="ccard reveal">
+          <span class="ccard-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <circle cx="12" cy="8.5" r="3.6" /><path d="M4.8 20c.6-3.6 3.6-5.6 7.2-5.6s6.6 2 7.2 5.6" />
+            </svg>
+          </span>
+          <h3>账户</h3>
+          <p>微软正版登录与离线账号并存。正版账号的皮肤只读展示，官方披风一并显示，不会替你改皮肤。</p>
+        </article>
+        <article class="ccard reveal" style="--d:60ms">
+          <span class="ccard-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <circle cx="12" cy="12" r="8.4" /><path d="M10.2 8.8 15.4 12l-5.2 3.2z" fill="currentColor" stroke="none" />
+            </svg>
+          </span>
+          <h3>启动</h3>
+          <p>加载器、JDK、内存一次配好。启动耗时与内存占用有面板可看，卡在哪一步不用靠猜。</p>
+        </article>
+        <article class="ccard reveal" style="--d:120ms">
+          <span class="ccard-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <path d="M20 12a8 8 0 1 1-2.6-5.9" /><path d="M20 4.5V10h-5.4" />
+            </svg>
+          </span>
+          <h3>更新</h3>
+          <p>内置检查更新，下载带百分比进度，静默覆盖安装后自动重启，中途不弹黑框。</p>
+        </article>
+        <article class="ccard reveal" style="--d:180ms">
+          <span class="ccard-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+              <path d="M12 4v9" /><path d="M8.4 10.4 12 14l3.6-3.6" /><path d="M5 16.5v1.8A1.7 1.7 0 0 0 6.7 20h10.6a1.7 1.7 0 0 0 1.7-1.7v-1.8" />
+            </svg>
+          </span>
+          <h3>下载源</h3>
+          <p>官方、BMCLAPI、上海交大、FastMinecraftMirror、自动测速五档可切，失败自动回退。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section download" id="download">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">下载</p>
+        <h2>下载奶娃启动器 <span class="ver-pill" data-version>0.5.1</span></h2>
+        <p class="section-lead">在 GitHub Releases 里选择安装版或免安装版，取最新的那一份就行。</p>
+      </header>
+
+      <div class="dlcta reveal">
+        <a class="btn btn-primary btn-lg" href="https://github.com/JIJIGUOWANG123/NaiWaLauncher/releases" target="_blank" rel="noopener noreferrer" data-dl="source" data-dl-text>下载启动器</a>
+        <p class="dlcta-note">Windows x64 · 从 GitHub Releases 下载</p>
+        <p class="dlcta-url"><code>github.com/JIJIGUOWANG123/NaiWaLauncher/releases</code></p>
+      </div>
+
+      <ul class="req-chips">
+        <li>Windows 10 1809+ / x64</li>
+        <li>无需预装 Java，JDK 自动匹配</li>
+        <li>MIT License，源码同仓库</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="changelog">
+    <div class="container container--narrow">
+      <header class="section-head section-head--left">
+        <p class="eyebrow">更新日志</p>
+        <h2>最近改了什么</h2>
+        <p class="section-lead">完整历史见仓库 <a class="inline-link" data-dl="repo" data-dl-keep-label href="#">github.com/JIJIGUOWANG123/NaiWaLauncher</a> 的 <code>CHANGELOG.md</code>。</p>
+      </header>
+
+      <div class="accordion" data-accordion>
+        <div class="acc-item is-open">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="cl-b1" aria-expanded="true" aria-controls="cl-p1">
+              <span class="acc-title"><span class="ver-tag">0.5.1</span>实例布局改成和 PCL2 一样</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
+            <div class="acc-body">
+              <ul>
+                <li>一个实例 = <code>versions\&lt;实例名&gt;\</code> 一个目录，版本 json、client jar、natives、mods、config、saves 都在里面；建实例后会清掉不再需要的共享原版目录。</li>
+                <li>实例页新增「迁移旧版本布局」：检测到旧实例才可用，执行顺序是复制 → 逐文件校验 → 原子改名 → 改记录 → 删源，失败保留原文件，可续做、重复点幂等。</li>
+                <li>设置新增「游戏资源清理」：先显示 libraries / assets 占用，必须勾选确认才能清理；白名单只允许清 <code>libraries</code>、<code>assets</code> 与没人使用的原版版本目录。</li>
+                <li>清理后启动会自动按需补齐依赖，离线或镜像不可用时会给出可读原因并中止，不再撞「启动失败」。</li>
+                <li>在线与本地整合包安装同样使用新布局。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="cl-b2" aria-expanded="false" aria-controls="cl-p2">
+              <span class="acc-title"><span class="ver-tag">0.5.0</span>设置合并、插件筛选、类别跟随语言</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="cl-p2" role="region" aria-labelledby="cl-b2">
+            <div class="acc-body">
+              <ul>
+                <li>「个性化」「启动」「其它」三个页面并入「设置」，用标签切换；侧栏只留一个「设置」并放到最下面。</li>
+                <li>插件类型新增加载器筛选（Paper / Spigot / Bukkit / Folia / Purpur / Sponge）与 19 项插件类别多选。</li>
+                <li>所有资源的类别名跟随界面语言显示（中 / 英 / 日），未收录的类别显示原名。</li>
+                <li>详情页没选安装目标时，安装按钮直接置灰并写明原因，不必点了才提示。</li>
+                <li>下载源新增 FastMinecraftMirror，自动模式在 BMCLAPI 与它之间取更快的，失败回退官方。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="cl-b3" aria-expanded="false" aria-controls="cl-p3">
+              <span class="acc-title"><span class="ver-tag">0.4.9</span>首页实时启动日志</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="cl-p3" role="region" aria-labelledby="cl-b3">
+            <div class="acc-body">
+              <ul>
+                <li>首页新增启动日志面板：点「开始游戏」后实时显示该实例的输出，最多保留最近 200 行，自动跟随到底，可清空、可关掉跟随。</li>
+                <li>「最近游玩」改成翻页控件，每页 10 个、固定两行五列，窄窗口只会让卡片变窄，不会折成 4+3。</li>
+                <li>切换实例时日志自动切换，不会串台。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="cl-b4" aria-expanded="false" aria-controls="cl-p4">
+              <span class="acc-title"><span class="ver-tag">0.4.8</span>新增首页与带进度的静默更新</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="cl-p4" role="region" aria-labelledby="cl-b4">
+            <div class="acc-body">
+              <ul>
+                <li>启动器默认落在首页：实例大卡片 + 开始游戏、最近游玩、三张统计卡（启动用时 / 内存 / 下载源）。</li>
+                <li>启动按钮统一到首页，实例页不再重复放启动入口。</li>
+                <li>检查更新会显示下载进度（百分比 + 已下载 / 总大小 + 进度条），静默覆盖安装后自动重启。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container container--narrow">
+      <header class="section-head section-head--left">
+        <p class="eyebrow">常见问题</p>
+        <h2>你可能想问的</h2>
+      </header>
+
+      <div class="accordion" data-accordion>
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b1" aria-expanded="false" aria-controls="fq-p1">
+              <span class="acc-title">需要自己装 Java 吗？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p1" role="region" aria-labelledby="fq-b1">
+            <div class="acc-body"><p>不用。启动器按所选版本自动匹配对应的 JDK，并从多个源下载；换版本时也不需要手动折腾环境变量。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b2" aria-expanded="false" aria-controls="fq-p2">
+              <span class="acc-title">CurseForge 需要申请 API Key 吗？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p2" role="region" aria-labelledby="fq-b2">
+            <div class="acc-body"><p>不需要。CurseForge 的内容通过社区镜像 MCIM（MCMirror）访问，不填 Key 也能搜索与下载。镜像偶尔会比官方慢一点，遇到 404 换一个源或稍后再试即可。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b3" aria-expanded="false" aria-controls="fq-p3">
+              <span class="acc-title">会动我的存档和模组吗？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p3" role="region" aria-labelledby="fq-b3">
+            <div class="acc-body"><p>不会。存档、配置、模组都在实例自己的目录里，删除实例只删那个目录。「游戏资源清理」只清 <code>libraries</code>、<code>assets</code> 和没人使用的原版版本目录，实例目录、启动器配置、<code>servers</code>、<code>skins</code>、<code>DL</code> 一律不碰。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b4" aria-expanded="false" aria-controls="fq-p4">
+              <span class="acc-title">能和 PCL2 共用同一个 .minecraft 吗？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p4" role="region" aria-labelledby="fq-b4">
+            <div class="acc-body"><p>可以。实例布局和 PCL2 一致，都是 <code>versions\&lt;实例名&gt;\</code> 一个目录。早期版本的实例在实例页点「迁移旧版本布局」即可换成新布局；不点也照旧能启动，启动器不会偷偷搬文件。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b5" aria-expanded="false" aria-controls="fq-p5">
+              <span class="acc-title">必须用正版账号登录吗？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p5" role="region" aria-labelledby="fq-b5">
+            <div class="acc-body"><p>不一定。支持微软正版登录，也支持离线账号。登录正版后可以只读查看自己的皮肤与官方披风，启动器不会修改它们。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b6" aria-expanded="false" aria-controls="fq-p6">
+              <span class="acc-title">开服都能开哪些核心？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p6" role="region" aria-labelledby="fq-b6">
+            <div class="acc-body"><p>Vanilla、Paper、Purpur、Folia、Fabric、Forge、NeoForge、Arclight 八种。开完可以在同一个界面里管理插件或模组：启用、停用、更新、删除，停用只是改名成 <code>.jar.disabled</code>，重启服务端后生效。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b7" aria-expanded="false" aria-controls="fq-p7">
+              <span class="acc-title">游戏启动崩了怎么办？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p7" role="region" aria-labelledby="fq-b7">
+            <div class="acc-body"><p>先看内置规则给出的诊断结论——多数问题（内存、JDK、模组冲突、版本不符）它都能直接指出来。想更细可以在设置里填一个 DeepSeek API Key，让 AI 分析崩溃日志末尾；AI 失败或没填 Key 会自动回退到内置诊断，不会打断启动。诊断弹窗里还有「在线分析崩溃报告」入口，注意它会把报告上传到第三方站点。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b8" aria-expanded="false" aria-controls="fq-p8">
+              <span class="acc-title">怎么和朋友联机？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p8" role="region" aria-labelledby="fq-b8">
+            <div class="acc-body"><p>局域网直连、樱花穿透、陶瓦联机三种方式都在启动器里，按你们的网络情况选一个就行。同一局域网直接开房间最简单；跨网段建议用穿透。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b9" aria-expanded="false" aria-controls="fq-p9">
+              <span class="acc-title">收费吗？有广告或捆绑吗？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p9" role="region" aria-labelledby="fq-b9">
+            <div class="acc-body"><p>完全免费，MIT 协议开源，没有广告、没有捆绑、没有「推荐安装」。源码就放在 GitHub 上，你可以自己编译一份。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b10" aria-expanded="false" aria-controls="fq-p10">
+              <span class="acc-title">杀毒软件提示未知发布者怎么办？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p10" role="region" aria-labelledby="fq-b10">
+            <div class="acc-body"><p>安装包目前没有做代码签名，部分杀软会提示「未知发布者」，或对 Electron 自解压的行为报可疑。请只从本页或 GitHub Releases（github.com/JIJIGUOWANG123/NaiWaLauncher）下载，并核对文件名与大小；介意的话可以改用 Releases 里的免安装版。</p></div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <h3 class="acc-head">
+            <button class="acc-btn" type="button" id="fq-b11" aria-expanded="false" aria-controls="fq-p11">
+              <span class="acc-title">支持 macOS 或 Linux 吗？</span>
+              <span class="acc-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="acc-panel" id="fq-p11" role="region" aria-labelledby="fq-b11">
+            <div class="acc-body"><p>目前只发布 Windows x64 构建。代码是 MIT 开源的，理论上可以自己改，但官方不提供其它平台的安装包，也不保证在其它平台上能跑通。</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="community">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">社区</p>
+        <h2>在哪儿找到我们</h2>
+        <p class="section-lead">问题、建议、想法都可以提；提 Issue 时附上启动器的诊断包，能省掉一大半来回。</p>
+      </header>
+
+      <div class="links">
+        <a class="linkcard reveal" data-dl="repo" data-dl-keep-label href="#" rel="noopener">
+          <span class="linkcard-title">GitHub 仓库</span>
+          <span class="linkcard-desc">源代码、Issue 与全部版本都在 <code>JIJIGUOWANG123/NaiWaLauncher</code>。</span>
+          <span class="linkcard-go" aria-hidden="true">→</span>
+        </a>
+        <a class="linkcard reveal" style="--d:60ms" data-dl="source" data-dl-keep-label href="#" rel="noopener">
+          <span class="linkcard-title">Releases</span>
+          <span class="linkcard-desc">安装版与免安装版都在同一页，取最新的那一份即可。</span>
+          <span class="linkcard-go" aria-hidden="true">→</span>
+        </a>
+        <div class="linkcard linkcard--pending reveal" style="--d:120ms">
+          <span class="linkcard-title">麦块社区</span>
+          <span class="linkcard-desc">资源与讨论帖，更多玩家在这里。</span>
+          <span class="linkcard-tag">地址待配置</span>
+        </div>
+        <div class="linkcard linkcard--pending reveal" style="--d:180ms">
+          <span class="linkcard-title">交流群</span>
+          <span class="linkcard-desc">卡住的时候，群里通常有人接。</span>
+          <span class="linkcard-tag">地址待配置</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section credits">
+    <div class="container">
+      <h2 class="credits-title">致谢</h2>
+      <p class="credits-lead">没有这些项目和服务，这个启动器写不出来。</p>
+      <ul class="credits-list">
+        <li>Modrinth</li>
+        <li>CurseForge</li>
+        <li>MCIM（MCMirror）</li>
+        <li>BMCLAPI</li>
+        <li>FastMirror</li>
+        <li>麦块</li>
+        <li>MC 百科</li>
+        <li>MCBBS</li>
+      </ul>
+      <p class="fineprint">图标、素材与数据分别归各自权利方所有；本页展示的应用截图为奶娃启动器自身的界面。</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="assets/img/logo.png" alt="" width="32" height="32" loading="lazy" />
+      <div>
+        <strong>奶娃启动器</strong>
+        <p>NaiWa Launcher · Minecraft Java 版启动器</p>
+      </div>
+    </div>
+    <nav class="footer-nav" aria-label="页脚导航">
+      <a href="#features">功能</a>
+      <a href="https://github.com/JIJIGUOWANG123/NaiWaLauncher/releases" target="_blank" rel="noopener noreferrer">下载</a>
+      <a href="#faq">常见问题</a>
+      <a href="#changelog">更新日志</a>
+      <a data-dl="repo" data-dl-keep-label href="#" rel="noopener">开放源代码</a>
+    </nav>
+    <div class="footer-legal">
+      <p>© <span id="year">2026</span> 奶龙 · NaiWa Launcher，以 MIT License 发布。</p>
+      <p class="footer-repo">仓库：<a data-dl="repo" data-dl-keep-label href="#">github.com/JIJIGUOWANG123/NaiWaLauncher</a></p>
+      <p class="footer-disclaimer">与 Mojang Studios、Microsoft 无关联。Minecraft 是 Mojang Studios 的商标。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
