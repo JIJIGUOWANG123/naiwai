@@ -326,11 +326,30 @@
         <div class="clog-item is-open">
           <h3 class="clog-head">
             <button class="clog-btn" type="button" id="cl-b0" aria-expanded="true" aria-controls="cl-p0">
-              <span class="clog-title"><span class="ver-tag">0.5.4</span><span class="clog-sub">低版本启动失败的真因修好了</span></span>
+              <span class="clog-title"><span class="ver-tag">0.5.5</span><span class="clog-sub">资源下载源独立成一条轴</span></span>
               <span class="clog-icon" aria-hidden="true"></span>
             </button>
           </h3>
           <div class="clog-panel" id="cl-p0" role="region" aria-labelledby="cl-b0">
+            <div class="clog-body">
+              <ul class="clog-list">
+                <li>新增「<strong>资源下载源</strong>」独立成一条轴：<strong>官方原站 / MCIM 镜像 / 自动选择（默认）</strong>，与管游戏本体和加载器的下载源<strong>互不影响</strong>；自动选择按实测延迟挑最快且可用的通道，超过 10 分钟自动重测，并跳过不可用镜像。</li>
+                <li><strong>官方 ↔ MCIM 双向自动回退</strong>：任一通道失败（网络错误 / 超时 / 5xx / 429）就换另一条重试，同一请求最多回退一次，日志里写明哪个资源、哪条通道失败、改走哪条。</li>
+                <li><strong>429 限流不再死等超时</strong>，退避 800ms 后换源重试；加载器 maven（Forge / NeoForge / Fabric）支持 BMCLAPI 镜像，修掉「Forge 依赖库 404 → 依赖库下载失败」。</li>
+                <li>资源来源只剩 <strong>Modrinth / CurseForge</strong>，麦块社区与依附它的地图卡片能力一并下线，老配置里的「麦块」自动回落到 Modrinth。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="clog-item">
+          <h3 class="clog-head">
+            <button class="clog-btn" type="button" id="cl-b1" aria-expanded="false" aria-controls="cl-p1">
+              <span class="clog-title"><span class="ver-tag">0.5.4</span><span class="clog-sub">低版本启动失败的真因修好了</span></span>
+              <span class="clog-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="clog-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
             <div class="clog-body">
               <ul class="clog-list">
                 <li>低版本（1.16.5 等）「没装模组也启动失败」的真因修好了：版本描述合并时把 lwjgl 的 Windows 条目与 natives 条目当成重复丢掉了，去重键改成 <code>group:artifact:classifier</code> + 平台 rules + 下载变体。</li>
@@ -344,12 +363,12 @@
 
         <div class="clog-item">
           <h3 class="clog-head">
-            <button class="clog-btn" type="button" id="cl-b1" aria-expanded="false" aria-controls="cl-p1">
+            <button class="clog-btn" type="button" id="cl-b2" aria-expanded="false" aria-controls="cl-p2">
               <span class="clog-title"><span class="ver-tag">0.5.3</span><span class="clog-sub">设置页重新分四类</span></span>
               <span class="clog-icon" aria-hidden="true"></span>
             </button>
           </h3>
-          <div class="clog-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
+          <div class="clog-panel" id="cl-p2" role="region" aria-labelledby="cl-b2">
             <div class="clog-body">
               <ul class="clog-list">
                 <li>设置页改成「基础 / 下载 / 风格 / 其他」四个标签，按用途归类；「个性化 / 启动 / 其它」三个独立页面<strong>并入设置</strong>，侧栏只留一个「设置」。</li>
@@ -362,21 +381,6 @@
           </div>
         </div>
 
-        <div class="clog-item">
-          <h3 class="clog-head">
-            <button class="clog-btn" type="button" id="cl-b2" aria-expanded="false" aria-controls="cl-p2">
-              <span class="clog-title"><span class="ver-tag">0.5.2</span><span class="clog-sub">关于页新增「官方网站」入口</span></span>
-              <span class="clog-icon" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="clog-panel" id="cl-p2" role="region" aria-labelledby="cl-b2">
-            <div class="clog-body">
-              <ul class="clog-list">
-                <li>关于页「链接与致谢」新增条目「官方网站」（下载与更新日志），指向 <code>https://jijiguowang123.github.io/naiwai/</code>，排在致谢最前面；致谢共 26 项。</li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="cl-cta">

@@ -81,14 +81,50 @@
       </div>
 
       <div class="clog" id="clog-list">
-  <article class="clog-item is-open" id="v0-5-4">
+  <article class="clog-item is-open" id="v0-5-5">
     <h2 class="clog-head">
       <button class="clog-btn" type="button" id="cl-b0" aria-expanded="true" aria-controls="cl-p0">
-        <span class="clog-title"><span class="ver-tag">0.5.4</span><span class="clog-sub">修复：低版本（1.16.5 等）「没装模组也启动失败」</span></span>
+        <span class="clog-title"><span class="ver-tag">0.5.5</span><span class="clog-sub">资源下载源独立成一条轴：原网站 / MCIM 镜像 / 自动选择</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
     <div class="clog-panel" id="cl-p0" role="region" aria-labelledby="cl-b0">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">资源下载源独立成一条轴：原网站 / MCIM 镜像 / 自动选择</h3>
+          <ul class="clog-list">
+            <li>设置里现在有<strong>两条互不影响的下载源</strong>：一条管<strong>游戏本体与加载器</strong>（官方 / BMCLAPI / 上海交大 / 自动测速），一条管<strong>资源</strong>（模组、整合包、光影包、材质包）——后者是新增的「<strong>资源下载源</strong>」：<strong>官方原站 / MCIM 镜像 / 自动选择（默认）</strong>。</li>
+            <li><strong>自动选择</strong>按实测延迟挑最快且可用的通道（超过 10 分钟自动重测，测不出来回落官方原站），列表里直接显示每条通道的延迟，可随时点「测速」重测；MCIM = <code>https://www.mcimirror.top</code>，镜像 Modrinth 与 CurseForge 的接口与文件，免 Key、国内更快。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">部分资源下载失败修复</h3>
+          <ul class="clog-list">
+            <li><strong>官方 ↔ MCIM 双向自动回退</strong>：走官方失败（网络错误 / 超时 / 5xx / 429）就自动改用 MCIM 重试一次，反之亦然；同一个请求最多回退一次，不会来回抖动，日志里写明「哪个资源、在哪个通道失败、改走哪条」。</li>
+            <li><strong>429 限流不再死等超时</strong>：退避 800ms 后换源重试，比原来的「等到超时再回退」快一个数量级。</li>
+            <li><strong>加载器 maven 支持 BMCLAPI 镜像</strong>：<code>maven.minecraftforge.net</code> / <code>maven.neoforged.net</code> / <code>maven.fabricmc.net</code> 自动映射到 BMCLAPI 的 <code>/maven</code>，修掉「Forge 依赖库 404 → 依赖库下载失败」那一类安装失败；加载器失败文案也会提示可以换下载源重试。</li>
+            <li>实测佐证：<code>edge.forgecdn.net</code> 对个别文件 404 而 MCIM 有；<code>maven.minecraftforge.net</code> 对 Forge 1.16.5 的某些 jar 404 而 BMCLAPI 有。文件下载遇到 403/404 允许换一次通道，接口 4xx 仍然不换（避免把真正的参数错误藏起来）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源来源移除麦块社区</h3>
+          <ul class="clog-list">
+            <li>资源页来源只剩 <strong>Modrinth / CurseForge</strong> 两个，麦块社区（minekuai）从来源列表、设置项、文案与代码里<strong>彻底删除</strong>；老配置里的「麦块」来源自动回落到 Modrinth。</li>
+            <li>依附于麦块社区的地图卡片能力一并下线（列表、登录提示、卡片样式与相关 IPC 全部移除）。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-5-4">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b1" aria-expanded="false" aria-controls="cl-p1">
+        <span class="clog-title"><span class="ver-tag">0.5.4</span><span class="clog-sub">修复：低版本（1.16.5 等）「没装模组也启动失败」</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">修复：低版本（1.16.5 等）「没装模组也启动失败」</h3>
@@ -119,12 +155,12 @@
 
   <article class="clog-item" id="v0-5-3">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b1" aria-expanded="false" aria-controls="cl-p1">
+      <button class="clog-btn" type="button" id="cl-b2" aria-expanded="false" aria-controls="cl-p2">
         <span class="clog-title"><span class="ver-tag">0.5.3</span><span class="clog-sub">设置页重新分四类</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
+    <div class="clog-panel" id="cl-p2" role="region" aria-labelledby="cl-b2">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">设置页重新分四类</h3>
@@ -174,12 +210,12 @@
 
   <article class="clog-item" id="v0-5-2">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b2" aria-expanded="false" aria-controls="cl-p2">
+      <button class="clog-btn" type="button" id="cl-b3" aria-expanded="false" aria-controls="cl-p3">
         <span class="clog-title"><span class="ver-tag">0.5.2</span><span class="clog-sub">关于页：链接与致谢新增「官方网站」</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p2" role="region" aria-labelledby="cl-b2">
+    <div class="clog-panel" id="cl-p3" role="region" aria-labelledby="cl-b3">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">关于页：链接与致谢新增「官方网站」</h3>
@@ -193,12 +229,12 @@
 
   <article class="clog-item" id="v0-5-1">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b3" aria-expanded="false" aria-controls="cl-p3">
+      <button class="clog-btn" type="button" id="cl-b4" aria-expanded="false" aria-controls="cl-p4">
         <span class="clog-title"><span class="ver-tag">0.5.1</span><span class="clog-sub">实例目录改成和 PCL2 一样的布局</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p3" role="region" aria-labelledby="cl-b3">
+    <div class="clog-panel" id="cl-p4" role="region" aria-labelledby="cl-b4">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">实例目录改成和 PCL2 一样的布局</h3>
@@ -242,12 +278,12 @@
 
   <article class="clog-item" id="v0-5-0">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b4" aria-expanded="false" aria-controls="cl-p4">
+      <button class="clog-btn" type="button" id="cl-b5" aria-expanded="false" aria-controls="cl-p5">
         <span class="clog-title"><span class="ver-tag">0.5.0</span><span class="clog-sub">侧栏整理：设置合并、页面精简</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p4" role="region" aria-labelledby="cl-b4">
+    <div class="clog-panel" id="cl-p5" role="region" aria-labelledby="cl-b5">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">侧栏整理：设置合并、页面精简</h3>
@@ -290,12 +326,12 @@
 
   <article class="clog-item" id="v0-4-9">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b5" aria-expanded="false" aria-controls="cl-p5">
+      <button class="clog-btn" type="button" id="cl-b6" aria-expanded="false" aria-controls="cl-p6">
         <span class="clog-title"><span class="ver-tag">0.4.9</span><span class="clog-sub">首页：最近游玩改翻页</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p5" role="region" aria-labelledby="cl-b5">
+    <div class="clog-panel" id="cl-p6" role="region" aria-labelledby="cl-b6">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">首页：最近游玩改翻页</h3>
@@ -317,12 +353,12 @@
 
   <article class="clog-item" id="v0-4-8">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b6" aria-expanded="false" aria-controls="cl-p6">
+      <button class="clog-btn" type="button" id="cl-b7" aria-expanded="false" aria-controls="cl-p7">
         <span class="clog-title"><span class="ver-tag">0.4.8</span><span class="clog-sub">新增「首页」</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p6" role="region" aria-labelledby="cl-b6">
+    <div class="clog-panel" id="cl-p7" role="region" aria-labelledby="cl-b7">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">新增「首页」</h3>
@@ -352,12 +388,12 @@
 
   <article class="clog-item" id="v0-4-7">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b7" aria-expanded="false" aria-controls="cl-p7">
+      <button class="clog-btn" type="button" id="cl-b8" aria-expanded="false" aria-controls="cl-p8">
         <span class="clog-title"><span class="ver-tag">0.4.7</span><span class="clog-sub">启动失败诊断：AI 分析 + 在线分析入口</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p7" role="region" aria-labelledby="cl-b7">
+    <div class="clog-panel" id="cl-p8" role="region" aria-labelledby="cl-b8">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">启动失败诊断：AI 分析 + 在线分析入口</h3>
@@ -425,12 +461,12 @@
 
   <article class="clog-item" id="v0-4-6">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b8" aria-expanded="false" aria-controls="cl-p8">
+      <button class="clog-btn" type="button" id="cl-b9" aria-expanded="false" aria-controls="cl-p9">
         <span class="clog-title"><span class="ver-tag">0.4.6</span><span class="clog-sub">侧栏：连接状态与版本号始终可见</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p8" role="region" aria-labelledby="cl-b8">
+    <div class="clog-panel" id="cl-p9" role="region" aria-labelledby="cl-b9">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">侧栏：连接状态与版本号始终可见</h3>
@@ -445,12 +481,12 @@
 
   <article class="clog-item" id="v0-4-5">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b9" aria-expanded="false" aria-controls="cl-p9">
+      <button class="clog-btn" type="button" id="cl-b10" aria-expanded="false" aria-controls="cl-p10">
         <span class="clog-title"><span class="ver-tag">0.4.5</span><span class="clog-sub">CurseForge 不用填 Key 了</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p9" role="region" aria-labelledby="cl-b9">
+    <div class="clog-panel" id="cl-p10" role="region" aria-labelledby="cl-b10">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">CurseForge 不用填 Key 了</h3>
@@ -487,12 +523,12 @@
 
   <article class="clog-item" id="v0-4-4">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b10" aria-expanded="false" aria-controls="cl-p10">
+      <button class="clog-btn" type="button" id="cl-b11" aria-expanded="false" aria-controls="cl-p11">
         <span class="clog-title"><span class="ver-tag">0.4.4</span><span class="clog-sub">皮肤页：正版账号只显示官方面板</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p10" role="region" aria-labelledby="cl-b10">
+    <div class="clog-panel" id="cl-p11" role="region" aria-labelledby="cl-b11">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">皮肤页：正版账号只显示官方面板</h3>
@@ -521,12 +557,12 @@
 
   <article class="clog-item" id="v0-4-3">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b11" aria-expanded="false" aria-controls="cl-p11">
+      <button class="clog-btn" type="button" id="cl-b12" aria-expanded="false" aria-controls="cl-p12">
         <span class="clog-title"><span class="ver-tag">0.4.3</span><span class="clog-sub">正版皮肤：只能显示，官方优先</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p11" role="region" aria-labelledby="cl-b11">
+    <div class="clog-panel" id="cl-p12" role="region" aria-labelledby="cl-b12">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">正版皮肤：只能显示，官方优先</h3>
@@ -561,12 +597,12 @@
 
   <article class="clog-item" id="v0-4-2">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b12" aria-expanded="false" aria-controls="cl-p12">
+      <button class="clog-btn" type="button" id="cl-b13" aria-expanded="false" aria-controls="cl-p13">
         <span class="clog-title"><span class="ver-tag">0.4.2</span><span class="clog-sub">GitHub 加速：节点从 4 个扩到 7 个，Java 下载也走加速</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p12" role="region" aria-labelledby="cl-b12">
+    <div class="clog-panel" id="cl-p13" role="region" aria-labelledby="cl-b13">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">GitHub 加速：节点从 4 个扩到 7 个，Java 下载也走加速</h3>
@@ -621,12 +657,12 @@
 
   <article class="clog-item" id="v0-4-1">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b13" aria-expanded="false" aria-controls="cl-p13">
+      <button class="clog-btn" type="button" id="cl-b14" aria-expanded="false" aria-controls="cl-p14">
         <span class="clog-title"><span class="ver-tag">0.4.1</span><span class="clog-sub">资源：安装目标改成弹窗选择</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p13" role="region" aria-labelledby="cl-b13">
+    <div class="clog-panel" id="cl-p14" role="region" aria-labelledby="cl-b14">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">资源：安装目标改成弹窗选择</h3>
@@ -669,12 +705,12 @@
 
   <article class="clog-item" id="v0-4-0">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b14" aria-expanded="false" aria-controls="cl-p14">
+      <button class="clog-btn" type="button" id="cl-b15" aria-expanded="false" aria-controls="cl-p15">
         <span class="clog-title"><span class="ver-tag">0.4.0</span><span class="clog-sub">修复：资源页点着点着会卡死</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p14" role="region" aria-labelledby="cl-b14">
+    <div class="clog-panel" id="cl-p15" role="region" aria-labelledby="cl-b15">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">修复：资源页点着点着会卡死</h3>
@@ -742,12 +778,12 @@
 
   <article class="clog-item" id="v0-3-9">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b15" aria-expanded="false" aria-controls="cl-p15">
+      <button class="clog-btn" type="button" id="cl-b16" aria-expanded="false" aria-controls="cl-p16">
         <span class="clog-title"><span class="ver-tag">0.3.9</span><span class="clog-sub">下载提示：开始下载也会提示，而且能直接跳去「管理」页</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p15" role="region" aria-labelledby="cl-b15">
+    <div class="clog-panel" id="cl-p16" role="region" aria-labelledby="cl-b16">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">下载提示：开始下载也会提示，而且能直接跳去「管理」页</h3>
@@ -789,12 +825,12 @@
 
   <article class="clog-item" id="v0-3-8">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b16" aria-expanded="false" aria-controls="cl-p16">
+      <button class="clog-btn" type="button" id="cl-b17" aria-expanded="false" aria-controls="cl-p17">
         <span class="clog-title"><span class="ver-tag">0.3.8</span><span class="clog-sub">联机模组：加入 LAN World Plug-n-Play，支持换装</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p16" role="region" aria-labelledby="cl-b16">
+    <div class="clog-panel" id="cl-p17" role="region" aria-labelledby="cl-b17">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">联机模组：加入 LAN World Plug-n-Play，支持换装</h3>
@@ -836,12 +872,12 @@
 
   <article class="clog-item" id="v0-3-7">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b17" aria-expanded="false" aria-controls="cl-p17">
+      <button class="clog-btn" type="button" id="cl-b18" aria-expanded="false" aria-controls="cl-p18">
         <span class="clog-title"><span class="ver-tag">0.3.7</span><span class="clog-sub">联机模组按加载器推荐（三种联机方式都生效）</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p17" role="region" aria-labelledby="cl-b17">
+    <div class="clog-panel" id="cl-p18" role="region" aria-labelledby="cl-b18">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">联机模组按加载器推荐（三种联机方式都生效）</h3>
@@ -873,12 +909,12 @@
 
   <article class="clog-item" id="v0-3-6">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b18" aria-expanded="false" aria-controls="cl-p18">
+      <button class="clog-btn" type="button" id="cl-b19" aria-expanded="false" aria-controls="cl-p19">
         <span class="clog-title"><span class="ver-tag">0.3.6</span><span class="clog-sub">联机：三种方式都会提醒 OfflineLAN</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p18" role="region" aria-labelledby="cl-b18">
+    <div class="clog-panel" id="cl-p19" role="region" aria-labelledby="cl-b19">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">联机：三种方式都会提醒 OfflineLAN</h3>
@@ -918,12 +954,12 @@
 
   <article class="clog-item" id="v0-3-5">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b19" aria-expanded="false" aria-controls="cl-p19">
+      <button class="clog-btn" type="button" id="cl-b20" aria-expanded="false" aria-controls="cl-p20">
         <span class="clog-title"><span class="ver-tag">0.3.5</span><span class="clog-sub">启动失败现在会自己说清原因</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p19" role="region" aria-labelledby="cl-b19">
+    <div class="clog-panel" id="cl-p20" role="region" aria-labelledby="cl-b20">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">启动失败现在会自己说清原因</h3>
@@ -962,12 +998,12 @@
 
   <article class="clog-item" id="v0-3-4">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b20" aria-expanded="false" aria-controls="cl-p20">
+      <button class="clog-btn" type="button" id="cl-b21" aria-expanded="false" aria-controls="cl-p21">
         <span class="clog-title"><span class="ver-tag">0.3.4</span><span class="clog-sub">联机新增第三种方式：陶瓦联机（Terracotta）</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p20" role="region" aria-labelledby="cl-b20">
+    <div class="clog-panel" id="cl-p21" role="region" aria-labelledby="cl-b21">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">联机新增第三种方式：陶瓦联机（Terracotta）</h3>
@@ -1010,12 +1046,12 @@
 
   <article class="clog-item" id="v0-3-3">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b21" aria-expanded="false" aria-controls="cl-p21">
+      <button class="clog-btn" type="button" id="cl-b22" aria-expanded="false" aria-controls="cl-p22">
         <span class="clog-title"><span class="ver-tag">0.3.3</span><span class="clog-sub">下载：只有「管理」页显示</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p21" role="region" aria-labelledby="cl-b21">
+    <div class="clog-panel" id="cl-p22" role="region" aria-labelledby="cl-b22">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">下载：只有「管理」页显示</h3>
@@ -1056,12 +1092,12 @@
 
   <article class="clog-item" id="v0-3-2">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b22" aria-expanded="false" aria-controls="cl-p22">
+      <button class="clog-btn" type="button" id="cl-b23" aria-expanded="false" aria-controls="cl-p23">
         <span class="clog-title"><span class="ver-tag">0.3.2</span><span class="clog-sub">三语界面（简体中文 / English / 日本語）</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p22" role="region" aria-labelledby="cl-b22">
+    <div class="clog-panel" id="cl-p23" role="region" aria-labelledby="cl-b23">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">三语界面（简体中文 / English / 日本語）</h3>
@@ -1100,12 +1136,12 @@
 
   <article class="clog-item" id="v0-3-1">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b23" aria-expanded="false" aria-controls="cl-p23">
+      <button class="clog-btn" type="button" id="cl-b24" aria-expanded="false" aria-controls="cl-p24">
         <span class="clog-title"><span class="ver-tag">0.3.1</span><span class="clog-sub">三语界面（简体中文 / English / 日本語）</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p23" role="region" aria-labelledby="cl-b23">
+    <div class="clog-panel" id="cl-p24" role="region" aria-labelledby="cl-b24">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">三语界面（简体中文 / English / 日本語）</h3>
@@ -1135,12 +1171,12 @@
 
   <article class="clog-item" id="v0-3-1-2">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b24" aria-expanded="false" aria-controls="cl-p24">
+      <button class="clog-btn" type="button" id="cl-b25" aria-expanded="false" aria-controls="cl-p25">
         <span class="clog-title"><span class="ver-tag">0.3.1</span><span class="clog-sub">背景：总开关 + 三个来源各自开关 + 各自播放方式</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p24" role="region" aria-labelledby="cl-b24">
+    <div class="clog-panel" id="cl-p25" role="region" aria-labelledby="cl-b25">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">背景：总开关 + 三个来源各自开关 + 各自播放方式</h3>
@@ -1157,12 +1193,12 @@
 
   <article class="clog-item" id="v0-3-0">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b25" aria-expanded="false" aria-controls="cl-p25">
+      <button class="clog-btn" type="button" id="cl-b26" aria-expanded="false" aria-controls="cl-p26">
         <span class="clog-title"><span class="ver-tag">0.3.0</span><span class="clog-sub">背景支持三种来源</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p25" role="region" aria-labelledby="cl-b25">
+    <div class="clog-panel" id="cl-p26" role="region" aria-labelledby="cl-b26">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">背景支持三种来源</h3>
@@ -1191,12 +1227,12 @@
 
   <article class="clog-item" id="v0-2-9">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b26" aria-expanded="false" aria-controls="cl-p26">
+      <button class="clog-btn" type="button" id="cl-b27" aria-expanded="false" aria-controls="cl-p27">
         <span class="clog-title"><span class="ver-tag">0.2.9</span><span class="clog-sub">修复：Steam 壁纸引擎的视频设为背景后不渲染</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p26" role="region" aria-labelledby="cl-b26">
+    <div class="clog-panel" id="cl-p27" role="region" aria-labelledby="cl-b27">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">修复：Steam 壁纸引擎的视频设为背景后不渲染</h3>
@@ -1211,12 +1247,12 @@
 
   <article class="clog-item" id="v0-2-9-2">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b27" aria-expanded="false" aria-controls="cl-p27">
+      <button class="clog-btn" type="button" id="cl-b28" aria-expanded="false" aria-controls="cl-p28">
         <span class="clog-title"><span class="ver-tag">0.2.9</span><span class="clog-sub">背景：可选「不使用」+ 视频可调节音量</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p27" role="region" aria-labelledby="cl-b27">
+    <div class="clog-panel" id="cl-p28" role="region" aria-labelledby="cl-b28">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">背景：可选「不使用」+ 视频可调节音量</h3>
@@ -1246,12 +1282,12 @@
 
   <article class="clog-item" id="v0-2-8">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b28" aria-expanded="false" aria-controls="cl-p28">
+      <button class="clog-btn" type="button" id="cl-b29" aria-expanded="false" aria-controls="cl-p29">
         <span class="clog-title"><span class="ver-tag">0.2.8</span><span class="clog-sub">托盘图标</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p28" role="region" aria-labelledby="cl-b28">
+    <div class="clog-panel" id="cl-p29" role="region" aria-labelledby="cl-b29">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">托盘图标</h3>
@@ -1291,12 +1327,12 @@
 
   <article class="clog-item" id="v0-2-7">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b29" aria-expanded="false" aria-controls="cl-p29">
+      <button class="clog-btn" type="button" id="cl-b30" aria-expanded="false" aria-controls="cl-p30">
         <span class="clog-title"><span class="ver-tag">0.2.7</span><span class="clog-sub">单实例与多开控制</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p29" role="region" aria-labelledby="cl-b29">
+    <div class="clog-panel" id="cl-p30" role="region" aria-labelledby="cl-b30">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">单实例与多开控制</h3>
@@ -1326,12 +1362,12 @@
 
   <article class="clog-item" id="v0-2-6">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b30" aria-expanded="false" aria-controls="cl-p30">
+      <button class="clog-btn" type="button" id="cl-b31" aria-expanded="false" aria-controls="cl-p31">
         <span class="clog-title"><span class="ver-tag">0.2.6</span><span class="clog-sub">Java 下载源</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p30" role="region" aria-labelledby="cl-b30">
+    <div class="clog-panel" id="cl-p31" role="region" aria-labelledby="cl-b31">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">Java 下载源</h3>
@@ -1370,12 +1406,12 @@
 
   <article class="clog-item" id="v0-2-5">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b31" aria-expanded="false" aria-controls="cl-p31">
+      <button class="clog-btn" type="button" id="cl-b32" aria-expanded="false" aria-controls="cl-p32">
         <span class="clog-title"><span class="ver-tag">0.2.5</span><span class="clog-sub">内存优化（设置里可控）</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p31" role="region" aria-labelledby="cl-b31">
+    <div class="clog-panel" id="cl-p32" role="region" aria-labelledby="cl-b32">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">内存优化（设置里可控）</h3>
@@ -1411,12 +1447,12 @@
 
   <article class="clog-item" id="v0-2-4">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b32" aria-expanded="false" aria-controls="cl-p32">
+      <button class="clog-btn" type="button" id="cl-b33" aria-expanded="false" aria-controls="cl-p33">
         <span class="clog-title"><span class="ver-tag">0.2.4</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p32" role="region" aria-labelledby="cl-b32">
+    <div class="clog-panel" id="cl-p33" role="region" aria-labelledby="cl-b33">
       <div class="clog-body">
         <ul class="clog-list">
           <li>「关闭到托盘」这个设置项以前点了没有任何作用（代码里只有开关、没有托盘实现）。现在真正生效：开启后点窗口关闭<strong>不再退出程序</strong>，而是隐藏到系统托盘；右下角出现一个小图标，单击/双击或右键菜单「打开界面」都能把窗口叫回来，右键「退出启动器」才是真正退出（会先停掉正在运行的服务端）。</li>
@@ -1428,12 +1464,12 @@
 
   <article class="clog-item" id="v0-2-3">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b33" aria-expanded="false" aria-controls="cl-p33">
+      <button class="clog-btn" type="button" id="cl-b34" aria-expanded="false" aria-controls="cl-p34">
         <span class="clog-title"><span class="ver-tag">0.2.3</span><span class="clog-sub">内置披风（新）</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p33" role="region" aria-labelledby="cl-b33">
+    <div class="clog-panel" id="cl-p34" role="region" aria-labelledby="cl-b34">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">内置披风（新）</h3>
@@ -1456,12 +1492,12 @@
 
   <article class="clog-item" id="v0-2-2">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b34" aria-expanded="false" aria-controls="cl-p34">
+      <button class="clog-btn" type="button" id="cl-b35" aria-expanded="false" aria-controls="cl-p35">
         <span class="clog-title"><span class="ver-tag">0.2.2</span><span class="clog-sub">皮肤：离线账号不装模组也能生效</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p34" role="region" aria-labelledby="cl-b34">
+    <div class="clog-panel" id="cl-p35" role="region" aria-labelledby="cl-b35">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">皮肤：离线账号不装模组也能生效</h3>
@@ -1494,12 +1530,12 @@
 
   <article class="clog-item" id="v0-2-1">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b35" aria-expanded="false" aria-controls="cl-p35">
+      <button class="clog-btn" type="button" id="cl-b36" aria-expanded="false" aria-controls="cl-p36">
         <span class="clog-title"><span class="ver-tag">0.2.1</span><span class="clog-sub">皮肤（关键修复）</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p35" role="region" aria-labelledby="cl-b35">
+    <div class="clog-panel" id="cl-p36" role="region" aria-labelledby="cl-b36">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">皮肤（关键修复）</h3>
@@ -1525,12 +1561,12 @@
 
   <article class="clog-item" id="v0-2-0">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b36" aria-expanded="false" aria-controls="cl-p36">
+      <button class="clog-btn" type="button" id="cl-b37" aria-expanded="false" aria-controls="cl-p37">
         <span class="clog-title"><span class="ver-tag">0.2.0</span><span class="clog-sub">皮肤</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p36" role="region" aria-labelledby="cl-b36">
+    <div class="clog-panel" id="cl-p37" role="region" aria-labelledby="cl-b37">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">皮肤</h3>
@@ -1554,12 +1590,12 @@
 
   <article class="clog-item" id="v0-1-9">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b37" aria-expanded="false" aria-controls="cl-p37">
+      <button class="clog-btn" type="button" id="cl-b38" aria-expanded="false" aria-controls="cl-p38">
         <span class="clog-title"><span class="ver-tag">0.1.9</span><span class="clog-sub">开服（新）</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p37" role="region" aria-labelledby="cl-b37">
+    <div class="clog-panel" id="cl-p38" role="region" aria-labelledby="cl-b38">
       <div class="clog-body">
         <div class="clog-sec">
           <h3 class="clog-group is-echo">开服（新）</h3>
@@ -1600,12 +1636,12 @@
 
   <article class="clog-item" id="v0-1-8">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b38" aria-expanded="false" aria-controls="cl-p38">
+      <button class="clog-btn" type="button" id="cl-b39" aria-expanded="false" aria-controls="cl-p39">
         <span class="clog-title"><span class="ver-tag">0.1.8</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p38" role="region" aria-labelledby="cl-b38">
+    <div class="clog-panel" id="cl-p39" role="region" aria-labelledby="cl-b39">
       <div class="clog-body">
         <p>性能实测（同一台机器、独立数据根、各跑 5 次取中位数）：</p>
         <div class="clog-scroll">
@@ -1631,12 +1667,12 @@
 
   <article class="clog-item" id="v0-1-7">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b39" aria-expanded="false" aria-controls="cl-p39">
+      <button class="clog-btn" type="button" id="cl-b40" aria-expanded="false" aria-controls="cl-p40">
         <span class="clog-title"><span class="ver-tag">0.1.7</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p39" role="region" aria-labelledby="cl-b39">
+    <div class="clog-panel" id="cl-p40" role="region" aria-labelledby="cl-b40">
       <div class="clog-body">
         <ul class="clog-list">
           <li>实例详情的内容管理改成「分段控件 + 单面板」：顶部一排「模组 / 光影包 / 资源包」按钮（与个性化页「启动窗口」同款外观），下面只显示所选类型的列表，按钮上带各自已装数量。</li>
@@ -1654,12 +1690,12 @@
 
   <article class="clog-item" id="v0-1-6">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b40" aria-expanded="false" aria-controls="cl-p40">
+      <button class="clog-btn" type="button" id="cl-b41" aria-expanded="false" aria-controls="cl-p41">
         <span class="clog-title"><span class="ver-tag">0.1.6</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p40" role="region" aria-labelledby="cl-b40">
+    <div class="clog-panel" id="cl-p41" role="region" aria-labelledby="cl-b41">
       <div class="clog-body">
         <ul class="clog-list">
           <li>实例详情新增「光影包」「资源包」管理：列表（读 pack.mcmeta 的说明）、检查更新、更新、删除，与模组同一个抽屉，互不干扰。</li>
@@ -1679,12 +1715,12 @@
 
   <article class="clog-item" id="v0-1-5">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b41" aria-expanded="false" aria-controls="cl-p41">
+      <button class="clog-btn" type="button" id="cl-b42" aria-expanded="false" aria-controls="cl-p42">
         <span class="clog-title"><span class="ver-tag">0.1.5</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p41" role="region" aria-labelledby="cl-b41">
+    <div class="clog-panel" id="cl-p42" role="region" aria-labelledby="cl-b42">
       <div class="clog-body">
         <ul class="clog-list">
           <li>多线程下载：多个文件并行下载（默认并发 12，可在设置里调），安装整合包与资源时显著提速。</li>
@@ -1697,12 +1733,12 @@
 
   <article class="clog-item" id="v0-1-4">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b42" aria-expanded="false" aria-controls="cl-p42">
+      <button class="clog-btn" type="button" id="cl-b43" aria-expanded="false" aria-controls="cl-p43">
         <span class="clog-title"><span class="ver-tag">0.1.4</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p42" role="region" aria-labelledby="cl-b42">
+    <div class="clog-panel" id="cl-p43" role="region" aria-labelledby="cl-b43">
       <div class="clog-body">
         <ul class="clog-list">
           <li>新增皮肤选择器：第三方（Yggdrasil / LittleSkin）账号可上传、更换、恢复默认皮肤，并选择 Steve / Alex 模型。</li>
@@ -1715,12 +1751,12 @@
 
   <article class="clog-item" id="v0-1-3">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b43" aria-expanded="false" aria-controls="cl-p43">
+      <button class="clog-btn" type="button" id="cl-b44" aria-expanded="false" aria-controls="cl-p44">
         <span class="clog-title"><span class="ver-tag">0.1.3</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p43" role="region" aria-labelledby="cl-b43">
+    <div class="clog-panel" id="cl-p44" role="region" aria-labelledby="cl-b44">
       <div class="clog-body">
         <ul class="clog-list">
           <li>修复资源页「选择实例」下拉被其它卡片遮挡/错位的问题（浮层改为顶层渲染）。</li>
@@ -1733,12 +1769,12 @@
 
   <article class="clog-item" id="v0-1-2">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b44" aria-expanded="false" aria-controls="cl-p44">
+      <button class="clog-btn" type="button" id="cl-b45" aria-expanded="false" aria-controls="cl-p45">
         <span class="clog-title"><span class="ver-tag">0.1.2</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p44" role="region" aria-labelledby="cl-b44">
+    <div class="clog-panel" id="cl-p45" role="region" aria-labelledby="cl-b45">
       <div class="clog-body">
         <ul class="clog-list">
           <li>导航改名：下载游戏 → 游戏，下载管理 → 管理，模组 → 资源。</li>
@@ -1752,12 +1788,12 @@
 
   <article class="clog-item" id="v0-1-1">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b45" aria-expanded="false" aria-controls="cl-p45">
+      <button class="clog-btn" type="button" id="cl-b46" aria-expanded="false" aria-controls="cl-p46">
         <span class="clog-title"><span class="ver-tag">0.1.1</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p45" role="region" aria-labelledby="cl-b45">
+    <div class="clog-panel" id="cl-p46" role="region" aria-labelledby="cl-b46">
       <div class="clog-body">
         <ul class="clog-list">
           <li>下载任务持久化：中途关闭启动器后可在「下载管理」里继续（断点续传）。</li>
@@ -1774,12 +1810,12 @@
 
   <article class="clog-item" id="v0-1-0">
     <h2 class="clog-head">
-      <button class="clog-btn" type="button" id="cl-b46" aria-expanded="false" aria-controls="cl-p46">
+      <button class="clog-btn" type="button" id="cl-b47" aria-expanded="false" aria-controls="cl-p47">
         <span class="clog-title"><span class="ver-tag">0.1.0</span><span class="clog-sub">启动器本体</span></span>
         <span class="clog-icon" aria-hidden="true"></span>
       </button>
     </h2>
-    <div class="clog-panel" id="cl-p46" role="region" aria-labelledby="cl-b46">
+    <div class="clog-panel" id="cl-p47" role="region" aria-labelledby="cl-b47">
       <div class="clog-body">
         <p>首个可运行版本（Windows x64，单文件便携 + 安装包）。</p>
         <ul class="clog-list">
