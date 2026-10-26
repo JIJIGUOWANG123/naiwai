@@ -72,1409 +72,1787 @@
         <p class="section-lead">完整历史见 GitHub：<a class="inline-link" href="https://github.com/JIJIGUOWANG123/NaiWaLauncher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">CHANGELOG.md</a></p>
       </header>
 
-      <div class="clog">
-  <article class="clog-entry" id="v0-5-2">
-    <h2 class="clog-ver">0.5.2</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">关于页：链接与致谢新增「官方网站」</h3>
-        <ul class="clog-list">
-          <li>新增条目「官方网站」（下载与更新日志），指向 <code>https://jijiguowang123.github.io/naiwai/</code>，排在致谢最前面；致谢共 26 项。</li>
-        </ul>
+      <div class="clog-bar">
+        <p class="clog-hint">默认展开最新版本，点标题行展开或收起。</p>
+        <div class="clog-tools">
+          <button class="btn btn-ghost btn-sm" type="button" id="clog-expand-all" aria-controls="clog-list">全部展开</button>
+          <button class="btn btn-ghost btn-sm" type="button" id="clog-collapse-all" aria-controls="clog-list">全部收起</button>
+        </div>
       </div>
-    </div>
-  </article>
 
-  <article class="clog-entry" id="v0-5-1">
-    <h2 class="clog-ver">0.5.1</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">实例目录改成和 PCL2 一样的布局</h3>
-        <ul class="clog-list">
-          <li>一个实例 = <code>.minecraft\versions\&lt;实例名&gt;\</code> 一个目录，里面<strong>同时</strong>有版本文件与游戏资源：<code>&lt;实例名&gt;.json</code>（完整版本描述）、<code>&lt;实例名&gt;.jar</code>（client jar，硬链接优先，省空间）、<code>natives\</code>、<code>mods\</code>、<code>config\</code>、<code>saves\</code> 等，启动器自己的记录放在 <code>naiwa\instance.json</code>。</li>
-          <li>不再是「资源在 <code>instances\</code>、版本在 <code>versions\&lt;版本号&gt;\</code>」两处分开；<code>assets</code>、<code>libraries</code> 继续共享。</li>
-          <li><strong>建实例后会清掉不再需要的共享原版目录</strong>（<code>versions\1.21.4</code> 之类），不留残留；还有老实例依赖它时会保留。</li>
-          <li><strong>删实例删干净</strong>：整个实例目录连同 json/jar/记录一起删掉，不影响其它实例。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">老实例迁移：新增按钮（不自动搬）</h3>
-        <ul class="clog-list">
-          <li>实例页顶部新增「<strong>迁移旧版本布局</strong>」：检测到旧实例才可用，弹窗列出「旧路径 → 新路径」；执行顺序是<strong>复制 → 逐文件校验 → 原子改名 → 改记录 → 删源</strong>，失败保留原文件、游戏运行时拒绝、可续做、重复点幂等。</li>
-          <li>不点迁移的老实例仍然按旧布局正常启动，不会偷偷搬文件。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">设置：清理所有游戏资源文件</h3>
-        <ul class="clog-list">
-          <li>设置 → 其它 新增「游戏资源清理」：先显示 <code>libraries</code> / <code>assets</code> 的占用（可勾选额外清理无人使用的原版版本目录），<strong>必须勾选确认</strong>才能清理；明确提示「删除后需要重新下载，可能几百 MB 到 1 GB 以上，需要联网」。</li>
-          <li>白名单守卫：只允许清 <code>libraries</code>、<code>assets</code> 与没人用的原版版本目录；<code>instances</code>/实例目录、<code>NaiWa</code> 配置、<code>servers</code>、<code>skins</code>、<code>DL</code> 一律不碰，<code>..</code> 穿越与符号链接会被拒绝。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">清理后启动会自己补回来</h3>
-        <ul class="clog-list">
-          <li>启动前先快速检查依赖：缺 <code>libraries</code> 或 <code>assets</code> 时自动按需下载补齐（进度显示在「管理」页的「补齐游戏依赖」），补完继续启动；离线或镜像不可用时给可读原因并中止，不再让你撞「启动失败」。</li>
-          <li>依赖齐全时只多一遍 stat（实测约 1 ms），零网络请求。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">整合包安装也用新布局</h3>
-        <ul class="clog-list">
-          <li>在线整合包与本地整合包压缩包安装后同样是「一个实例一个 <code>versions\&lt;实例名&gt;\</code>」，不再出现一个实例两处住的情况。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-5-0">
-    <h2 class="clog-ver">0.5.0</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">侧栏整理：设置合并、页面精简</h3>
-        <ul class="clog-list">
-          <li>「个性化」「启动」「其它」三个页面<strong>并入「设置」</strong>，设置页顶部用标签切换（通用 / 个性化 / 启动 / 其它）；侧栏只留一个「设置」，并把它<strong>放到最下面</strong>。</li>
-          <li>移除侧栏的「游戏」页（原版版本列表），装原版去「实例 → 新建」里选版本即可。</li>
-          <li>图标跟着换：首页用房子、管理用下载图标、设置用推子图标。</li>
-          <li>「GitHub 加速下载」整块<strong>搬到娱乐页</strong>。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源：插件有了加载器与类别筛选</h3>
-        <ul class="clog-list">
-          <li>插件类型下侧栏新增：<strong>加载器下拉</strong>（全部 / Paper / Spigot / Bukkit / Folia / Purpur / Sponge）与<strong>插件类别列表</strong>（19 项可多选）。选中即进搜索，切回其它类型时自动恢复原筛选项。</li>
-          <li><strong>所有资源的类别名改成随界面语言显示</strong>：中文界面显示「优化 / 库 / 装饰 / 世界生成…」，切英文、日文时同步变；详情页的类别标签也算在内。未收录的类别会显示原名（当前真实来源 154 条已全收录）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源：没选实例时安装按钮也会判断能不能装</h3>
-        <ul class="clog-list">
-          <li>详情页没选安装目标时，版本行的安装按钮直接<strong>置灰禁用</strong>并写明原因（「先选一个实例再安装」/「先选一个服务端再安装」），不再点了才提示；选中原版实例、插件服装模组等不可装的情形同样置灰，切换目标即时更新。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">新增下载源：FastMinecraftMirror</h3>
-        <ul class="clog-list">
-          <li>设置/首页的下载源里新增 <strong>FastMinecraftMirror</strong>（<code>fastmcmirror.org</code>），按它官网公布的映射替换官方下载地址（launchermeta / launcher / resources / libraries / forge maven / fabric meta &amp; maven / liteloader / OptiFine）；「自动」模式会在 BMCLAPI 与它之间取更快的，失败自动回退官方。</li>
-          <li>说明：<strong>这个源的连通性没能验证</strong>（我这边解析到被劫持的 IP、证书不匹配），实际可不可用要你在自己网络里试；它覆盖的范围也比 BMCLAPI 窄（piston-meta 等不在其映射表内，仍走官方）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">关于页：链接与致谢新增五个启动器，同类相邻排序</h3>
-        <ul class="clog-list">
-          <li>新增 <strong>樱梨启动器 EririLily / KLP Launcher / GPCL / Allay / AML</strong>（AML 用字母图标），共 <strong>25 项</strong>；<strong>不分组、不显示小标题</strong>，只把同类排在一起（本项目 → 官方与内容站 → 镜像与加速 → 联机与工具 → 同类启动器）。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-9">
-    <h2 class="clog-ver">0.4.9</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">首页：最近游玩改翻页</h3>
-        <ul class="clog-list">
-          <li>「最近游玩」不再横向滚动，改成和「资源」页同一套<strong>翻页控件</strong>：<strong>每页 10 个，固定排成两行 × 五列</strong>——窗口拉窄时卡片会变窄，但仍然是「每行五个、共两行」，不会折成 4+3；翻页不会改变当前选中的实例。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">首页：实时启动日志</h3>
-        <ul class="clog-list">
-          <li>首页下方新增「启动日志」面板：点「开始游戏」后<strong>实时显示这个实例的启动输出</strong>（游戏 stdout/stderr 与启动器自己的记录），最多保留最近 200 行，自动跟着滚到底。</li>
-          <li>面板顶部能看到状态（未启动 / 正在启动 / 运行中 / 已退出 code），可以「清空」、可以关掉「跟随」自己往回翻；切换实例时会自动切到该实例的日志，不会串台。</li>
-          <li>主进程按批次合并后再推给界面（约 150ms 一批、单批最多 200 行），不会因为日志刷得太快拖慢界面。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-8">
-    <h2 class="clog-ver">0.4.8</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">新增「首页」</h3>
-        <ul class="clog-list">
-          <li>启动器现在默认落在<strong>首页</strong>（侧栏第一项）：大卡片显示当前选中的实例（名称 / Minecraft 版本 / 加载器与版本），右侧就是「开始游戏」。</li>
-          <li><strong>最近游玩</strong>横向卡片列出最近用过的实例，点一下就切换选中并可以直接启动；没有游玩记录的会标「还没玩过」。</li>
-          <li>三张统计卡：<strong>启动用时</strong>（当前版本还没埋点，显示 —，后续补）、<strong>内存</strong>（本机可用 / 总计 + 该实例分配给多少）、<strong>下载源</strong>（当前源与说明，例如「自动测速，镜像优先」）。</li>
-          <li>首次启动会自动选中最近玩过的实例（没有记录就选第一个）；如果你曾显式选「不选择实例（仅浏览）」，会保持不选。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">启动按钮统一到首页</h3>
-        <ul class="clog-list">
-          <li>实例页的卡片<strong>不再有「启动」按钮</strong>（其余按钮都在），启动统一在首页完成；首页选中的实例与「资源」页的安装目标是同一份状态，切换后自动同步。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">更新：显示下载进度，静默覆盖</h3>
-        <ul class="clog-list">
-          <li>关于页「检查更新」旁边会显示<strong>下载进度</strong>（百分比 + 已下载/总大小 + 进度条），状态依次是：正在检查 → 正在下载 vX → 下载完成准备安装 → 正在安装并重启；手动点「立即更新」也一样有进度。</li>
-          <li><strong>安装过程中不再弹黑框</strong>：安装包里的权限修复（icacls）改成隐藏窗口执行，全程静默覆盖旧版本并自动重启。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-7">
-    <h2 class="clog-ver">0.4.7</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">启动失败诊断：AI 分析 + 在线分析入口</h3>
-        <ul class="clog-list">
-          <li>内置规则诊断不变（<strong>默认就用它</strong>）。想更细的分析，可以在「启动」页填一个 <strong>DeepSeek API Key</strong>：填了才会把本次崩溃日志的末尾（最多 200 行 / 12k 字符）发过去让 AI 给结论、可能原因、修复建议和可疑模组。</li>
-          <li>AI 失败、超时、没填 Key 一律<strong>静默回退到内置诊断</strong>，不会打断启动流程；Key 不会写进日志、也不会进导出诊断包。AI 结论在弹窗与 <code>diagnosis.txt</code> 里都标注「仅供参考」。</li>
-          <li>诊断弹窗新增「<strong>在线分析崩溃报告</strong>」按钮，一键把崩溃报告送到 MCToolbox 的分析页（按界面语言给对应语言版本），旁边注明会上传到第三方站点。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">原版实例不再显示模组/光影</h3>
-        <ul class="clog-list">
-          <li>原版（Vanilla）实例的「内容」面板只保留<strong>资源包</strong>，模组与光影包标签整块不出现；「资源目录」入口也不会再打开不存在的 mods/shaderpacks。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">服务端也有插件/模组管理</h3>
-        <ul class="clog-list">
-          <li>开服页每个服务端新增「插件」或「模组」入口（按核心决定：Paper/Purpur/Folia 是插件、Fabric/Forge/NeoForge 是模组、Arclight 两者都有、Vanilla 禁用并说明原因）。</li>
-          <li>面板里能看数量、搜索、刷新、打开目录，并对每一项<strong>启用/停用</strong>（改名为 <code>*.jar.disabled</code>，重启服务端生效）、<strong>更新</strong>（按文件 sha1 反查来源取新版，成功才替换旧文件）、<strong>删除</strong>。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">实例内容也能启用/停用</h3>
-        <ul class="clog-list">
-          <li>实例的模组/光影/资源包列表新增「启用 / 停用」（同样用 <code>.disabled</code> 后缀，加载器不会加载），停用的项灰显并标「已停用」；删除与更新照旧可用。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">内存：上限就是本机物理内存 + 一键清理</h3>
-        <ul class="clog-list">
-          <li><strong>实例与开服的内存上限都改成「本机物理内存」</strong>（不再是写死的上限），滑杆旁显示「本机共 X GB」，超限保存会被夹到上限并提示。</li>
-          <li>启动页新增内存占用条（每 2 秒刷新，页面不可见时停），以及「<strong>清理运行内存</strong>」按钮：把本启动器自己（含子进程）的工作集还给系统，并显示释放了多少。</li>
-          <li>诚实说明：这只是把页面挪进备用列表，可用内存会上升但下次访问要回填，效果看当时情况，不是魔法；只动自己，不碰其它程序。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">背景个性化：去掉预览图与路径</h3>
-        <ul class="clog-list">
-          <li>本地图片/视频、随机图 API、Steam 壁纸引擎三个来源都不再显示预览图和文件路径/URL，界面更紧凑；开关、来源切换、播放方式、轮播间隔、音量、保存与刷新等控件全部保留。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">娱乐页：下载自定义文件</h3>
-        <ul class="clog-list">
-          <li>新增「下载自定义文件」卡片：填地址、选保存目录（默认 <code>&lt;启动器根目录&gt;\DL</code>）、可选自定义文件名，点一下下载；进度显示在「管理」页，可取消/续传，完成后可一键打开所在文件夹。</li>
-          <li>地址非法、非 http(s)、文件名含非法字符都会给可读提示；文件名留空时按 URL 末段推断，推断不出用 <code>download-&lt;时间戳&gt;.bin</code>。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">设置页：移除旧开关</h3>
-        <ul class="clog-list">
-          <li>删掉「关闭到托盘（旧开关）」整块（现行机制是「关闭窗口时」三选项：询问我 / 隐藏到托盘 / 直接退出）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">链接与致谢新增两项</h3>
-        <ul class="clog-list">
-          <li>新增 <strong>FastMirror</strong>（服务端核心镜像）与 <strong>Prism Launcher</strong>（同类启动器），致谢共 <strong>20 项</strong>。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-6">
-    <h2 class="clog-ver">0.4.6</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">侧栏：连接状态与版本号始终可见</h3>
-        <ul class="clog-list">
-          <li>窗口被拉矮时，左侧导航项自己<strong>滚动</strong>（和右侧内容一样），底部的「已连接主进程」与版本号<strong>固定在可见区</strong>，不再被挤出窗口。</li>
-          <li>顺带把导航与底栏的间距收紧了一点，滚动条做成细条，不会压到导航文字。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-5">
-    <h2 class="clog-ver">0.4.5</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">CurseForge 不用填 Key 了</h3>
-        <ul class="clog-list">
-          <li>接入社区镜像（MCIM，<code>mod.mcimirror.top</code> 的 CurseForge 兼容接口）：<strong>不填 API Key 也能搜索、看详情、列文件、下载</strong>；填了 Key 仍然走官方接口。</li>
-          <li>实测：无 Key 搜 <code>jei</code> 能出 JEI（6.39 亿下载）、详情正文 2328 字、文件列表带大小与 sha1、走镜像给的直链真下载一个 715 KB 的 jar 并校验 sha1 一致。</li>
-          <li>镜像不可用（5xx/429/超时）时给「社区镜像暂时不可用，请稍后重试」，不再误导你去填 Key。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">新增「娱乐」页（在设置后面）</h3>
-        <ul class="clog-list">
-          <li><strong>每日人品</strong>：点一下抽取今日人品（1–100），<strong>按日期固定</strong>——同一天点多次都是同一个数，第二天自动刷新；100 个数值各有不同反馈。</li>
-          <li><strong>每日一言</strong>：点卡片随机抽一句；默认走内置接口（<code>uapis.cn/api/v1/saying</code>），<strong>可以在设置里换成自己的 API</strong>（自动从 JSON 里取文字字段，取不到就显示原文）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源：整合包直接建新实例</h3>
-        <ul class="clog-list">
-          <li>整合包不再需要选安装目标，点一下就<strong>安装并新建实例</strong>；侧栏「安装目标」在整合包类型下会置灰并说明原因。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">关于页：板块重排 + 致谢新增五个启动器</h3>
-        <ul class="clog-list">
-          <li>顺序调整为：<strong>最新新闻 → 功能简介 → 更新日志 → 核心团队 → 链接与致谢</strong>。</li>
-          <li>链接与致谢新增 <strong>MoLaunch / XMCL / AxlMC / Oaoi / Bakaxl</strong> 五个同类启动器（各用其站点图标），致谢共 <strong>18 项</strong>。</li>
-          <li>去掉 <strong>Steamcommunity 302</strong> 卡片上的「推荐：」前缀。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-4">
-    <h2 class="clog-ver">0.4.4</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">皮肤页：正版账号只显示官方面板</h3>
-        <ul class="clog-list">
-          <li>选中微软正版账号后，页面<strong>只保留「微软正版皮肤 + 披风」这一个面板</strong>：顶部的「应用到实例」栏、本地皮肤库（3D 预览 / 已保存 / 内置皮肤）、底部的本地披风库、以及最下面的<strong>推荐素材站栏（LittleSkin / mcstat）全部不显示</strong>。</li>
-          <li>这些都是<strong>整块不渲染</strong>（不是 CSS 隐藏），相关查询也一并停掉；切回离线账号后全部恢复。正版账号下拖入 PNG 不会再偷偷导入到看不见的本地库，只提示「本地皮肤库请切到离线账号使用」。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">披风：去掉「移除披风」按钮</h3>
-        <ul class="clog-list">
-          <li>正版披风面板只保留「刷新披风列表」与「应用」，不再提供「移除披风」（接口仍在，只是不给入口）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源：原版不能装模组/光影、可以挑版本、能回原页面</h3>
-        <ul class="clog-list">
-          <li><strong>原版实例不能装模组与光影</strong>：安装目标弹窗里原版实例项置灰并说明原因；侧栏选中原版实例时，模组/光影的安装按钮也会禁用并给出原因（整合包、资源包、插件不受影响）。</li>
-          <li><strong>装到实例时可以先挑版本</strong>：目标选好后会列出该实例 MC 版本 + 加载器可用的文件（文件名 / 版本 / 更新时间 / 下载量），点哪个装哪个；列表为空或查询失败会退回「自动挑最新」并提示。</li>
-          <li><strong>详情页新增「原始页面」按钮</strong>（在 MCMOD 搜索左边），一键打开该模组在 Modrinth / CurseForge 的原始页面。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-3">
-    <h2 class="clog-ver">0.4.3</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">正版皮肤：只能显示，官方优先</h3>
-        <ul class="clog-list">
-          <li>皮肤页的「微软正版皮肤」改为<strong>只读</strong>：移除了上传 PNG、用 URL 设置、经典/纤细选择等所有修改入口，只显示<strong>当前正在使用的皮肤</strong>，并给一个「去微软官网修改皮肤/披风」的按钮——打开的是官网的皮肤与披风页面（按界面语言选 zh-hans / en-us / ja-jp）。</li>
-          <li><strong>官方皮肤优先</strong>：用正版账号启动时，启动器<strong>不再注入本地皮肤/披风</strong>，避免 CustomSkinLoader 那套把官方皮肤盖掉（日志会写「正版账号：优先使用官方皮肤，已跳过本地皮肤注入」）。离线账号行为不变，本地皮肤库照旧可用。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">披风：只显示名字</h3>
-        <ul class="clog-list">
-          <li>去掉了披风缩略图（不再加载披风图片），列表里只显示<strong>你拥有的披风名字</strong>，当前使用中的带标记。</li>
-          <li>「刷新披风列表」「应用」「移除披风」都保留，应用按钮改小。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源详情：一键去 MCMOD 搜索</h3>
-        <ul class="clog-list">
-          <li>详情页标题右侧新增「<strong>MCMOD 搜索</strong>」按钮，点了会在 <code>search.mcmod.cn</code> 搜这个模组（<strong>中文名优先</strong>：有中文译名就搜中文，否则搜原名）。</li>
-          <li>窄窗口下按钮只留图标，不挤占标题空间。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">链接与致谢：新增两项</h3>
-        <ul class="clog-list">
-          <li>新增 <strong>MC 百科（MCMOD）</strong> 与 <strong>MCBBS 社区</strong>，各用其官方图标；致谢共 13 项。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-2">
-    <h2 class="clog-ver">0.4.2</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">GitHub 加速：节点从 4 个扩到 7 个，Java 下载也走加速</h3>
-        <ul class="clog-list">
-          <li>新增三个节点：<code>git.tangbai.cc</code>、<code>github.chenc.dev</code>、<code>30006000.xyz</code>（原有的 <code>gh.padao.fun</code> 等保留）。</li>
-          <li>实测结论：<strong>其中 3 个节点也能代理 GitHub API</strong>，界面上会标「· API」，检查更新会优先用它们；其余节点只代理文件下载，照样可用。</li>
-          <li><strong>Java 下载也走加速</strong>：Adoptium（GitHub Releases）与 BellSoft 的 GitHub 通道都会按节点候选链依次尝试，校验不过自动换下一条通道，全部失败才落原始 GitHub 地址；清华 TUNA / Oracle 这类非 GitHub 源不受影响。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">关于页：文案、能力卡与「最新新闻」</h3>
-        <ul class="clog-list">
-          <li>「支持 Fabric / Forge / NeoForge」→「<strong>支持五种主流加载器</strong>」（Fabric / Quilt / Forge / NeoForge / LiteLoader）。</li>
-          <li>「BellSoft JDK 自动匹配」→「<strong>JDK 版本自动匹配</strong>」，说明改为多源测速（BellSoft / Adoptium / 清华 TUNA / Zulu / Oracle）。</li>
-          <li>新增三张能力卡：<strong>皮肤系统</strong>、<strong>开服能力</strong>、<strong>账号登录</strong>（能力卡共 16 张）。</li>
-          <li>新增「<strong>最新新闻</strong>」板块：自动抓取 Minecraft 官网最新一篇文章并<strong>译成中文</strong>（标题 + 摘要 + 缩略图 + 阅读全文）；抓不到或翻译失败就整块不显示，不影响页面其它内容。</li>
-          <li>致谢新增 <strong>Minecraft 官网</strong>（官方图标），共 11 项。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">详情页：简介与完整介绍都翻译成中文</h3>
-        <ul class="clog-list">
-          <li>模组详情的<strong>简介</strong>和<strong>完整介绍</strong>现在都会给中文译文，并可在「译文 / 原文」之间切换。</li>
-          <li>正文按段落翻译：代码块、纯链接、表格线等结构性内容跳过；单段失败只影响那一段（其余照常译出），<strong>翻译服务不可用时直接显示原文，不报错、不提示失败</strong>。</li>
-          <li>长文有上限（分段数与总时长），超出部分保留原文；译文有缓存，同一模组再次打开不重复请求。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源：选好目标就直接装</h3>
-        <ul class="clog-list">
-          <li>已经选好安装目标（实例或服务端）时，点卡片上的按钮<strong>直接安装</strong>，不再弹出选择框；没有目标时才弹出「安装到…」。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">微软正版：皮肤上传与披风替换</h3>
-        <ul class="clog-list">
-          <li>皮肤页新增「微软正版皮肤」区块：显示<strong>当前正在使用的皮肤</strong>（经典/纤细），可<strong>上传自己的 PNG</strong> 到微软账号。</li>
-          <li><strong>披风</strong>：显示当前披风，可刷新出账号拥有的披风列表并一键替换（也可移除）。</li>
-          <li>上传前会校验尺寸（Mojang 只接受 64×64 或 64×32）与格式，失败给可读原因（登录过期 / 无权限 / 未拥有等）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">安全：源码里不再内置凭据</h3>
-        <ul class="clog-list">
-          <li>内置的 Microsoft client id 与 DeepL API Key <strong>不再写在源码里</strong>：源码只留占位符，打包时从本地 <code>.ms-client-id</code>（不入库、不进源码快照）注入。</li>
-          <li>别人拿 <code>源代码/</code> 自己编译时，得到的是「没有内置 client id、没有内置 DeepL Key」的版本：正版登录需自己填 Azure 应用 id，翻译走免费接口。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-1">
-    <h2 class="clog-ver">0.4.1</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">资源：安装目标改成弹窗选择</h3>
-        <ul class="clog-list">
-          <li>卡片上的安装按钮不再弹那种细小浮层，而是打开一个「安装到…」弹窗，里面分<strong>实例</strong>与<strong>服务端</strong>两组，点一项即选中。</li>
-          <li><strong>模组</strong>：两组都列（模组服能装、插件服/原版置灰并说明原因）；<strong>插件</strong>：<strong>只列服务端</strong>；整合包/资源包/光影包：只列实例，并说明该类型只能装进实例。</li>
-          <li>选好目标后按钮会显示「安装到「名字」」，避免装错地方。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源：每页 10 个，2 列 × 5 行</h3>
-        <ul class="clog-list">
-          <li>每页从 5 个改成 <strong>10 个</strong>，网格固定 <strong>两列</strong>（窄屏退化成 1 列），翻页控件与页码逻辑不变。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">设置：打开目录移到这里</h3>
-        <ul class="clog-list">
-          <li>「打开启动器目录 / 打开游戏目录」从关于页移到设置页的「本地目录」面板，关于页只保留团队与致谢卡片。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">游戏语言跟随启动器</h3>
-        <ul class="clog-list">
-          <li>切换启动器语言后，启动游戏会按当前语言写 <code>options.txt</code>：中文→<code>zh_cn</code>、English→<code>en_us</code>、日本語→<code>ja_jp</code>。</li>
-          <li>只改 <code>lang:</code> 那一行，其余设置与顺序原样保留（CRLF/LF 也保持），已经是目标语言时不会重复写盘。</li>
-          <li>「强制游戏用中文」开关默认改为<strong>关闭</strong>，打开后无论启动器什么语言，游戏一律简体中文。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">关于页：致谢补充官方图标与麦块</h3>
-        <ul class="clog-list">
-          <li><strong>MCIM / BMCLAPI</strong> 改用其官方图标、<strong>Steamcommunity 302</strong> 改用站点的站点图标。</li>
-          <li>新增致谢卡片 <strong>麦块社区</strong>（中文模组与插件索引）及其官方标志，致谢共 10 项。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-4-0">
-    <h2 class="clog-ver">0.4.0</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">修复：资源页点着点着会卡死</h3>
-        <ul class="clog-list">
-          <li>资源页原来是<strong>无限滚动累积</strong>：滚到底就自动追加下一页，列表越堆越长（每张卡还有图标、标签、翻译文本），加上切标签时旧列表与在途请求叠加，最终把界面渲染线程占满——<strong>界面卡死但电脑没事</strong>，只能重启。</li>
-          <li>现在<strong>移除了自动加载更多</strong>（两个 IntersectionObserver 哨兵一并删掉），列表不再无限累积。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源页改为翻页</h3>
-        <ul class="clog-list">
-          <li>每页 <strong>5 个</strong>，底部是「上一页 / 页码 / 下一页」；页码最多显示 5 个，超出用省略号，当前页居中。</li>
-          <li>首页「上一页」禁用、末页「下一页」禁用；切筛选、切标签、改搜索词都会回到第 1 页，并丢弃在途请求的结果。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源详情：图片可以点开放大</h3>
-        <ul class="clog-list">
-          <li>详情里的图集（画廊）现在点一下就能全屏查看大图。</li>
-          <li>支持：<strong>滚轮缩放 1x–4x</strong>、<strong>放大后拖动平移</strong>（鼠标/触屏都可以）、双击复位、← → 或左右按钮切换（首尾循环）、Esc / 点空白 / 右上角关闭。</li>
-          <li>打开时会锁住背景滚动、把焦点移到关闭按钮，关闭后焦点回到被点的那张图；图片加载中显示占位，加载失败给可读提示而不是空白。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源：可以装到服务端了（新增）</h3>
-        <ul class="clog-list">
-          <li>资源页的目标选择器现在同时列出<strong>实例</strong>与<strong>服务端</strong>：
-            <ul>
-              <li><strong>插件</strong> → 装进所选服务端的 <code>plugins</code>（新增「插件」类型：麦块与 Modrinth 可用，CurseForge 置灰）；</li>
-              <li><strong>模组</strong> → 装进所选服务端的 <code>mods</code>（模组服用）。</li>
-            </ul>
-          </li>
-          <li><strong>会识别能不能装</strong>：按服务端核心判断（Paper/Purpur/Folia/Velocity/Waterfall/BungeeCord 是插件服；Fabric/Forge/NeoForge 是模组服；Arclight 是模组+插件混合端；Vanilla 两者都不行），不匹配会置灰并说明原因。</li>
-          <li><strong>会识别模组是否支持服务端</strong>：读 Modrinth 的 <code>server_side</code>——<code>unsupported</code>（客户端专用）会说明装到服务端不生效，<code>unknown</code> 提示作者未标注，<code>required</code> 提示必须装在服务端。</li>
-          <li><strong>会识别插件平台</strong>：把 Velocity 专用的文件装到 Paper 服时会给出提示。</li>
-          <li>安装进度照常进「管理」页；重名加 <code>(1)</code>，同一文件重复安装直接复用不重复下载。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源：来源与类型调整</h3>
-        <ul class="clog-list">
-          <li><strong>麦块社区去掉「地图」下载入口</strong>、<strong>Modrinth 去掉「数据包」入口</strong>（后端本就没有可用接口，留着只会误导）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">联机：联机模组可以自己选</h3>
-        <ul class="clog-list">
-          <li>联机提示里新增<strong>下拉选择</strong>：默认是推荐项，也可以换成其它（OfflineLAN / LAN World Plug-n-Play / LAN Properties / LAN Server Properties），旁边就是「<strong>立即安装</strong>」。</li>
-          <li>选了<strong>不适配当前版本或加载器</strong>的模组会明确提示「装了也不会生效」，但仍允许安装；已经装着时按钮变成「已安装」。</li>
-          <li>选择<strong>按实例记住</strong>，下次打开沿用；若换了加载器导致旧选择失效，会自动回落到推荐项。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">关于页：「链接与致谢」改成卡片板块</h3>
-        <ul class="clog-list">
-          <li>核心团队回到 <strong>3 人</strong>（奶龙 / 小七 / DeepSeek），<strong>樱花穿透与陶瓦联机移到「链接与致谢」</strong>。</li>
-          <li>致谢区改成和核心团队一样的卡片网格（1280 宽 5 列，窄屏自动 3 / 2 列），每张卡可点、可键盘聚焦。</li>
-          <li>各用对应图标：<strong>项目主页与问题反馈用 GitHub 标志</strong>、<strong>QQ 群用 QQ 企鹅</strong>、<strong>Modrinth / CurseForge 用各自官方标志</strong>、樱花穿透用其官方头像、陶瓦联机用 GitHub 标志（标注 AGPL-3.0-or-later）。</li>
-          <li>「打开启动器目录 / 打开游戏目录」保留为动作按钮，不混进跳转卡片。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-3-9">
-    <h2 class="clog-ver">0.3.9</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">下载提示：开始下载也会提示，而且能直接跳去「管理」页</h3>
-        <ul class="clog-list">
-          <li>点了下载就会在右上角浮出提示（以前只有完成/失败才提示），提示里带<strong>「查看」按钮</strong>，一键跳到「管理」页看进度。</li>
-          <li><strong>同一批只提示一条</strong>：装整合包会一次创建几十个任务，500ms 内的会合并成「开始下载 N 个文件」，不会刷屏。</li>
-          <li>完成与失败同样合并（「N 个文件下载完成 / 下载失败」），并且<strong>失败优先显示</strong>，不会被后来的提示顶掉。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">一次同时下载几个文件，默认改为 8</h3>
-        <ul class="clog-list">
-          <li>设置里的「多线程下载（文件并发数）」默认值由 12 改为 <strong>8</strong>（范围仍是 1–32，可自行调整）。</li>
-          <li>提示文案补了一句：设得太大可能被下载站限速。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">陶瓦分享专用服务器：端口没监听会先提醒你</h3>
-        <ul class="clog-list">
-          <li>选「分享专用服务器」时，点创建房间前会先检查本机那个端口：
-            <ul>
-              <li>端口在监听 → 直接建房，不打扰；</li>
-              <li>端口没监听 → <strong>弹一次确认</strong>（服务器可能还没启动，继续的话房客连不上），确认后照常建房；取消就停在原地；</li>
-              <li>检查本身失败 → 不阻止建房，只在提示里说明。</li>
-            </ul>
-          </li>
-          <li>端口输入旁边有状态徽标（未检查 / 正在监听 / 没有监听 / 无法检查）和「重新检查」按钮。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">关于页补上新功能简介</h3>
-        <ul class="clog-list">
-          <li>能力卡片从 6 张扩到 13 张，新增长期以来的功能说明：<strong>三种联机方式、个性化背景、Java 多源下载、GitHub 加速下载、启动失败诊断、三语界面、更新方式可选</strong>。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-3-8">
-    <h2 class="clog-ver">0.3.8</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">联机模组：加入 LAN World Plug-n-Play，支持换装</h3>
-        <ul class="clog-list">
-          <li>推荐链新增 <strong>LAN World Plug-n-Play (mcwifipnp)</strong>（支持 Fabric / Forge / NeoForge / Quilt，739 万下载），用来补足其它模组没有覆盖的版本与加载器：
-            <ul>
-              <li><strong>Fabric / Quilt</strong>：OfflineLAN → <strong>LAN World Plug-n-Play</strong> → LAN Properties → LAN Server Properties</li>
-              <li><strong>Forge / NeoForge / Legacy Fabric</strong>：<strong>LAN World Plug-n-Play</strong> → LAN Properties → LAN Server Properties</li>
-              <li>原版：仍然只能正版联机</li>
-            </ul>
-          </li>
-          <li><strong>已装的是别的联机模组时可以直接卸载换装</strong>：状态行会写「已安装 OfflineLAN v2.0.0，但推荐 LAN World Plug-n-Play」，并给「卸载 OfflineLAN」按钮；卸载后立刻变成「一键安装 推荐项」。</li>
-          <li>同时装了多个联机模组时全部列出（最多 4 条）并提示<strong>互相冲突</strong>（重复开端口、服务端可能起不来），建议只保留一个。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">陶瓦联机：支持专用服务器</h3>
-        <ul class="clog-list">
-          <li>创建房间时可以选「<strong>分享游戏里的局域网世界</strong>」（原方式）或「<strong>分享专用服务器</strong>」（新）。</li>
-          <li>专用服务器模式：填服务器端口（默认 25565），启动器会代替服务器发起局域网广播，让陶瓦认领并把该端口分享出去；房主不需要开着游戏客户端。服务器要<strong>先启动</strong>，且只有本机分享有意义。</li>
-          <li>分享成功后照旧显示邀请码，另外标明「已分享 127.0.0.1:&lt;端口&gt;」；停止时会一并关掉广播并清理陶瓦进程。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">更新方式：手动 / 自动 规则变更</h3>
-        <ul class="clog-list">
-          <li>现在两种方式都会在<strong>启动后自动检测</strong>新版本（延迟几秒，不阻塞启动）：
-            <ul>
-              <li><strong>手动（默认）</strong>：检测到新版本会提示你，<strong>你自己点「立即更新」</strong>才会下载安装。</li>
-              <li><strong>自动</strong>：检测到新版本会<strong>自动下载并安装</strong>，装好自动重启；如果此时游戏正在运行，会等游戏结束再装，不会把你踢下线。</li>
-            </ul>
-          </li>
-          <li>顺带把原来渲染层与主进程各查一次（两次请求、两行日志）合并成<strong>主进程查一次，结果推给界面</strong>。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-3-7">
-    <h2 class="clog-ver">0.3.7</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">联机模组按加载器推荐（三种联机方式都生效）</h3>
-        <ul class="clog-list">
-          <li>提示卡会按<strong>所选实例的加载器</strong>推荐对应的联机模组：
-            <ul>
-              <li><strong>Fabric / Quilt → OfflineLAN</strong>（离线局域网：跳过正版验证）</li>
-              <li><strong>Forge / NeoForge / Legacy Fabric → LAN Properties</strong>；若该版本+加载器下没有可用文件，自动回退 <strong>LAN Server Properties</strong></li>
-              <li><strong>原版 → 只能正版联机</strong>（原版服务端验正版，离线账号进不来）</li>
-            </ul>
-          </li>
-          <li>实例改为<strong>手动选择</strong>（提示卡里一个下拉，默认当前实例），判定与一键安装都按所选实例走。</li>
-          <li><strong>始终显示是否已安装</strong>：未选择实例 / 未安装 / 已安装（带版本号）/ 已安装但版本不匹配；一键安装成功后该行立即刷新成「已安装」。</li>
-          <li>房客侧文案仍是「让房主安装/确认」，不会误导成自己装就行。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">修复：检查更新误报「该版本未提供更新包」</h3>
-        <ul class="clog-list">
-          <li>原因：四个加速节点里**只有 <code>github.cnxiaobai.com</code> 能代理 <code>api.github.com</code>**（其余三个返回 403 错误页），而旧逻辑按测速只取前两个节点去代理 API。当可用的那个被挤出前二时，就退到 jsDelivr（只返回版本号），于是界面显示「未提供更新包」——实际包是存在的。</li>
-          <li>修法一：<strong>四个节点全部尝试</strong>，并记住「哪些节点能代理 API」（本次运行内优先复用）。</li>
-          <li>修法二：资产清单缺失时改用<strong>固定名直链</strong>兜底：<code>releases/latest/download/NaiWaLauncher-Setup.exe</code> 与 <code>…/NaiWaLauncher.exe</code>（实测经加速节点 200，92.9 MB），所以仍然能一键更新。</li>
-          <li>修法三：关于页区分三种状态——<strong>有更新且有清单</strong> / <strong>有更新但清单未知（走镜像通道）</strong> / <strong>确实没有包</strong>，不再把中间那种说成「未提供」。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-3-6">
-    <h2 class="clog-ver">0.3.6</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">联机：三种方式都会提醒 OfflineLAN</h3>
-        <ul class="clog-list">
-          <li>局域网 / 樱花穿透 / 陶瓦联机三个页面顶部统一提示：<strong>离线玩家要进别人的房间，服主必须装 OfflineLAN</strong>（跳过正版验证），并提供「一键安装」。</li>
-          <li><strong>原版实例会被明确告知只能正版联机</strong>：原版服务端会验证正版，离线账号进不来；要做离线联机得先换成 Fabric / Forge / NeoForge 实例再装 OfflineLAN。</li>
-          <li>会<strong>识别实例版本与加载器</strong>：OfflineLAN 只有 Fabric 版，Forge/NeoForge 实例会直接说「这个模组不支持当前加载器」，不会给你一个必然失败的安装按钮；已装但版本对不上也会提示。</li>
-          <li>房主/房客文案分开：房客侧是「让房主安装」，不会误导成自己装就行。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">关于页：核心团队改版</h3>
-        <ul class="clog-list">
-          <li>团队区改成网格布局，每行 5–6 个卡片（窄屏自动降到 3 / 2 列），卡片可点击、可键盘聚焦。</li>
-          <li>新增两项：<strong>樱花穿透（Sakura Frp）</strong> → natfrp.com、<strong>陶瓦联机（Terracotta）</strong> → 项目主页（标注 AGPL-3.0-or-later）。</li>
-          <li><strong>奶龙、小七的卡片默认跳转源码仓库</strong>；DeepSeek 跳官网。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">Java</h3>
-        <ul class="clog-list">
-          <li><strong>已安装的 Java 可以卸载</strong>：只允许删除启动器自己装的（在 <code>NaiWa/java/</code> 下），路径不在该目录时会拒绝；被游戏占用时给出可读提示；卸载前会告诉你有多少个实例指定了它。</li>
-          <li><strong>不是启动器安装的 JDK</strong>（系统安装的）不提供卸载，改为「打开目录」按钮，方便你自己去该用系统卸载。</li>
-          <li><strong>移除 Dragonwell 下载源</strong>（按需求），已经装过的 Dragonwell 仍能正确识别来源并正常使用。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">更新与提示</h3>
-        <ul class="clog-list">
-          <li>设置里新增「更新方式」：<strong>手动（默认）</strong> / 自动。自动 = 打开程序后延迟几秒检查新版本（不阻塞启动、不弹阻塞对话框）。</li>
-          <li>下载任务<strong>完成或失败时在右上角浮出提示</strong>，淡入后停留约 3.5 秒自动淡出；同一时间最多一条，不叠加、不挡操作。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-3-5">
-    <h2 class="clog-ver">0.3.5</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">启动失败现在会自己说清原因</h3>
-        <ul class="clog-list">
-          <li>游戏异常退出后，启动器会读这次启动日志的尾部并<strong>自动诊断</strong>，把结论写进日志（<code># 诊断：</code> / <code># 建议：</code>），同时弹窗告诉你。</li>
-          <li>能识别六类原因：<strong>显卡驱动崩溃</strong>（帧里出现 <code>atio6axx.dll</code> / <code>nvoglv64.dll</code> / <code>ig*icd64.dll</code> 之类）、<strong>Java 不信任证书</strong>（<code>PKIX path building failed</code>，常见于 Steamcommunity302 这类 HTTPS 代理）、<strong>Java 版本不对</strong>（<code>UnsupportedClassVersionError</code>）、<strong>内存不足</strong>、<strong>JVM 参数导致起不来</strong>、<strong>模组冲突/缺前置</strong>。</li>
-          <li>日志按 UTF-8 / GBK 双解码，中文日志不会因为编码变成乱码而漏判。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">弹窗里能直接看到是哪个模组</h3>
-        <ul class="clog-list">
-          <li>弹窗内容：诊断结论 + 2–3 条可操作建议 + <strong>「可能相关的模组」列表</strong>（去重，最多 8 个）。</li>
-          <li>模组抽取覆盖真实报错形态：Fabric 的 <code>Mod resolution failed</code> / <code>Missing or unsupported mandatory dependencies</code> / <code>Incompatible mods found</code> / <code>Mod 'xxx' requires …</code>，Forge/NeoForge 的 <code>Mod file … is missing</code> / <code>Failed to load mod</code> / <code>Duplicate mods found</code> / <code>Mod ID:</code>，以及从 <code>NoSuchMethodError</code> 的包名反推模组；重复安装的两个 jar 会分别列出。</li>
-          <li>弹窗按钮：<strong>打开日志</strong> / <strong>打开实例目录</strong> / <strong>导出诊断包</strong> / 关闭；多个实例同时失败按实例排队逐个弹，不会叠窗。</li>
-          <li><strong>导出诊断包</strong>：默认文件名 <code>&lt;实例名&gt;-诊断-&lt;时间&gt;.zip</code>，内含本次启动日志、<code>hs_err_pid*.log</code>、最新 crash-report、最近一份启动器日志，以及 <code>diagnosis.txt</code>（启动器版本、实例与加载器、使用的 Java 路径与版本、退出码、诊断结论与建议、相关模组、导出时间），方便直接发给别人排查。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">Java 信任 Windows 证书库（解决代理导致的 TLS 失败）</h3>
-        <ul class="clog-list">
-          <li>启动设置新增开关「信任 Windows 证书库」：开启后给游戏 JVM 追加 <code>-Djavax.net.ssl.trustStoreType=WINDOWS-ROOT</code>，让 Java 读系统根证书。</li>
-          <li>适用场景：装了 Steamcommunity302 之类的 HTTPS 中间人代理、日志里出现 <code>PKIX path building failed</code>，导致正版验证 / 皮肤 / 下载全失败时。默认关闭。</li>
-          <li>不会覆盖你已有的证书设置：如果实例或模板里已经写了 <code>-Djavax.net.ssl.trustStore</code> / <code>trustStoreType</code>，启动器不会追加并在日志说明原因。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">修复：启动参数里的假版本号</h3>
-        <ul class="clog-list">
-          <li>以前 <code>-Dminecraft.launcher.version</code> 恒为 <code>0.1.5</code>（硬编码），现在跟随实际版本（打包后取应用版本，开发态读 <code>package.json</code>）。实例导出里同样的兜底常量也一并修正。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-3-4">
-    <h2 class="clog-ver">0.3.4</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">联机新增第三种方式：陶瓦联机（Terracotta）</h3>
-        <ul class="clog-list">
-          <li>联机页现在是三种方式并存：<strong>局域网直连</strong> / <strong>樱花穿透（natfrp）</strong> / <strong>陶瓦联机</strong>（前两种原样保留）。</li>
-          <li>陶瓦联机 = P2P + 邀请码：房主在游戏里「对局域网开放」，其他人用邀请码加入，不需要公网 IP 或端口映射，适合临时开黑。</li>
-          <li>首次使用按需下载官方程序（约 9.4MB，GitHub 优先、Gitee 镜像兜底，sha256 校验），放在 <code>NaiWa/tools/terracotta</code>；启动器只通过它的本地 HTTP API 交互，端口不暴露给界面。</li>
-          <li>支持：创建房间 / 加入房间（自动补 <code>U/</code> 与前缀短横线）/ 邀请码卡片一键复制 / 成员列表（房主·本机·房客）/ 含难度与异常原因的状态条 / 异常后一键返回 / 停止（干净收尾，无残留进程）/ 查看日志。</li>
-          <li>如果你自己已经开着陶瓦，启动器会识别并复用它的端口，界面提示「已复用正在运行的陶瓦」；「断开复用」只断开连接、不会结束你的实例。</li>
-          <li>依据其 AGPL 例外条款，界面常驻版权标注：联机能力由 Terracotta | 陶瓦联机 提供 · © burningtnt 及贡献者 · AGPL-3.0-or-later。技术细节见 <code>docs/TERRACOTTA-FEASIBILITY.md</code>。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">GitHub 加速下载</h3>
-        <ul class="clog-list">
-          <li>「其它」页顶部新增 GitHub 加速下载：粘贴 GitHub 地址即可，四个节点可选 —— <code>ghf.无名氏.top</code> / <code>gh.padao.fun</code> / <code>ghfast.top</code> / <code>github.cnxiaobai.com</code>。</li>
-          <li>默认<strong>自动测速挑最快</strong>（界面显示各节点实测延迟，可重新测速），也可手动锁定某个节点。</li>
-          <li>文件默认存到 **<code>&lt;启动器根目录&gt;\DL</code>**，可自定义目录；重名自动加 <code>(1)</code>。</li>
-          <li>下载任务进入「管理」页的任务列表：显示进度、速度、已下载/总大小，可取消、<strong>可继续（真断点续传）</strong>，类型标签显示「下载文件」。</li>
-          <li><strong>软件自动更新</strong>也改成优先走这四个节点（原来硬编码的两个镜像已移除），原始 GitHub 地址作为兜底。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">Java 新增三个下载源</h3>
-        <ul class="clog-list">
-          <li>现在共六个源 + 自动测速：BellSoft Liberica / Adoptium (Temurin) / 清华 TUNA / <strong>Azul Zulu</strong> / <strong>Oracle JDK</strong> / <strong>Alibaba Dragonwell</strong>。</li>
-          <li>Oracle JDK 来自第三方镜像，<strong>不参与自动测速、只在手动选择时出现</strong>，界面标注其官方许可提示；自动模式实测会优先选 Dragonwell（阿里云 CDN 延迟最低，OpenJDK 兼容发行版）。</li>
-          <li>来源识别同步扩展：<code>zulu-</code> / <code>oracle-</code> / <code>dragonwell-</code> 目录前缀与 JDK <code>release</code> 文件的 IMPLEMENTOR（Azul / Oracle / Alibaba）都能认出来。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">其它</h3>
-        <ul class="clog-list">
-          <li>个性化背景里的 Steam 壁纸引擎**不再列出 <code>web</code> 与 <code>scene</code> 类型**：它们需要壁纸引擎自己的渲染器，列出来只会显示一张预览图，容易让人以为启动失败。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-3-3">
-    <h2 class="clog-ver">0.3.3</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">下载：只有「管理」页显示</h3>
-        <ul class="clog-list">
-          <li>移除右下角的下载任务悬浮面板（连同它的样式），下载进度统一在「管理」页查看，界面不再被悬浮卡遮挡。</li>
-          <li>管理页补齐信息：<strong>实时速度</strong>、<strong>已下载 / 总大小</strong>、失败原因（不用点进详情就能看到），以及继续 / 终止 / 移除 / 清空已完成。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">修复：关闭软件后重新下载不再从头开始</h3>
-        <ul class="clog-list">
-          <li>根因有三个，都修了：</li>
-        </ul>
-      </div>
-      <p>1. 带哈希校验的下载在「sha1 对不上」时会把半成品和续传记录一起删掉——而半成品本来就不可能对上完整文件的 sha1，于是每次重启都从 0 开始。现在只要存在续传记录就不当作坏文件，交给续传继续。</p>
-      <p>2. 续传记录是直接写文件，进程在写盘途中被结束时留下半截 JSON、下次读不出来；而且 1 秒才落一次盘（快网络 1 秒几十 MB）。现在改成原子写（临时文件 + 改名），并按「每 250ms 或每 2MB」落一次。</p>
-      <p>3. 点「继续」时进度会被重置成 0，看起来像从头下。现在不清零，重启后显示真实进度。</p>
-      <ul class="clog-list">
-        <li>实测（两阶段，阶段 1 在约 30% 时直接结束进程）：
-          <ul>
-            <li>本地 64MB 夹具：第二阶段只需再传 <strong>78.0%</strong> 的字节，最终大小与 sha1 均正确；</li>
-            <li>真实 CDN（清华 TUNA 的 JDK 21 包，195MB）：第二阶段只需再传 <strong>71.0%</strong>，最终大小一致。</li>
+      <div class="clog" id="clog-list">
+  <article class="clog-item is-open" id="v0-5-3">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b0" aria-expanded="true" aria-controls="cl-p0">
+        <span class="clog-title"><span class="ver-tag">0.5.3</span><span class="clog-sub">设置页重新分四类</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p0" role="region" aria-labelledby="cl-b0">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">设置页重新分四类</h3>
+          <ul class="clog-list">
+            <li>设置页改成 <strong>基础 / 下载 / 风格 / 其他</strong> 四个标签，按用途归类（不再有「个性化 / 启动 / 其它」三个独立页面）：
+              <ul>
+                <li><strong>基础</strong>：界面语言、更新方式、关闭窗口时、本地目录、游戏资源清理、本机内存、启动选项、内存分配、高级选项、启动失败诊断；</li>
+                <li><strong>下载</strong>：下载源、下载、社区资源、辅助功能、版本与自动切换、CurseForge、模组与 Java；</li>
+                <li><strong>风格</strong>：标题栏、界面图标、离线皮肤、主题配色、背景（含壁纸引擎目录与壁纸列表）；</li>
+                <li><strong>其他</strong>：背景音乐、启动音效、每日一言接口。</li>
+              </ul>
+            </li>
+            <li>删掉设置页里那块「关于 / 打开关于页」（关于页本身还在侧栏）。</li>
           </ul>
-        </li>
-        <li>任务的已下载字节 / 总大小 / 速度会随记录持久化，重启后在「管理」页就能看到上次的进度。</li>
-      </ul>
-      <div class="clog-sec">
-        <h3 class="clog-group">模组可以同时安装多个</h3>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">移除 FastMinecraftMirror 下载源</h3>
+          <ul class="clog-list">
+            <li>下载源只剩 <strong>官方 / BMCLAPI / 上海交大 / 自动测速</strong>；老配置里存过它的会自动回落成「自动」。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">目录结构调整（升级后首次启动自动迁移）</h3>
+          <ul class="clog-list">
+            <li>启动器数据（配置、日志、皮肤、披风、JDK、下载缓存、更新包）从 <code>&lt;根目录&gt;\NaiWa</code> 搬到 <strong><code>&lt;根目录&gt;\main\NaiWa</code></strong>（安装版）；便携版仍在程序目录下的 <code>NaiWa</code>。</li>
+            <li>服务端目录从 <code>&lt;根目录&gt;\servers</code> 搬到 <strong><code>&lt;根目录&gt;\.minecraft\servers</code></strong>。</li>
+            <li>迁移是<strong>自动</strong>的：先记录标记，逐个目录搬（同盘瞬时改名，跨盘复制并校验大小后再删源），目标已有同名文件时<strong>不覆盖</strong>、把旧文件改名成 <code>*.migrated-&lt;时间&gt;</code> 保留；任何一步失败都<strong>保留原数据</strong>并继续用旧位置，下次启动重试。</li>
+            <li><code>DL</code>（GitHub / 自定义下载目录）<strong>不搬</strong>，仍在 <code>&lt;根目录&gt;\DL</code>。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">链接与致谢新增三个启动器</h3>
+          <ul class="clog-list">
+            <li>新增 <strong>HMCL / Luna Launcher / QooKix</strong>，致谢共 <strong>29 项</strong>（同类启动器排在一起，仍不分组显示标题）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">安装包体积优化（方便蓝奏云上传）</h3>
+          <ul class="clog-list">
+            <li>免安装版新增 <strong><code>.7z</code> 包（75 MB）</strong>，比原来的 <code>.zip</code>（118 MB）小很多，蓝奏云免费账号（单文件 100 MB 上限）可以直接传；<code>.zip</code> 仍保留给 GitHub Releases。</li>
+            <li>安装版 <strong>89 MB</strong>、单文件版 <strong>76.5 MB</strong>，都在 100 MB 以内。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-5-2">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b1" aria-expanded="false" aria-controls="cl-p1">
+        <span class="clog-title"><span class="ver-tag">0.5.2</span><span class="clog-sub">关于页：链接与致谢新增「官方网站」</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">关于页：链接与致谢新增「官方网站」</h3>
+          <ul class="clog-list">
+            <li>新增条目「官方网站」（下载与更新日志），指向 <code>https://jijiguowang123.github.io/naiwai/</code>，排在致谢最前面；致谢共 26 项。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-5-1">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b2" aria-expanded="false" aria-controls="cl-p2">
+        <span class="clog-title"><span class="ver-tag">0.5.1</span><span class="clog-sub">实例目录改成和 PCL2 一样的布局</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p2" role="region" aria-labelledby="cl-b2">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">实例目录改成和 PCL2 一样的布局</h3>
+          <ul class="clog-list">
+            <li>一个实例 = <code>.minecraft\versions\&lt;实例名&gt;\</code> 一个目录，里面<strong>同时</strong>有版本文件与游戏资源：<code>&lt;实例名&gt;.json</code>（完整版本描述）、<code>&lt;实例名&gt;.jar</code>（client jar，硬链接优先，省空间）、<code>natives\</code>、<code>mods\</code>、<code>config\</code>、<code>saves\</code> 等，启动器自己的记录放在 <code>naiwa\instance.json</code>。</li>
+            <li>不再是「资源在 <code>instances\</code>、版本在 <code>versions\&lt;版本号&gt;\</code>」两处分开；<code>assets</code>、<code>libraries</code> 继续共享。</li>
+            <li><strong>建实例后会清掉不再需要的共享原版目录</strong>（<code>versions\1.21.4</code> 之类），不留残留；还有老实例依赖它时会保留。</li>
+            <li><strong>删实例删干净</strong>：整个实例目录连同 json/jar/记录一起删掉，不影响其它实例。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">老实例迁移：新增按钮（不自动搬）</h3>
+          <ul class="clog-list">
+            <li>实例页顶部新增「<strong>迁移旧版本布局</strong>」：检测到旧实例才可用，弹窗列出「旧路径 → 新路径」；执行顺序是<strong>复制 → 逐文件校验 → 原子改名 → 改记录 → 删源</strong>，失败保留原文件、游戏运行时拒绝、可续做、重复点幂等。</li>
+            <li>不点迁移的老实例仍然按旧布局正常启动，不会偷偷搬文件。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">设置：清理所有游戏资源文件</h3>
+          <ul class="clog-list">
+            <li>设置 → 其它 新增「游戏资源清理」：先显示 <code>libraries</code> / <code>assets</code> 的占用（可勾选额外清理无人使用的原版版本目录），<strong>必须勾选确认</strong>才能清理；明确提示「删除后需要重新下载，可能几百 MB 到 1 GB 以上，需要联网」。</li>
+            <li>白名单守卫：只允许清 <code>libraries</code>、<code>assets</code> 与没人用的原版版本目录；<code>instances</code>/实例目录、<code>NaiWa</code> 配置、<code>servers</code>、<code>skins</code>、<code>DL</code> 一律不碰，<code>..</code> 穿越与符号链接会被拒绝。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">清理后启动会自己补回来</h3>
+          <ul class="clog-list">
+            <li>启动前先快速检查依赖：缺 <code>libraries</code> 或 <code>assets</code> 时自动按需下载补齐（进度显示在「管理」页的「补齐游戏依赖」），补完继续启动；离线或镜像不可用时给可读原因并中止，不再让你撞「启动失败」。</li>
+            <li>依赖齐全时只多一遍 stat（实测约 1 ms），零网络请求。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">整合包安装也用新布局</h3>
+          <ul class="clog-list">
+            <li>在线整合包与本地整合包压缩包安装后同样是「一个实例一个 <code>versions\&lt;实例名&gt;\</code>」，不再出现一个实例两处住的情况。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-5-0">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b3" aria-expanded="false" aria-controls="cl-p3">
+        <span class="clog-title"><span class="ver-tag">0.5.0</span><span class="clog-sub">侧栏整理：设置合并、页面精简</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p3" role="region" aria-labelledby="cl-b3">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">侧栏整理：设置合并、页面精简</h3>
+          <ul class="clog-list">
+            <li>「个性化」「启动」「其它」三个页面<strong>并入「设置」</strong>，设置页顶部用标签切换（通用 / 个性化 / 启动 / 其它）；侧栏只留一个「设置」，并把它<strong>放到最下面</strong>。</li>
+            <li>移除侧栏的「游戏」页（原版版本列表），装原版去「实例 → 新建」里选版本即可。</li>
+            <li>图标跟着换：首页用房子、管理用下载图标、设置用推子图标。</li>
+            <li>「GitHub 加速下载」整块<strong>搬到娱乐页</strong>。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源：插件有了加载器与类别筛选</h3>
+          <ul class="clog-list">
+            <li>插件类型下侧栏新增：<strong>加载器下拉</strong>（全部 / Paper / Spigot / Bukkit / Folia / Purpur / Sponge）与<strong>插件类别列表</strong>（19 项可多选）。选中即进搜索，切回其它类型时自动恢复原筛选项。</li>
+            <li><strong>所有资源的类别名改成随界面语言显示</strong>：中文界面显示「优化 / 库 / 装饰 / 世界生成…」，切英文、日文时同步变；详情页的类别标签也算在内。未收录的类别会显示原名（当前真实来源 154 条已全收录）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源：没选实例时安装按钮也会判断能不能装</h3>
+          <ul class="clog-list">
+            <li>详情页没选安装目标时，版本行的安装按钮直接<strong>置灰禁用</strong>并写明原因（「先选一个实例再安装」/「先选一个服务端再安装」），不再点了才提示；选中原版实例、插件服装模组等不可装的情形同样置灰，切换目标即时更新。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">新增下载源：FastMinecraftMirror</h3>
+          <ul class="clog-list">
+            <li>设置/首页的下载源里新增 <strong>FastMinecraftMirror</strong>（<code>fastmcmirror.org</code>），按它官网公布的映射替换官方下载地址（launchermeta / launcher / resources / libraries / forge maven / fabric meta &amp; maven / liteloader / OptiFine）；「自动」模式会在 BMCLAPI 与它之间取更快的，失败自动回退官方。</li>
+            <li>说明：<strong>这个源的连通性没能验证</strong>（我这边解析到被劫持的 IP、证书不匹配），实际可不可用要你在自己网络里试；它覆盖的范围也比 BMCLAPI 窄（piston-meta 等不在其映射表内，仍走官方）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">关于页：链接与致谢新增五个启动器，同类相邻排序</h3>
+          <ul class="clog-list">
+            <li>新增 <strong>樱梨启动器 EririLily / KLP Launcher / GPCL / Allay / AML</strong>（AML 用字母图标），共 <strong>25 项</strong>；<strong>不分组、不显示小标题</strong>，只把同类排在一起（本项目 → 官方与内容站 → 镜像与加速 → 联机与工具 → 同类启动器）。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-9">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b4" aria-expanded="false" aria-controls="cl-p4">
+        <span class="clog-title"><span class="ver-tag">0.4.9</span><span class="clog-sub">首页：最近游玩改翻页</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p4" role="region" aria-labelledby="cl-b4">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">首页：最近游玩改翻页</h3>
+          <ul class="clog-list">
+            <li>「最近游玩」不再横向滚动，改成和「资源」页同一套<strong>翻页控件</strong>：<strong>每页 10 个，固定排成两行 × 五列</strong>——窗口拉窄时卡片会变窄，但仍然是「每行五个、共两行」，不会折成 4+3；翻页不会改变当前选中的实例。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">首页：实时启动日志</h3>
+          <ul class="clog-list">
+            <li>首页下方新增「启动日志」面板：点「开始游戏」后<strong>实时显示这个实例的启动输出</strong>（游戏 stdout/stderr 与启动器自己的记录），最多保留最近 200 行，自动跟着滚到底。</li>
+            <li>面板顶部能看到状态（未启动 / 正在启动 / 运行中 / 已退出 code），可以「清空」、可以关掉「跟随」自己往回翻；切换实例时会自动切到该实例的日志，不会串台。</li>
+            <li>主进程按批次合并后再推给界面（约 150ms 一批、单批最多 200 行），不会因为日志刷得太快拖慢界面。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-8">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b5" aria-expanded="false" aria-controls="cl-p5">
+        <span class="clog-title"><span class="ver-tag">0.4.8</span><span class="clog-sub">新增「首页」</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p5" role="region" aria-labelledby="cl-b5">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">新增「首页」</h3>
+          <ul class="clog-list">
+            <li>启动器现在默认落在<strong>首页</strong>（侧栏第一项）：大卡片显示当前选中的实例（名称 / Minecraft 版本 / 加载器与版本），右侧就是「开始游戏」。</li>
+            <li><strong>最近游玩</strong>横向卡片列出最近用过的实例，点一下就切换选中并可以直接启动；没有游玩记录的会标「还没玩过」。</li>
+            <li>三张统计卡：<strong>启动用时</strong>（当前版本还没埋点，显示 —，后续补）、<strong>内存</strong>（本机可用 / 总计 + 该实例分配给多少）、<strong>下载源</strong>（当前源与说明，例如「自动测速，镜像优先」）。</li>
+            <li>首次启动会自动选中最近玩过的实例（没有记录就选第一个）；如果你曾显式选「不选择实例（仅浏览）」，会保持不选。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">启动按钮统一到首页</h3>
+          <ul class="clog-list">
+            <li>实例页的卡片<strong>不再有「启动」按钮</strong>（其余按钮都在），启动统一在首页完成；首页选中的实例与「资源」页的安装目标是同一份状态，切换后自动同步。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">更新：显示下载进度，静默覆盖</h3>
+          <ul class="clog-list">
+            <li>关于页「检查更新」旁边会显示<strong>下载进度</strong>（百分比 + 已下载/总大小 + 进度条），状态依次是：正在检查 → 正在下载 vX → 下载完成准备安装 → 正在安装并重启；手动点「立即更新」也一样有进度。</li>
+            <li><strong>安装过程中不再弹黑框</strong>：安装包里的权限修复（icacls）改成隐藏窗口执行，全程静默覆盖旧版本并自动重启。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-7">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b6" aria-expanded="false" aria-controls="cl-p6">
+        <span class="clog-title"><span class="ver-tag">0.4.7</span><span class="clog-sub">启动失败诊断：AI 分析 + 在线分析入口</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p6" role="region" aria-labelledby="cl-b6">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">启动失败诊断：AI 分析 + 在线分析入口</h3>
+          <ul class="clog-list">
+            <li>内置规则诊断不变（<strong>默认就用它</strong>）。想更细的分析，可以在「启动」页填一个 <strong>DeepSeek API Key</strong>：填了才会把本次崩溃日志的末尾（最多 200 行 / 12k 字符）发过去让 AI 给结论、可能原因、修复建议和可疑模组。</li>
+            <li>AI 失败、超时、没填 Key 一律<strong>静默回退到内置诊断</strong>，不会打断启动流程；Key 不会写进日志、也不会进导出诊断包。AI 结论在弹窗与 <code>diagnosis.txt</code> 里都标注「仅供参考」。</li>
+            <li>诊断弹窗新增「<strong>在线分析崩溃报告</strong>」按钮，一键把崩溃报告送到 MCToolbox 的分析页（按界面语言给对应语言版本），旁边注明会上传到第三方站点。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">原版实例不再显示模组/光影</h3>
+          <ul class="clog-list">
+            <li>原版（Vanilla）实例的「内容」面板只保留<strong>资源包</strong>，模组与光影包标签整块不出现；「资源目录」入口也不会再打开不存在的 mods/shaderpacks。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">服务端也有插件/模组管理</h3>
+          <ul class="clog-list">
+            <li>开服页每个服务端新增「插件」或「模组」入口（按核心决定：Paper/Purpur/Folia 是插件、Fabric/Forge/NeoForge 是模组、Arclight 两者都有、Vanilla 禁用并说明原因）。</li>
+            <li>面板里能看数量、搜索、刷新、打开目录，并对每一项<strong>启用/停用</strong>（改名为 <code>*.jar.disabled</code>，重启服务端生效）、<strong>更新</strong>（按文件 sha1 反查来源取新版，成功才替换旧文件）、<strong>删除</strong>。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">实例内容也能启用/停用</h3>
+          <ul class="clog-list">
+            <li>实例的模组/光影/资源包列表新增「启用 / 停用」（同样用 <code>.disabled</code> 后缀，加载器不会加载），停用的项灰显并标「已停用」；删除与更新照旧可用。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">内存：上限就是本机物理内存 + 一键清理</h3>
+          <ul class="clog-list">
+            <li><strong>实例与开服的内存上限都改成「本机物理内存」</strong>（不再是写死的上限），滑杆旁显示「本机共 X GB」，超限保存会被夹到上限并提示。</li>
+            <li>启动页新增内存占用条（每 2 秒刷新，页面不可见时停），以及「<strong>清理运行内存</strong>」按钮：把本启动器自己（含子进程）的工作集还给系统，并显示释放了多少。</li>
+            <li>诚实说明：这只是把页面挪进备用列表，可用内存会上升但下次访问要回填，效果看当时情况，不是魔法；只动自己，不碰其它程序。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">背景个性化：去掉预览图与路径</h3>
+          <ul class="clog-list">
+            <li>本地图片/视频、随机图 API、Steam 壁纸引擎三个来源都不再显示预览图和文件路径/URL，界面更紧凑；开关、来源切换、播放方式、轮播间隔、音量、保存与刷新等控件全部保留。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">娱乐页：下载自定义文件</h3>
+          <ul class="clog-list">
+            <li>新增「下载自定义文件」卡片：填地址、选保存目录（默认 <code>&lt;启动器根目录&gt;\DL</code>）、可选自定义文件名，点一下下载；进度显示在「管理」页，可取消/续传，完成后可一键打开所在文件夹。</li>
+            <li>地址非法、非 http(s)、文件名含非法字符都会给可读提示；文件名留空时按 URL 末段推断，推断不出用 <code>download-&lt;时间戳&gt;.bin</code>。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">设置页：移除旧开关</h3>
+          <ul class="clog-list">
+            <li>删掉「关闭到托盘（旧开关）」整块（现行机制是「关闭窗口时」三选项：询问我 / 隐藏到托盘 / 直接退出）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">链接与致谢新增两项</h3>
+          <ul class="clog-list">
+            <li>新增 <strong>FastMirror</strong>（服务端核心镜像）与 <strong>Prism Launcher</strong>（同类启动器），致谢共 <strong>20 项</strong>。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-6">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b7" aria-expanded="false" aria-controls="cl-p7">
+        <span class="clog-title"><span class="ver-tag">0.4.6</span><span class="clog-sub">侧栏：连接状态与版本号始终可见</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p7" role="region" aria-labelledby="cl-b7">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">侧栏：连接状态与版本号始终可见</h3>
+          <ul class="clog-list">
+            <li>窗口被拉矮时，左侧导航项自己<strong>滚动</strong>（和右侧内容一样），底部的「已连接主进程」与版本号<strong>固定在可见区</strong>，不再被挤出窗口。</li>
+            <li>顺带把导航与底栏的间距收紧了一点，滚动条做成细条，不会压到导航文字。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-5">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b8" aria-expanded="false" aria-controls="cl-p8">
+        <span class="clog-title"><span class="ver-tag">0.4.5</span><span class="clog-sub">CurseForge 不用填 Key 了</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p8" role="region" aria-labelledby="cl-b8">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">CurseForge 不用填 Key 了</h3>
+          <ul class="clog-list">
+            <li>接入社区镜像（MCIM，<code>mod.mcimirror.top</code> 的 CurseForge 兼容接口）：<strong>不填 API Key 也能搜索、看详情、列文件、下载</strong>；填了 Key 仍然走官方接口。</li>
+            <li>实测：无 Key 搜 <code>jei</code> 能出 JEI（6.39 亿下载）、详情正文 2328 字、文件列表带大小与 sha1、走镜像给的直链真下载一个 715 KB 的 jar 并校验 sha1 一致。</li>
+            <li>镜像不可用（5xx/429/超时）时给「社区镜像暂时不可用，请稍后重试」，不再误导你去填 Key。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">新增「娱乐」页（在设置后面）</h3>
+          <ul class="clog-list">
+            <li><strong>每日人品</strong>：点一下抽取今日人品（1–100），<strong>按日期固定</strong>——同一天点多次都是同一个数，第二天自动刷新；100 个数值各有不同反馈。</li>
+            <li><strong>每日一言</strong>：点卡片随机抽一句；默认走内置接口（<code>uapis.cn/api/v1/saying</code>），<strong>可以在设置里换成自己的 API</strong>（自动从 JSON 里取文字字段，取不到就显示原文）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源：整合包直接建新实例</h3>
+          <ul class="clog-list">
+            <li>整合包不再需要选安装目标，点一下就<strong>安装并新建实例</strong>；侧栏「安装目标」在整合包类型下会置灰并说明原因。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">关于页：板块重排 + 致谢新增五个启动器</h3>
+          <ul class="clog-list">
+            <li>顺序调整为：<strong>最新新闻 → 功能简介 → 更新日志 → 核心团队 → 链接与致谢</strong>。</li>
+            <li>链接与致谢新增 <strong>MoLaunch / XMCL / AxlMC / Oaoi / Bakaxl</strong> 五个同类启动器（各用其站点图标），致谢共 <strong>18 项</strong>。</li>
+            <li>去掉 <strong>Steamcommunity 302</strong> 卡片上的「推荐：」前缀。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-4">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b9" aria-expanded="false" aria-controls="cl-p9">
+        <span class="clog-title"><span class="ver-tag">0.4.4</span><span class="clog-sub">皮肤页：正版账号只显示官方面板</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p9" role="region" aria-labelledby="cl-b9">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">皮肤页：正版账号只显示官方面板</h3>
+          <ul class="clog-list">
+            <li>选中微软正版账号后，页面<strong>只保留「微软正版皮肤 + 披风」这一个面板</strong>：顶部的「应用到实例」栏、本地皮肤库（3D 预览 / 已保存 / 内置皮肤）、底部的本地披风库、以及最下面的<strong>推荐素材站栏（LittleSkin / mcstat）全部不显示</strong>。</li>
+            <li>这些都是<strong>整块不渲染</strong>（不是 CSS 隐藏），相关查询也一并停掉；切回离线账号后全部恢复。正版账号下拖入 PNG 不会再偷偷导入到看不见的本地库，只提示「本地皮肤库请切到离线账号使用」。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">披风：去掉「移除披风」按钮</h3>
+          <ul class="clog-list">
+            <li>正版披风面板只保留「刷新披风列表」与「应用」，不再提供「移除披风」（接口仍在，只是不给入口）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源：原版不能装模组/光影、可以挑版本、能回原页面</h3>
+          <ul class="clog-list">
+            <li><strong>原版实例不能装模组与光影</strong>：安装目标弹窗里原版实例项置灰并说明原因；侧栏选中原版实例时，模组/光影的安装按钮也会禁用并给出原因（整合包、资源包、插件不受影响）。</li>
+            <li><strong>装到实例时可以先挑版本</strong>：目标选好后会列出该实例 MC 版本 + 加载器可用的文件（文件名 / 版本 / 更新时间 / 下载量），点哪个装哪个；列表为空或查询失败会退回「自动挑最新」并提示。</li>
+            <li><strong>详情页新增「原始页面」按钮</strong>（在 MCMOD 搜索左边），一键打开该模组在 Modrinth / CurseForge 的原始页面。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-3">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b10" aria-expanded="false" aria-controls="cl-p10">
+        <span class="clog-title"><span class="ver-tag">0.4.3</span><span class="clog-sub">正版皮肤：只能显示，官方优先</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p10" role="region" aria-labelledby="cl-b10">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">正版皮肤：只能显示，官方优先</h3>
+          <ul class="clog-list">
+            <li>皮肤页的「微软正版皮肤」改为<strong>只读</strong>：移除了上传 PNG、用 URL 设置、经典/纤细选择等所有修改入口，只显示<strong>当前正在使用的皮肤</strong>，并给一个「去微软官网修改皮肤/披风」的按钮——打开的是官网的皮肤与披风页面（按界面语言选 zh-hans / en-us / ja-jp）。</li>
+            <li><strong>官方皮肤优先</strong>：用正版账号启动时，启动器<strong>不再注入本地皮肤/披风</strong>，避免 CustomSkinLoader 那套把官方皮肤盖掉（日志会写「正版账号：优先使用官方皮肤，已跳过本地皮肤注入」）。离线账号行为不变，本地皮肤库照旧可用。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">披风：只显示名字</h3>
+          <ul class="clog-list">
+            <li>去掉了披风缩略图（不再加载披风图片），列表里只显示<strong>你拥有的披风名字</strong>，当前使用中的带标记。</li>
+            <li>「刷新披风列表」「应用」「移除披风」都保留，应用按钮改小。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源详情：一键去 MCMOD 搜索</h3>
+          <ul class="clog-list">
+            <li>详情页标题右侧新增「<strong>MCMOD 搜索</strong>」按钮，点了会在 <code>search.mcmod.cn</code> 搜这个模组（<strong>中文名优先</strong>：有中文译名就搜中文，否则搜原名）。</li>
+            <li>窄窗口下按钮只留图标，不挤占标题空间。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">链接与致谢：新增两项</h3>
+          <ul class="clog-list">
+            <li>新增 <strong>MC 百科（MCMOD）</strong> 与 <strong>MCBBS 社区</strong>，各用其官方图标；致谢共 13 项。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-2">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b11" aria-expanded="false" aria-controls="cl-p11">
+        <span class="clog-title"><span class="ver-tag">0.4.2</span><span class="clog-sub">GitHub 加速：节点从 4 个扩到 7 个，Java 下载也走加速</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p11" role="region" aria-labelledby="cl-b11">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">GitHub 加速：节点从 4 个扩到 7 个，Java 下载也走加速</h3>
+          <ul class="clog-list">
+            <li>新增三个节点：<code>git.tangbai.cc</code>、<code>github.chenc.dev</code>、<code>30006000.xyz</code>（原有的 <code>gh.padao.fun</code> 等保留）。</li>
+            <li>实测结论：<strong>其中 3 个节点也能代理 GitHub API</strong>，界面上会标「· API」，检查更新会优先用它们；其余节点只代理文件下载，照样可用。</li>
+            <li><strong>Java 下载也走加速</strong>：Adoptium（GitHub Releases）与 BellSoft 的 GitHub 通道都会按节点候选链依次尝试，校验不过自动换下一条通道，全部失败才落原始 GitHub 地址；清华 TUNA / Oracle 这类非 GitHub 源不受影响。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">关于页：文案、能力卡与「最新新闻」</h3>
+          <ul class="clog-list">
+            <li>「支持 Fabric / Forge / NeoForge」→「<strong>支持五种主流加载器</strong>」（Fabric / Quilt / Forge / NeoForge / LiteLoader）。</li>
+            <li>「BellSoft JDK 自动匹配」→「<strong>JDK 版本自动匹配</strong>」，说明改为多源测速（BellSoft / Adoptium / 清华 TUNA / Zulu / Oracle）。</li>
+            <li>新增三张能力卡：<strong>皮肤系统</strong>、<strong>开服能力</strong>、<strong>账号登录</strong>（能力卡共 16 张）。</li>
+            <li>新增「<strong>最新新闻</strong>」板块：自动抓取 Minecraft 官网最新一篇文章并<strong>译成中文</strong>（标题 + 摘要 + 缩略图 + 阅读全文）；抓不到或翻译失败就整块不显示，不影响页面其它内容。</li>
+            <li>致谢新增 <strong>Minecraft 官网</strong>（官方图标），共 11 项。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">详情页：简介与完整介绍都翻译成中文</h3>
+          <ul class="clog-list">
+            <li>模组详情的<strong>简介</strong>和<strong>完整介绍</strong>现在都会给中文译文，并可在「译文 / 原文」之间切换。</li>
+            <li>正文按段落翻译：代码块、纯链接、表格线等结构性内容跳过；单段失败只影响那一段（其余照常译出），<strong>翻译服务不可用时直接显示原文，不报错、不提示失败</strong>。</li>
+            <li>长文有上限（分段数与总时长），超出部分保留原文；译文有缓存，同一模组再次打开不重复请求。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源：选好目标就直接装</h3>
+          <ul class="clog-list">
+            <li>已经选好安装目标（实例或服务端）时，点卡片上的按钮<strong>直接安装</strong>，不再弹出选择框；没有目标时才弹出「安装到…」。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">微软正版：皮肤上传与披风替换</h3>
+          <ul class="clog-list">
+            <li>皮肤页新增「微软正版皮肤」区块：显示<strong>当前正在使用的皮肤</strong>（经典/纤细），可<strong>上传自己的 PNG</strong> 到微软账号。</li>
+            <li><strong>披风</strong>：显示当前披风，可刷新出账号拥有的披风列表并一键替换（也可移除）。</li>
+            <li>上传前会校验尺寸（Mojang 只接受 64×64 或 64×32）与格式，失败给可读原因（登录过期 / 无权限 / 未拥有等）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">安全：源码里不再内置凭据</h3>
+          <ul class="clog-list">
+            <li>内置的 Microsoft client id 与 DeepL API Key <strong>不再写在源码里</strong>：源码只留占位符，打包时从本地 <code>.ms-client-id</code>（不入库、不进源码快照）注入。</li>
+            <li>别人拿 <code>源代码/</code> 自己编译时，得到的是「没有内置 client id、没有内置 DeepL Key」的版本：正版登录需自己填 Azure 应用 id，翻译走免费接口。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-1">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b12" aria-expanded="false" aria-controls="cl-p12">
+        <span class="clog-title"><span class="ver-tag">0.4.1</span><span class="clog-sub">资源：安装目标改成弹窗选择</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p12" role="region" aria-labelledby="cl-b12">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">资源：安装目标改成弹窗选择</h3>
+          <ul class="clog-list">
+            <li>卡片上的安装按钮不再弹那种细小浮层，而是打开一个「安装到…」弹窗，里面分<strong>实例</strong>与<strong>服务端</strong>两组，点一项即选中。</li>
+            <li><strong>模组</strong>：两组都列（模组服能装、插件服/原版置灰并说明原因）；<strong>插件</strong>：<strong>只列服务端</strong>；整合包/资源包/光影包：只列实例，并说明该类型只能装进实例。</li>
+            <li>选好目标后按钮会显示「安装到「名字」」，避免装错地方。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源：每页 10 个，2 列 × 5 行</h3>
+          <ul class="clog-list">
+            <li>每页从 5 个改成 <strong>10 个</strong>，网格固定 <strong>两列</strong>（窄屏退化成 1 列），翻页控件与页码逻辑不变。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">设置：打开目录移到这里</h3>
+          <ul class="clog-list">
+            <li>「打开启动器目录 / 打开游戏目录」从关于页移到设置页的「本地目录」面板，关于页只保留团队与致谢卡片。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">游戏语言跟随启动器</h3>
+          <ul class="clog-list">
+            <li>切换启动器语言后，启动游戏会按当前语言写 <code>options.txt</code>：中文→<code>zh_cn</code>、English→<code>en_us</code>、日本語→<code>ja_jp</code>。</li>
+            <li>只改 <code>lang:</code> 那一行，其余设置与顺序原样保留（CRLF/LF 也保持），已经是目标语言时不会重复写盘。</li>
+            <li>「强制游戏用中文」开关默认改为<strong>关闭</strong>，打开后无论启动器什么语言，游戏一律简体中文。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">关于页：致谢补充官方图标与麦块</h3>
+          <ul class="clog-list">
+            <li><strong>MCIM / BMCLAPI</strong> 改用其官方图标、<strong>Steamcommunity 302</strong> 改用站点的站点图标。</li>
+            <li>新增致谢卡片 <strong>麦块社区</strong>（中文模组与插件索引）及其官方标志，致谢共 10 项。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-4-0">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b13" aria-expanded="false" aria-controls="cl-p13">
+        <span class="clog-title"><span class="ver-tag">0.4.0</span><span class="clog-sub">修复：资源页点着点着会卡死</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p13" role="region" aria-labelledby="cl-b13">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">修复：资源页点着点着会卡死</h3>
+          <ul class="clog-list">
+            <li>资源页原来是<strong>无限滚动累积</strong>：滚到底就自动追加下一页，列表越堆越长（每张卡还有图标、标签、翻译文本），加上切标签时旧列表与在途请求叠加，最终把界面渲染线程占满——<strong>界面卡死但电脑没事</strong>，只能重启。</li>
+            <li>现在<strong>移除了自动加载更多</strong>（两个 IntersectionObserver 哨兵一并删掉），列表不再无限累积。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源页改为翻页</h3>
+          <ul class="clog-list">
+            <li>每页 <strong>5 个</strong>，底部是「上一页 / 页码 / 下一页」；页码最多显示 5 个，超出用省略号，当前页居中。</li>
+            <li>首页「上一页」禁用、末页「下一页」禁用；切筛选、切标签、改搜索词都会回到第 1 页，并丢弃在途请求的结果。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源详情：图片可以点开放大</h3>
+          <ul class="clog-list">
+            <li>详情里的图集（画廊）现在点一下就能全屏查看大图。</li>
+            <li>支持：<strong>滚轮缩放 1x–4x</strong>、<strong>放大后拖动平移</strong>（鼠标/触屏都可以）、双击复位、← → 或左右按钮切换（首尾循环）、Esc / 点空白 / 右上角关闭。</li>
+            <li>打开时会锁住背景滚动、把焦点移到关闭按钮，关闭后焦点回到被点的那张图；图片加载中显示占位，加载失败给可读提示而不是空白。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源：可以装到服务端了（新增）</h3>
+          <ul class="clog-list">
+            <li>资源页的目标选择器现在同时列出<strong>实例</strong>与<strong>服务端</strong>：
+              <ul>
+                <li><strong>插件</strong> → 装进所选服务端的 <code>plugins</code>（新增「插件」类型：麦块与 Modrinth 可用，CurseForge 置灰）；</li>
+                <li><strong>模组</strong> → 装进所选服务端的 <code>mods</code>（模组服用）。</li>
+              </ul>
+            </li>
+            <li><strong>会识别能不能装</strong>：按服务端核心判断（Paper/Purpur/Folia/Velocity/Waterfall/BungeeCord 是插件服；Fabric/Forge/NeoForge 是模组服；Arclight 是模组+插件混合端；Vanilla 两者都不行），不匹配会置灰并说明原因。</li>
+            <li><strong>会识别模组是否支持服务端</strong>：读 Modrinth 的 <code>server_side</code>——<code>unsupported</code>（客户端专用）会说明装到服务端不生效，<code>unknown</code> 提示作者未标注，<code>required</code> 提示必须装在服务端。</li>
+            <li><strong>会识别插件平台</strong>：把 Velocity 专用的文件装到 Paper 服时会给出提示。</li>
+            <li>安装进度照常进「管理」页；重名加 <code>(1)</code>，同一文件重复安装直接复用不重复下载。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源：来源与类型调整</h3>
+          <ul class="clog-list">
+            <li><strong>麦块社区去掉「地图」下载入口</strong>、<strong>Modrinth 去掉「数据包」入口</strong>（后端本就没有可用接口，留着只会误导）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">联机：联机模组可以自己选</h3>
+          <ul class="clog-list">
+            <li>联机提示里新增<strong>下拉选择</strong>：默认是推荐项，也可以换成其它（OfflineLAN / LAN World Plug-n-Play / LAN Properties / LAN Server Properties），旁边就是「<strong>立即安装</strong>」。</li>
+            <li>选了<strong>不适配当前版本或加载器</strong>的模组会明确提示「装了也不会生效」，但仍允许安装；已经装着时按钮变成「已安装」。</li>
+            <li>选择<strong>按实例记住</strong>，下次打开沿用；若换了加载器导致旧选择失效，会自动回落到推荐项。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">关于页：「链接与致谢」改成卡片板块</h3>
+          <ul class="clog-list">
+            <li>核心团队回到 <strong>3 人</strong>（奶龙 / 小七 / DeepSeek），<strong>樱花穿透与陶瓦联机移到「链接与致谢」</strong>。</li>
+            <li>致谢区改成和核心团队一样的卡片网格（1280 宽 5 列，窄屏自动 3 / 2 列），每张卡可点、可键盘聚焦。</li>
+            <li>各用对应图标：<strong>项目主页与问题反馈用 GitHub 标志</strong>、<strong>QQ 群用 QQ 企鹅</strong>、<strong>Modrinth / CurseForge 用各自官方标志</strong>、樱花穿透用其官方头像、陶瓦联机用 GitHub 标志（标注 AGPL-3.0-or-later）。</li>
+            <li>「打开启动器目录 / 打开游戏目录」保留为动作按钮，不混进跳转卡片。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-9">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b14" aria-expanded="false" aria-controls="cl-p14">
+        <span class="clog-title"><span class="ver-tag">0.3.9</span><span class="clog-sub">下载提示：开始下载也会提示，而且能直接跳去「管理」页</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p14" role="region" aria-labelledby="cl-b14">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">下载提示：开始下载也会提示，而且能直接跳去「管理」页</h3>
+          <ul class="clog-list">
+            <li>点了下载就会在右上角浮出提示（以前只有完成/失败才提示），提示里带<strong>「查看」按钮</strong>，一键跳到「管理」页看进度。</li>
+            <li><strong>同一批只提示一条</strong>：装整合包会一次创建几十个任务，500ms 内的会合并成「开始下载 N 个文件」，不会刷屏。</li>
+            <li>完成与失败同样合并（「N 个文件下载完成 / 下载失败」），并且<strong>失败优先显示</strong>，不会被后来的提示顶掉。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">一次同时下载几个文件，默认改为 8</h3>
+          <ul class="clog-list">
+            <li>设置里的「多线程下载（文件并发数）」默认值由 12 改为 <strong>8</strong>（范围仍是 1–32，可自行调整）。</li>
+            <li>提示文案补了一句：设得太大可能被下载站限速。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">陶瓦分享专用服务器：端口没监听会先提醒你</h3>
+          <ul class="clog-list">
+            <li>选「分享专用服务器」时，点创建房间前会先检查本机那个端口：
+              <ul>
+                <li>端口在监听 → 直接建房，不打扰；</li>
+                <li>端口没监听 → <strong>弹一次确认</strong>（服务器可能还没启动，继续的话房客连不上），确认后照常建房；取消就停在原地；</li>
+                <li>检查本身失败 → 不阻止建房，只在提示里说明。</li>
+              </ul>
+            </li>
+            <li>端口输入旁边有状态徽标（未检查 / 正在监听 / 没有监听 / 无法检查）和「重新检查」按钮。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">关于页补上新功能简介</h3>
+          <ul class="clog-list">
+            <li>能力卡片从 6 张扩到 13 张，新增长期以来的功能说明：<strong>三种联机方式、个性化背景、Java 多源下载、GitHub 加速下载、启动失败诊断、三语界面、更新方式可选</strong>。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-8">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b15" aria-expanded="false" aria-controls="cl-p15">
+        <span class="clog-title"><span class="ver-tag">0.3.8</span><span class="clog-sub">联机模组：加入 LAN World Plug-n-Play，支持换装</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p15" role="region" aria-labelledby="cl-b15">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">联机模组：加入 LAN World Plug-n-Play，支持换装</h3>
+          <ul class="clog-list">
+            <li>推荐链新增 <strong>LAN World Plug-n-Play (mcwifipnp)</strong>（支持 Fabric / Forge / NeoForge / Quilt，739 万下载），用来补足其它模组没有覆盖的版本与加载器：
+              <ul>
+                <li><strong>Fabric / Quilt</strong>：OfflineLAN → <strong>LAN World Plug-n-Play</strong> → LAN Properties → LAN Server Properties</li>
+                <li><strong>Forge / NeoForge / Legacy Fabric</strong>：<strong>LAN World Plug-n-Play</strong> → LAN Properties → LAN Server Properties</li>
+                <li>原版：仍然只能正版联机</li>
+              </ul>
+            </li>
+            <li><strong>已装的是别的联机模组时可以直接卸载换装</strong>：状态行会写「已安装 OfflineLAN v2.0.0，但推荐 LAN World Plug-n-Play」，并给「卸载 OfflineLAN」按钮；卸载后立刻变成「一键安装 推荐项」。</li>
+            <li>同时装了多个联机模组时全部列出（最多 4 条）并提示<strong>互相冲突</strong>（重复开端口、服务端可能起不来），建议只保留一个。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">陶瓦联机：支持专用服务器</h3>
+          <ul class="clog-list">
+            <li>创建房间时可以选「<strong>分享游戏里的局域网世界</strong>」（原方式）或「<strong>分享专用服务器</strong>」（新）。</li>
+            <li>专用服务器模式：填服务器端口（默认 25565），启动器会代替服务器发起局域网广播，让陶瓦认领并把该端口分享出去；房主不需要开着游戏客户端。服务器要<strong>先启动</strong>，且只有本机分享有意义。</li>
+            <li>分享成功后照旧显示邀请码，另外标明「已分享 127.0.0.1:&lt;端口&gt;」；停止时会一并关掉广播并清理陶瓦进程。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">更新方式：手动 / 自动 规则变更</h3>
+          <ul class="clog-list">
+            <li>现在两种方式都会在<strong>启动后自动检测</strong>新版本（延迟几秒，不阻塞启动）：
+              <ul>
+                <li><strong>手动（默认）</strong>：检测到新版本会提示你，<strong>你自己点「立即更新」</strong>才会下载安装。</li>
+                <li><strong>自动</strong>：检测到新版本会<strong>自动下载并安装</strong>，装好自动重启；如果此时游戏正在运行，会等游戏结束再装，不会把你踢下线。</li>
+              </ul>
+            </li>
+            <li>顺带把原来渲染层与主进程各查一次（两次请求、两行日志）合并成<strong>主进程查一次，结果推给界面</strong>。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-7">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b16" aria-expanded="false" aria-controls="cl-p16">
+        <span class="clog-title"><span class="ver-tag">0.3.7</span><span class="clog-sub">联机模组按加载器推荐（三种联机方式都生效）</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p16" role="region" aria-labelledby="cl-b16">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">联机模组按加载器推荐（三种联机方式都生效）</h3>
+          <ul class="clog-list">
+            <li>提示卡会按<strong>所选实例的加载器</strong>推荐对应的联机模组：
+              <ul>
+                <li><strong>Fabric / Quilt → OfflineLAN</strong>（离线局域网：跳过正版验证）</li>
+                <li><strong>Forge / NeoForge / Legacy Fabric → LAN Properties</strong>；若该版本+加载器下没有可用文件，自动回退 <strong>LAN Server Properties</strong></li>
+                <li><strong>原版 → 只能正版联机</strong>（原版服务端验正版，离线账号进不来）</li>
+              </ul>
+            </li>
+            <li>实例改为<strong>手动选择</strong>（提示卡里一个下拉，默认当前实例），判定与一键安装都按所选实例走。</li>
+            <li><strong>始终显示是否已安装</strong>：未选择实例 / 未安装 / 已安装（带版本号）/ 已安装但版本不匹配；一键安装成功后该行立即刷新成「已安装」。</li>
+            <li>房客侧文案仍是「让房主安装/确认」，不会误导成自己装就行。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">修复：检查更新误报「该版本未提供更新包」</h3>
+          <ul class="clog-list">
+            <li>原因：四个加速节点里<strong>只有 <code>github.cnxiaobai.com</code> 能代理 <code>api.github.com</code></strong>（其余三个返回 403 错误页），而旧逻辑按测速只取前两个节点去代理 API。当可用的那个被挤出前二时，就退到 jsDelivr（只返回版本号），于是界面显示「未提供更新包」——实际包是存在的。</li>
+            <li>修法一：<strong>四个节点全部尝试</strong>，并记住「哪些节点能代理 API」（本次运行内优先复用）。</li>
+            <li>修法二：资产清单缺失时改用<strong>固定名直链</strong>兜底：<code>releases/latest/download/NaiWaLauncher-Setup.exe</code> 与 <code>…/NaiWaLauncher.exe</code>（实测经加速节点 200，92.9 MB），所以仍然能一键更新。</li>
+            <li>修法三：关于页区分三种状态——<strong>有更新且有清单</strong> / <strong>有更新但清单未知（走镜像通道）</strong> / <strong>确实没有包</strong>，不再把中间那种说成「未提供」。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-6">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b17" aria-expanded="false" aria-controls="cl-p17">
+        <span class="clog-title"><span class="ver-tag">0.3.6</span><span class="clog-sub">联机：三种方式都会提醒 OfflineLAN</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p17" role="region" aria-labelledby="cl-b17">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">联机：三种方式都会提醒 OfflineLAN</h3>
+          <ul class="clog-list">
+            <li>局域网 / 樱花穿透 / 陶瓦联机三个页面顶部统一提示：<strong>离线玩家要进别人的房间，服主必须装 OfflineLAN</strong>（跳过正版验证），并提供「一键安装」。</li>
+            <li><strong>原版实例会被明确告知只能正版联机</strong>：原版服务端会验证正版，离线账号进不来；要做离线联机得先换成 Fabric / Forge / NeoForge 实例再装 OfflineLAN。</li>
+            <li>会<strong>识别实例版本与加载器</strong>：OfflineLAN 只有 Fabric 版，Forge/NeoForge 实例会直接说「这个模组不支持当前加载器」，不会给你一个必然失败的安装按钮；已装但版本对不上也会提示。</li>
+            <li>房主/房客文案分开：房客侧是「让房主安装」，不会误导成自己装就行。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">关于页：核心团队改版</h3>
+          <ul class="clog-list">
+            <li>团队区改成网格布局，每行 5–6 个卡片（窄屏自动降到 3 / 2 列），卡片可点击、可键盘聚焦。</li>
+            <li>新增两项：<strong>樱花穿透（Sakura Frp）</strong> → natfrp.com、<strong>陶瓦联机（Terracotta）</strong> → 项目主页（标注 AGPL-3.0-or-later）。</li>
+            <li><strong>奶龙、小七的卡片默认跳转源码仓库</strong>；DeepSeek 跳官网。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">Java</h3>
+          <ul class="clog-list">
+            <li><strong>已安装的 Java 可以卸载</strong>：只允许删除启动器自己装的（在 <code>NaiWa/java/</code> 下），路径不在该目录时会拒绝；被游戏占用时给出可读提示；卸载前会告诉你有多少个实例指定了它。</li>
+            <li><strong>不是启动器安装的 JDK</strong>（系统安装的）不提供卸载，改为「打开目录」按钮，方便你自己去该用系统卸载。</li>
+            <li><strong>移除 Dragonwell 下载源</strong>（按需求），已经装过的 Dragonwell 仍能正确识别来源并正常使用。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">更新与提示</h3>
+          <ul class="clog-list">
+            <li>设置里新增「更新方式」：<strong>手动（默认）</strong> / 自动。自动 = 打开程序后延迟几秒检查新版本（不阻塞启动、不弹阻塞对话框）。</li>
+            <li>下载任务<strong>完成或失败时在右上角浮出提示</strong>，淡入后停留约 3.5 秒自动淡出；同一时间最多一条，不叠加、不挡操作。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-5">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b18" aria-expanded="false" aria-controls="cl-p18">
+        <span class="clog-title"><span class="ver-tag">0.3.5</span><span class="clog-sub">启动失败现在会自己说清原因</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p18" role="region" aria-labelledby="cl-b18">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">启动失败现在会自己说清原因</h3>
+          <ul class="clog-list">
+            <li>游戏异常退出后，启动器会读这次启动日志的尾部并<strong>自动诊断</strong>，把结论写进日志（<code># 诊断：</code> / <code># 建议：</code>），同时弹窗告诉你。</li>
+            <li>能识别六类原因：<strong>显卡驱动崩溃</strong>（帧里出现 <code>atio6axx.dll</code> / <code>nvoglv64.dll</code> / <code>ig*icd64.dll</code> 之类）、<strong>Java 不信任证书</strong>（<code>PKIX path building failed</code>，常见于 Steamcommunity302 这类 HTTPS 代理）、<strong>Java 版本不对</strong>（<code>UnsupportedClassVersionError</code>）、<strong>内存不足</strong>、<strong>JVM 参数导致起不来</strong>、<strong>模组冲突/缺前置</strong>。</li>
+            <li>日志按 UTF-8 / GBK 双解码，中文日志不会因为编码变成乱码而漏判。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">弹窗里能直接看到是哪个模组</h3>
+          <ul class="clog-list">
+            <li>弹窗内容：诊断结论 + 2–3 条可操作建议 + <strong>「可能相关的模组」列表</strong>（去重，最多 8 个）。</li>
+            <li>模组抽取覆盖真实报错形态：Fabric 的 <code>Mod resolution failed</code> / <code>Missing or unsupported mandatory dependencies</code> / <code>Incompatible mods found</code> / <code>Mod 'xxx' requires …</code>，Forge/NeoForge 的 <code>Mod file … is missing</code> / <code>Failed to load mod</code> / <code>Duplicate mods found</code> / <code>Mod ID:</code>，以及从 <code>NoSuchMethodError</code> 的包名反推模组；重复安装的两个 jar 会分别列出。</li>
+            <li>弹窗按钮：<strong>打开日志</strong> / <strong>打开实例目录</strong> / <strong>导出诊断包</strong> / 关闭；多个实例同时失败按实例排队逐个弹，不会叠窗。</li>
+            <li><strong>导出诊断包</strong>：默认文件名 <code>&lt;实例名&gt;-诊断-&lt;时间&gt;.zip</code>，内含本次启动日志、<code>hs_err_pid*.log</code>、最新 crash-report、最近一份启动器日志，以及 <code>diagnosis.txt</code>（启动器版本、实例与加载器、使用的 Java 路径与版本、退出码、诊断结论与建议、相关模组、导出时间），方便直接发给别人排查。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">Java 信任 Windows 证书库（解决代理导致的 TLS 失败）</h3>
+          <ul class="clog-list">
+            <li>启动设置新增开关「信任 Windows 证书库」：开启后给游戏 JVM 追加 <code>-Djavax.net.ssl.trustStoreType=WINDOWS-ROOT</code>，让 Java 读系统根证书。</li>
+            <li>适用场景：装了 Steamcommunity302 之类的 HTTPS 中间人代理、日志里出现 <code>PKIX path building failed</code>，导致正版验证 / 皮肤 / 下载全失败时。默认关闭。</li>
+            <li>不会覆盖你已有的证书设置：如果实例或模板里已经写了 <code>-Djavax.net.ssl.trustStore</code> / <code>trustStoreType</code>，启动器不会追加并在日志说明原因。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">修复：启动参数里的假版本号</h3>
+          <ul class="clog-list">
+            <li>以前 <code>-Dminecraft.launcher.version</code> 恒为 <code>0.1.5</code>（硬编码），现在跟随实际版本（打包后取应用版本，开发态读 <code>package.json</code>）。实例导出里同样的兜底常量也一并修正。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-4">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b19" aria-expanded="false" aria-controls="cl-p19">
+        <span class="clog-title"><span class="ver-tag">0.3.4</span><span class="clog-sub">联机新增第三种方式：陶瓦联机（Terracotta）</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p19" role="region" aria-labelledby="cl-b19">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">联机新增第三种方式：陶瓦联机（Terracotta）</h3>
+          <ul class="clog-list">
+            <li>联机页现在是三种方式并存：<strong>局域网直连</strong> / <strong>樱花穿透（natfrp）</strong> / <strong>陶瓦联机</strong>（前两种原样保留）。</li>
+            <li>陶瓦联机 = P2P + 邀请码：房主在游戏里「对局域网开放」，其他人用邀请码加入，不需要公网 IP 或端口映射，适合临时开黑。</li>
+            <li>首次使用按需下载官方程序（约 9.4MB，GitHub 优先、Gitee 镜像兜底，sha256 校验），放在 <code>NaiWa/tools/terracotta</code>；启动器只通过它的本地 HTTP API 交互，端口不暴露给界面。</li>
+            <li>支持：创建房间 / 加入房间（自动补 <code>U/</code> 与前缀短横线）/ 邀请码卡片一键复制 / 成员列表（房主·本机·房客）/ 含难度与异常原因的状态条 / 异常后一键返回 / 停止（干净收尾，无残留进程）/ 查看日志。</li>
+            <li>如果你自己已经开着陶瓦，启动器会识别并复用它的端口，界面提示「已复用正在运行的陶瓦」；「断开复用」只断开连接、不会结束你的实例。</li>
+            <li>依据其 AGPL 例外条款，界面常驻版权标注：联机能力由 Terracotta | 陶瓦联机 提供 · © burningtnt 及贡献者 · AGPL-3.0-or-later。技术细节见 <code>docs/TERRACOTTA-FEASIBILITY.md</code>。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">GitHub 加速下载</h3>
+          <ul class="clog-list">
+            <li>「其它」页顶部新增 GitHub 加速下载：粘贴 GitHub 地址即可，四个节点可选 —— <code>ghf.无名氏.top</code> / <code>gh.padao.fun</code> / <code>ghfast.top</code> / <code>github.cnxiaobai.com</code>。</li>
+            <li>默认<strong>自动测速挑最快</strong>（界面显示各节点实测延迟，可重新测速），也可手动锁定某个节点。</li>
+            <li>文件默认存到 <strong><code>&lt;启动器根目录&gt;\DL</code></strong>，可自定义目录；重名自动加 <code>(1)</code>。</li>
+            <li>下载任务进入「管理」页的任务列表：显示进度、速度、已下载/总大小，可取消、<strong>可继续（真断点续传）</strong>，类型标签显示「下载文件」。</li>
+            <li><strong>软件自动更新</strong>也改成优先走这四个节点（原来硬编码的两个镜像已移除），原始 GitHub 地址作为兜底。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">Java 新增三个下载源</h3>
+          <ul class="clog-list">
+            <li>现在共六个源 + 自动测速：BellSoft Liberica / Adoptium (Temurin) / 清华 TUNA / <strong>Azul Zulu</strong> / <strong>Oracle JDK</strong> / <strong>Alibaba Dragonwell</strong>。</li>
+            <li>Oracle JDK 来自第三方镜像，<strong>不参与自动测速、只在手动选择时出现</strong>，界面标注其官方许可提示；自动模式实测会优先选 Dragonwell（阿里云 CDN 延迟最低，OpenJDK 兼容发行版）。</li>
+            <li>来源识别同步扩展：<code>zulu-</code> / <code>oracle-</code> / <code>dragonwell-</code> 目录前缀与 JDK <code>release</code> 文件的 IMPLEMENTOR（Azul / Oracle / Alibaba）都能认出来。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">其它</h3>
+          <ul class="clog-list">
+            <li>个性化背景里的 Steam 壁纸引擎<strong>不再列出 <code>web</code> 与 <code>scene</code> 类型</strong>：它们需要壁纸引擎自己的渲染器，列出来只会显示一张预览图，容易让人以为启动失败。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-3">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b20" aria-expanded="false" aria-controls="cl-p20">
+        <span class="clog-title"><span class="ver-tag">0.3.3</span><span class="clog-sub">下载：只有「管理」页显示</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p20" role="region" aria-labelledby="cl-b20">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">下载：只有「管理」页显示</h3>
+          <ul class="clog-list">
+            <li>移除右下角的下载任务悬浮面板（连同它的样式），下载进度统一在「管理」页查看，界面不再被悬浮卡遮挡。</li>
+            <li>管理页补齐信息：<strong>实时速度</strong>、<strong>已下载 / 总大小</strong>、失败原因（不用点进详情就能看到），以及继续 / 终止 / 移除 / 清空已完成。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">修复：关闭软件后重新下载不再从头开始</h3>
+          <ul class="clog-list">
+            <li>根因有三个，都修了：</li>
+          </ul>
+          <p>1. 带哈希校验的下载在「sha1 对不上」时会把半成品和续传记录一起删掉——而半成品本来就不可能对上完整文件的 sha1，于是每次重启都从 0 开始。现在只要存在续传记录就不当作坏文件，交给续传继续。</p>
+          <p>2. 续传记录是直接写文件，进程在写盘途中被结束时留下半截 JSON、下次读不出来；而且 1 秒才落一次盘（快网络 1 秒几十 MB）。现在改成原子写（临时文件 + 改名），并按「每 250ms 或每 2MB」落一次。</p>
+          <p>3. 点「继续」时进度会被重置成 0，看起来像从头下。现在不清零，重启后显示真实进度。</p>
+          <ul class="clog-list">
+            <li>实测（两阶段，阶段 1 在约 30% 时直接结束进程）：
+              <ul>
+                <li>本地 64MB 夹具：第二阶段只需再传 <strong>78.0%</strong> 的字节，最终大小与 sha1 均正确；</li>
+                <li>真实 CDN（清华 TUNA 的 JDK 21 包，195MB）：第二阶段只需再传 <strong>71.0%</strong>，最终大小一致。</li>
+              </ul>
+            </li>
+            <li>任务的已下载字节 / 总大小 / 速度会随记录持久化，重启后在「管理」页就能看到上次的进度。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">模组可以同时安装多个</h3>
+          <ul class="clog-list">
+            <li>安装不再「装一个就把其它按钮禁用」：可以对任意多个模组 / 光影 / 资源包点安装，它们进入队列。</li>
+            <li><strong>真正同时下载的数量由设置里的「同时下载数」决定</strong>（默认 12，范围 1–32），超出部分排队等待；运行中改设置，队列会按新值放行。</li>
+            <li>每条任务有自己的状态与进度（排队中 / 下载中 / 完成 / 失败可重试），互不影响；取消只会中断自己那条。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-2">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b21" aria-expanded="false" aria-controls="cl-p21">
+        <span class="clog-title"><span class="ver-tag">0.3.2</span><span class="clog-sub">三语界面（简体中文 / English / 日本語）</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p21" role="region" aria-labelledby="cl-b21">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">三语界面（简体中文 / English / 日本語）</h3>
+          <ul class="clog-list">
+            <li>设置页新增「界面语言」，三种语言可选、切换<strong>立即生效</strong>（不需要重启），选择会写进设置。</li>
+            <li>翻译覆盖：侧边栏、标题栏、设置页、关于页，以及实例 / 资源 / 皮肤 / 账号 / Java / 游戏 / 下载 / 联机 / 开服 / 启动选项 / 个性化 等全部页面的标题、按钮、字段说明、空态、提示与弹窗。</li>
+            <li><strong>主进程的报错与任务文案也三语化</strong>（576 处 / 52 个文件，501 条词条）：登录失败、启动失败、实例导入导出、Java 下载、皮肤披风、联机隧道、服务端控制台行、托盘菜单、下载源名称等，都会跟随界面语言。</li>
+            <li>数字与时间格式也跟随语言（<code>3 小时前 / 3 h ago / 3 時間前</code>、<code>1.2 万 / 1.2K / 1.2万</code>、<code>不可用 / Unavailable / 利用不可</code>）。</li>
+            <li>专有名词保持英文（Modrinth、CurseForge、Fabric、Forge、NeoForge、Wallpaper Engine、Steam、FastMirror、BellSoft、Adoptium、TUNA、CustomSkinLoader、authlib-injector 等）；日志与代码注释保持中文。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">修复：背景播放方式没有真正按来源独立</h3>
+          <ul class="clog-list">
+            <li><strong>壁纸引擎</strong>：顺序/随机轮播的候选池之前被写死成 <code>NaiWa/backgrounds</code> 里的本地文件，所以选「顺序/随机」时换来换去都是本地图片。现在按当前来源取池子——壁纸来源用壁纸列表（视频或静态图的路径）。</li>
+            <li><strong>API 随机图</strong>：播放方式与间隔改用 <code>apiBackgroundMode / apiBackgroundIntervalSec</code>，不再受本地来源那套设置影响。</li>
+            <li>三个来源各自的播放方式、轮播间隔、开关互不干扰。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">新增：每次启动随机一张</h3>
+          <ul class="clog-list">
+            <li>三个来源各有一个「每次启动随机一张」开关（默认关）：开启后<strong>每次启动程序</strong>从该来源的池子里随机取一张作初始背景；与播放方式互不影响（单张就在这张上保持不变，顺序/随机就在它的基础上继续轮播）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">顺带修掉的隐患（做三语时才暴露出来）</h3>
+          <ul class="clog-list">
+            <li><code>java/adoptium.ts</code> 原来靠 <code>message.includes(&quot;TUNA 镜像里还没有&quot;)</code> 判断「镜像未同步 → 换源」，文案一旦跟着语言变，这个判断在英/日界面下就永远不成立，会把「镜像未同步」静默降级成下载失败。已改为与语言无关的标志位。</li>
+            <li>多处<strong>模块级中文常量</strong>（微软登录的 AADSTS/XSTS 提示表、皮肤错误码、Yggdrasil 错误码表、下载源名称与描述、取消消息等）会在启动瞬间把语言「定格」成中文，切语言也不变。全部改为函数或键表，在调用时按当前语言求值。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-1">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b22" aria-expanded="false" aria-controls="cl-p22">
+        <span class="clog-title"><span class="ver-tag">0.3.1</span><span class="clog-sub">三语界面（简体中文 / English / 日本語）</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p22" role="region" aria-labelledby="cl-b22">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">三语界面（简体中文 / English / 日本語）</h3>
+          <ul class="clog-list">
+            <li>设置页新增「界面语言」，三种语言可选、切换<strong>立即生效</strong>（不需要重启），选择会写进设置。</li>
+            <li>已翻译：侧边栏、标题栏、设置页、关于页，以及实例 / 资源 / 开服 / 皮肤 / 账号 / Java / 游戏 / 管理等页面的标题、主要按钮、空态与常见提示。</li>
+            <li>专有名词保持英文（Modrinth、CurseForge、Fabric、Forge、NeoForge、Wallpaper Engine、Steam、FastMirror、BellSoft、Adoptium、TUNA、CustomSkinLoader、authlib-injector 等）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">修复：背景播放方式没有真正按来源独立</h3>
+          <ul class="clog-list">
+            <li><strong>壁纸引擎</strong>：顺序/随机轮播的候选池之前被写死成 <code>NaiWa/backgrounds</code> 里的本地文件，所以选「顺序/随机」时换来换去都是本地图片。现在按当前来源取池子——壁纸来源用壁纸列表（视频或静态图的路径）。</li>
+            <li><strong>API 随机图</strong>：播放方式与间隔改用 <code>apiBackgroundMode / apiBackgroundIntervalSec</code>，不再受本地来源那套设置影响。</li>
+            <li>三个来源各自的播放方式、轮播间隔、开关互不干扰。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">新增：每次启动随机一张</h3>
+          <ul class="clog-list">
+            <li>三个来源各有一个「每次启动随机一张」开关（默认关）：开启后<strong>每次启动程序</strong>从该来源的池子里随机取一张作初始背景；与播放方式互不影响（单张就在这张上保持不变，顺序/随机就在它的基础上继续轮播）。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-1-2">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b23" aria-expanded="false" aria-controls="cl-p23">
+        <span class="clog-title"><span class="ver-tag">0.3.1</span><span class="clog-sub">背景：总开关 + 三个来源各自开关 + 各自播放方式</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p23" role="region" aria-labelledby="cl-b23">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">背景：总开关 + 三个来源各自开关 + 各自播放方式</h3>
+          <ul class="clog-list">
+            <li>背景面板新增<strong>总开关</strong>「启用背景」：关掉后任何来源都不渲染（背景层直接为空），API 随机图也<strong>一次请求都不发</strong>；下面的配置仍可操作（整体压暗，方便先配好再打开）。</li>
+            <li><strong>本地背景图 / API 随机图 / Steam 壁纸引擎</strong>各自新增「启用此来源」开关：关掉的那个只在分段标签上标「已关闭」，仍可进去配置，但不参与渲染。</li>
+            <li><strong>播放方式与轮播间隔按来源拆开</strong>：三个来源各存一套（<code>backgroundMode/backgroundIntervalSec</code>、<code>apiBackgroundMode/apiBackgroundIntervalSec</code>、<code>wallpaperBackgroundMode/wallpaperBackgroundIntervalSec</code>），切到哪个来源就显示/修改哪一组。</li>
+            <li>升级兼容：新增的两个来源默认继承「本地」原有的播放方式与间隔，老配置观感不变。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-3-0">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b24" aria-expanded="false" aria-controls="cl-p24">
+        <span class="clog-title"><span class="ver-tag">0.3.0</span><span class="clog-sub">背景支持三种来源</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p24" role="region" aria-labelledby="cl-b24">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">背景支持三种来源</h3>
+          <ul class="clog-list">
+            <li>个性化页背景顶部可在<strong>本地背景图 / API 随机图 / Steam 壁纸引擎</strong>之间切换，各自独立配置。</li>
+            <li><strong>API 随机图默认关闭</strong>：<code>backgroundApiUrl</code> 默认空串，没填就一次请求都不发（不会去试任何示例站点）；填了地址才工作，「立即换一张」按需换图。地址既可直接返回图片，也可返回含图片地址的 JSON（如 Bing 风格 <code>images[0].url</code>）。拉到的图会下载到 <code>NaiWa/cache/backgrounds</code> 并按内容哈希命名，只保留最近 8 张。</li>
+            <li><strong>壁纸引擎</strong>除了视频壁纸，现在也支持<strong>静态图壁纸</strong>（<code>project.json</code> 里 <code>type=image/gif</code> 或带预览图的项目），点一下就设为静态背景。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">修复：Steam 壁纸引擎的视频设为背景后不渲染</h3>
+          <ul class="clog-list">
+            <li>原因：壁纸的视频是<strong>盘符绝对路径</strong>（<code>F:\SteamLibrary\steamapps\workshop\content\431960\…mp4</code>），而拼接背景 URL 的函数只认 <code>data:/file:/http:/blob:</code> 前缀，于是把它当成「背景目录下的文件名」，拼出了 <code>…\NaiWa\backgrounds\F:\…</code> 这种非法地址，视频根本加载不到。</li>
+            <li>修复：<code>mediaUrl()</code> 现在识别盘符路径（<code>X:\…</code>）与 UNC 路径（<code>\\server\share</code>），直接转成 <code>file:///X:/…</code>；普通文件名仍然按背景目录拼接。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">主题预设改名</h3>
+          <ul class="clog-list">
+            <li>两套带「彩」字容易误解的预设改成普通单色名：<strong>滑稽彩 → 薄荷青</strong>（#6FCF97）、<strong>欧皇彩 → 琥珀金</strong>（#FFC53D）。颜色本来就是单色，id 保持不变，老配置照常生效。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-9">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b25" aria-expanded="false" aria-controls="cl-p25">
+        <span class="clog-title"><span class="ver-tag">0.2.9</span><span class="clog-sub">修复：Steam 壁纸引擎的视频设为背景后不渲染</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p25" role="region" aria-labelledby="cl-b25">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">修复：Steam 壁纸引擎的视频设为背景后不渲染</h3>
+          <ul class="clog-list">
+            <li>原因：壁纸的视频是<strong>盘符绝对路径</strong>（<code>F:\SteamLibrary\steamapps\workshop\content\431960\…mp4</code>），而拼接背景 URL 的函数只认 <code>data:/file:/http:/blob:</code> 前缀，于是把它当成「背景目录下的文件名」，拼出了 <code>…\NaiWa\backgrounds\F:\…</code> 这种非法地址，视频根本加载不到。</li>
+            <li>修复：<code>mediaUrl()</code> 现在识别盘符路径（<code>X:\…</code>）与 UNC 路径（<code>\\server\share</code>），直接转成 <code>file:///X:/…</code>；普通文件名仍然按背景目录拼接。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-9-2">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b26" aria-expanded="false" aria-controls="cl-p26">
+        <span class="clog-title"><span class="ver-tag">0.2.9</span><span class="clog-sub">背景：可选「不使用」+ 视频可调节音量</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p26" role="region" aria-labelledby="cl-b26">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">背景：可选「不使用」+ 视频可调节音量</h3>
+          <ul class="clog-list">
+            <li>个性化页的背景选择新增「不使用背景」选项，选中后完全不渲染背景层。</li>
+            <li>视频背景现在可以调音量（0–100%，滑杆只在视频背景时出现）：0 即静音，默认保持静音；图片背景不受影响。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">首次关闭询问</h3>
+          <ul class="clog-list">
+            <li>第一次点关闭按钮时询问「最小化到托盘 / 直接退出 / 取消」，带「记住我的选择」勾选框；记住后写进设置，以后不再询问。</li>
+            <li>设置页可随时改这三档行为。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">识别本地 Wallpaper Engine 动态壁纸</h3>
+          <ul class="clog-list">
+            <li>自动探测 Steam 库，读取 <code>&lt;Steam 库&gt;\steamapps\workshop\content\431960</code>（431960 是 Wallpaper Engine 的 AppID）下的创意工坊壁纸。</li>
+            <li>个性化页新增「Steam 壁纸引擎」区块：网格展示预览图与标题，点一下即把该壁纸的视频设为背景（绝对路径），当前使用中的高亮显示。</li>
+            <li>只识别视频类壁纸；自动探测不到时可在设置里手动指定目录。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-8">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b27" aria-expanded="false" aria-controls="cl-p27">
+        <span class="clog-title"><span class="ver-tag">0.2.8</span><span class="clog-sub">托盘图标</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p27" role="region" aria-labelledby="cl-b27">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">托盘图标</h3>
+          <ul class="clog-list">
+            <li>托盘图标改为<strong>始终显示</strong>，不再跟「关闭到托盘」开关联动：随时点右下角图标都能把界面叫回来；那个开关现在只决定「点关闭是隐藏还是退出」。</li>
+            <li>修复<strong>重新安装到新路径后右下角看不到图标</strong>：新增固定的应用标识（AppUserModelId）。此前布局从根目录改到 <code>main\</code>，Windows 按 exe 路径把启动器当成全新应用，默认把图标收进通知区域溢出区。</li>
+            <li>万一托盘创建失败，点关闭<strong>不再隐藏窗口</strong>（改为最小化并记日志），避免出现「界面没了、托盘也没有」的状态。</li>
+            <li>托盘图标显式按 16×16 渲染，个别 DPI 缩放下更清晰。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">安装器</h3>
+          <ul class="clog-list">
+            <li>升级安装时<strong>先结束正在运行的旧版进程再清理旧布局文件</strong>：此前旧 exe 被占用删不掉，根目录会残留一个没有 resources、双击跑不起来的空壳。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">视频背景不显示 / 不铺满</h3>
+          <ul class="clog-list">
+            <li>真正原因是<strong>背景层的淡入淡出状态会永久卡住</strong>：换背景时先加 <code>.is-fading</code> 把整层透明度打到 0，等换完再由定时器拉回；一旦这个定时器被别的原因清掉（列表刷新、渲染被打断），<code>.app-bg</code> 就永远停在 <code>opacity: 0</code> —— 视频其实在正常解码播放，但整层透明，所以「什么都看不到」。</li>
+            <li>修复：淡出改由 ref 判断目标是否已生效（不再把文件名放进依赖、避免重复重入），并加<strong>看门狗</strong>——进入淡出后最多 3 倍淡出时长一定强制拉回可见；文件名比较改按 NFC 归一化，避免同一个韩文/带音标文件名因编码形式不同被判成「还没换过来」。</li>
+            <li>视频层同时改成<strong>固定定位 + 视口尺寸</strong>（<code>position: fixed</code> + <code>100vw/100vh</code> + <code>object-fit: cover</code>），不再依赖父容器高度；背景容器裁掉溢出，避免挤出滚动条。</li>
+            <li>实测验证：用 3840×2160 的真实 mp4 在 0.2.8 构建上跑真机渲染，<code>.app-bg</code> 的 className 不再含 <code>is-fading</code>、opacity=1，视频 1280×830 铺满窗口并正常播放。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源列表翻页</h3>
+          <ul class="clog-list">
+            <li>资源列表不再只有第一页 40 条：底部新增「加载更多」，滚到接近底部也会自动加载下一页，直到该来源没有更多结果（按钮变为「已全部加载」）。</li>
+            <li>翻页对全部来源（Modrinth / CurseForge / 麦块社区）与全部内容类型（模组 / 光影 / 资源包 / 整合包）以及麦块地图列表都生效；分类多选、跨页结果都做了去重。</li>
+            <li>更换搜索词、来源、游戏版本、加载器、分类、分辨率、排序或点刷新时，分页会从头开始，不会把旧结果混进来。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-7">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b28" aria-expanded="false" aria-controls="cl-p28">
+        <span class="clog-title"><span class="ver-tag">0.2.7</span><span class="clog-sub">单实例与多开控制</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p28" role="region" aria-labelledby="cl-b28">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">单实例与多开控制</h3>
+          <ul class="clog-list">
+            <li>启动器<strong>同时只能运行一个</strong>：再次双击时会把你已在运行的窗口叫回前台，并提示「已经有一个在运行」。托盘隐藏状态下也能正确唤回。</li>
+            <li>游戏实例默认<strong>只允许同时开一个</strong>：重复点启动会给可读提示，避免连点把内存吃满；需要多开可在「启动」页把「同时运行的实例」改成「无限」。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">视频动态背景</h3>
+          <ul class="clog-list">
+            <li>个性化背景支持<strong>视频</strong>（mp4 / webm / ogv）：放到 <code>NaiWa/backgrounds</code> 后点刷新即可选，作为背景自动循环播放（静音），与图片一起参与「顺序轮播 / 随机轮播」。</li>
+            <li>背景层按类型自动切换 <code>&lt;img&gt;</code> 与 <code>&lt;video&gt;</code>，主题蒙版、透明度、模糊等效果保持不变。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">安装版目录结构</h3>
+          <ul class="clog-list">
+            <li>安装版的程序文件全部收进 <code>main\</code> 子目录，根目录只留一个 <code>NaiWa Launcher.lnk</code> 快捷方式与数据目录（<code>.minecraft</code>、<code>NaiWa</code>、<code>servers</code>、<code>skins</code>、<code>capes</code>）——数据与程序彻底分开，升级/迁移时不会把数据混进程序目录。</li>
+            <li>卸载只删除 <code>main\</code> 与快捷方式，<strong>玩家数据一律保留</strong>。</li>
+            <li>自动更新在安装版下会把新版装回原来的 <code>main\</code> 位置并重启。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-6">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b29" aria-expanded="false" aria-controls="cl-p29">
+        <span class="clog-title"><span class="ver-tag">0.2.6</span><span class="clog-sub">Java 下载源</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p29" role="region" aria-labelledby="cl-b29">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">Java 下载源</h3>
+          <ul class="clog-list">
+            <li>JDK 新增两个下载源，与「资源」页同款的来源按钮：<strong>BellSoft Liberica</strong> / <strong>Adoptium (Temurin)</strong> / <strong>清华 TUNA 镜像</strong> / <strong>自动（测速最快）</strong>。选「自动」时会实时探测三个源的耗时并显示「各源耗时 → 选了谁」。</li>
+            <li>Adoptium 走官方 API（带 sha256 校验），下载直链指向 GitHub；清华 TUNA 用同一份清单换镜像地址，国内更快。</li>
+            <li>新装的 JDK 目录名带来源前缀（如 <code>tuna-21-21.0.12</code>），并写一份来源标记文件；已装列表每行显示来源徽标：BellSoft / Adoptium / 清华 TUNA / 系统 / 未知。识别顺序：标记文件 → 目录名前缀 → JDK 自带 <code>release</code> 文件的 IMPLEMENTOR → 判定为本机系统。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">启动速度（便携版再优化）</h3>
+          <ul class="clog-list">
+            <li>背包里删掉两块完全没用的体积：<strong>语言包从 55 种裁到中英两种</strong>（43.7 MB → 约 2 MB），<strong>react / react-dom 移出运行时依赖</strong>（它们早已被 Vite 打包进 dist，随包只是重复，8.1 MB → 约 1 MB）。</li>
+            <li>解压后总大小从 334.5 MB 降到约 285 MB，便携单文件版每次双击的解压量随之减少；<strong>要「秒开」请用 Setup 安装版或 portable-x64.zip</strong>——它们没有自解压壳，实测到主窗口约 1.3 秒。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">自动更新（安装版也能用）</h3>
+          <ul class="clog-list">
+            <li>安装包改用<strong>固定文件名</strong> <code>NaiWaLauncher-Setup.exe</code>（GitHub Release 上永远指向最新版），同时仍生成一份带版本号的 <code>NaiWaLauncher-Setup-&lt;版本&gt;.exe</code> 便于归档。</li>
+            <li>安装版（包括装在 <code>D:\minecraft\NW</code> 这类自定义目录的）点「立即更新」不再提示&quot;安装版无法自动更新&quot;：会下载 Setup 包、<strong>静默安装回当前所在目录</strong>、然后自动重启，原有实例、皮肤、服务端数据都在原地不动。</li>
+            <li>静默安装时安装器按 <code>/D=</code> 指定的目录原地安装，不再自动追加 <code>naiwa</code> 子目录。</li>
+            <li>免安装版仍然走原来的「替换自身 exe」路径，两条路各自正确。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">关于页</h3>
+          <ul class="clog-list">
+            <li>「更新日志」与「核心团队」由左右两栏改为<strong>上下排列，核心团队在上</strong>。</li>
+            <li>更新日志<strong>只显示当前版本</strong>的更新内容，右上按钮改为「历史版本」，更早的日志去仓库的 <code>CHANGELOG.md</code> 查看。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-5">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b30" aria-expanded="false" aria-controls="cl-p30">
+        <span class="clog-title"><span class="ver-tag">0.2.5</span><span class="clog-sub">内存优化（设置里可控）</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p30" role="region" aria-labelledby="cl-b30">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">内存优化（设置里可控）</h3>
+          <ul class="clog-list">
+            <li>启动选项新增「游戏内存优化」开关：开启后启动游戏会追加一套面向低延迟的 G1GC 参数（Aikar 风格，减少整合包 GC 卡顿），关掉则只下发 <code>-Xms/-Xmx</code>，交给 JVM 默认 GC。实例里的「额外 JVM 参数」始终优先级最高。</li>
+            <li>说明：这套参数以前是<strong>无条件</strong>下发的，现在变成可见、可控的开关，默认保持开启（与历史行为一致）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">启动速度</h3>
+          <ul class="clog-list">
+            <li>启动画面（logo）现在在本进程的<strong>第一个 await 之前</strong>创建：是否显示由同步读取设置文件决定（文件极小），不再等异步设置加载完才出图。</li>
+            <li>便携单文件版改为<strong>固定解压目录</strong>（<code>NaiWaLauncher</code>）并复用缓存：此前每次双击都要把 82 MB 重新解压到 <code>%TEMP%</code> 的随机目录，这是「双击后好几秒才看到 logo」的主要原因；首次仍需解压，之后启动明显变快。安装版不受影响。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">杀毒软件误报</h3>
+          <ul class="clog-list">
+            <li><strong>默认关闭两处敏感行为</strong>，设置里可显式开启：
+              <ul>
+                <li>「高级进程操作」：以前每次启动都会旁挂一个隐藏的 PowerShell 脚本，等游戏进程出现后设置优先级、修改窗口标题——这类「操作别的进程」是杀软的重点特征。现在默认不执行，只有用户主动开启才走这条路。</li>
+                <li>「离线本地皮肤 API」：给离线账号注入 authlib-injector（javaagent）来读本地皮肤/披风，注入同样敏感。默认关闭，需要时再开；关着时用「一键安装 CustomSkinLoader」的方式。</li>
+              </ul>
+            </li>
+            <li>第三方（Yggdrasil）账号登录仍然需要 authlib-injector 注入，这一条无法关闭（否则第三方账号无法登录），已在说明里如实标注。</li>
+            <li>新增 <code>docs/AV-FALSE-POSITIVE.md</code>：列出程序会做与不会做的全部行为、构建设置（<strong>不加壳、不混淆</strong>，<code>asar: false</code> 明文分发）、exe 版本信息字段，以及 Defender / 360 / 火绒的误报申诉入口与说明要点。README 增加对应小节。</li>
+            <li>说明：单文件便携版是 7-Zip 自解压结构，天然更容易被启发式误判；遇到误报建议改用 <code>Setup</code> 安装版或 <code>portable-x64.zip</code>。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-4">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b31" aria-expanded="false" aria-controls="cl-p31">
+        <span class="clog-title"><span class="ver-tag">0.2.4</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p31" role="region" aria-labelledby="cl-b31">
+      <div class="clog-body">
         <ul class="clog-list">
-          <li>安装不再「装一个就把其它按钮禁用」：可以对任意多个模组 / 光影 / 资源包点安装，它们进入队列。</li>
-          <li><strong>真正同时下载的数量由设置里的「同时下载数」决定</strong>（默认 12，范围 1–32），超出部分排队等待；运行中改设置，队列会按新值放行。</li>
-          <li>每条任务有自己的状态与进度（排队中 / 下载中 / 完成 / 失败可重试），互不影响；取消只会中断自己那条。</li>
+          <li>「关闭到托盘」这个设置项以前点了没有任何作用（代码里只有开关、没有托盘实现）。现在真正生效：开启后点窗口关闭<strong>不再退出程序</strong>，而是隐藏到系统托盘；右下角出现一个小图标，单击/双击或右键菜单「打开界面」都能把窗口叫回来，右键「退出启动器」才是真正退出（会先停掉正在运行的服务端）。</li>
+          <li>设置里关掉「关闭到托盘」会立刻移除托盘图标，行为回到「点关闭就退出」，不需要重启。</li>
         </ul>
       </div>
     </div>
   </article>
 
-  <article class="clog-entry" id="v0-3-2">
-    <h2 class="clog-ver">0.3.2</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">三语界面（简体中文 / English / 日本語）</h3>
-        <ul class="clog-list">
-          <li>设置页新增「界面语言」，三种语言可选、切换<strong>立即生效</strong>（不需要重启），选择会写进设置。</li>
-          <li>翻译覆盖：侧边栏、标题栏、设置页、关于页，以及实例 / 资源 / 皮肤 / 账号 / Java / 游戏 / 下载 / 联机 / 开服 / 启动选项 / 个性化 等全部页面的标题、按钮、字段说明、空态、提示与弹窗。</li>
-          <li><strong>主进程的报错与任务文案也三语化</strong>（576 处 / 52 个文件，501 条词条）：登录失败、启动失败、实例导入导出、Java 下载、皮肤披风、联机隧道、服务端控制台行、托盘菜单、下载源名称等，都会跟随界面语言。</li>
-          <li>数字与时间格式也跟随语言（<code>3 小时前 / 3 h ago / 3 時間前</code>、<code>1.2 万 / 1.2K / 1.2万</code>、<code>不可用 / Unavailable / 利用不可</code>）。</li>
-          <li>专有名词保持英文（Modrinth、CurseForge、Fabric、Forge、NeoForge、Wallpaper Engine、Steam、FastMirror、BellSoft、Adoptium、TUNA、CustomSkinLoader、authlib-injector 等）；日志与代码注释保持中文。</li>
-        </ul>
+  <article class="clog-item" id="v0-2-3">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b32" aria-expanded="false" aria-controls="cl-p32">
+        <span class="clog-title"><span class="ver-tag">0.2.3</span><span class="clog-sub">内置披风（新）</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p32" role="region" aria-labelledby="cl-b32">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">内置披风（新）</h3>
+          <ul class="clog-list">
+            <li>内置披风随程序分发（<code>resources/capes</code>，10 张官方风格披风），与内置皮肤同一套规则：只读、界面里不可添加也不可删除，用户在本地找不到也改不了。</li>
+            <li>披风区改成与皮肤一致的两段：<strong>已保存披风</strong>（<code>NaiWa\capes</code>，可导入/删除）/ <strong>内置披风</strong>（只读），两个标签各带数量。</li>
+            <li>使用范围：<strong>只有离线账号</strong>能选择并使用本地与内置披风；微软正版与第三方账号一律只读（只预览账号自身的披风，内置披风同样不可选）。主进程侧也会拒绝非离线账号的选择请求，不只靠界面置灰。</li>
+            <li>披风导入的尺寸规则与站点素材对齐：<code>64×32</code>、<code>22×17</code> 原样接受；<strong><code>64×32</code> 的整数倍放大图（如 128×64、1024×512）会自动按最近邻缩放到 <code>64×32</code></strong> 再落盘；其它尺寸拒绝并提示规则。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">推荐站点</h3>
+          <ul class="clog-list">
+            <li>皮肤页新增推荐：https://mcstat.org/zh-Hans/skins/capes （挑皮肤与披风），与 LittleSkin（上传后别人也能看到）并列。</li>
+          </ul>
+        </div>
       </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">修复：背景播放方式没有真正按来源独立</h3>
-        <ul class="clog-list">
-          <li><strong>壁纸引擎</strong>：顺序/随机轮播的候选池之前被写死成 <code>NaiWa/backgrounds</code> 里的本地文件，所以选「顺序/随机」时换来换去都是本地图片。现在按当前来源取池子——壁纸来源用壁纸列表（视频或静态图的路径）。</li>
-          <li><strong>API 随机图</strong>：播放方式与间隔改用 <code>apiBackgroundMode / apiBackgroundIntervalSec</code>，不再受本地来源那套设置影响。</li>
-          <li>三个来源各自的播放方式、轮播间隔、开关互不干扰。</li>
-        </ul>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-2">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b33" aria-expanded="false" aria-controls="cl-p33">
+        <span class="clog-title"><span class="ver-tag">0.2.2</span><span class="clog-sub">皮肤：离线账号不装模组也能生效</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p33" role="region" aria-labelledby="cl-b33">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">皮肤：离线账号不装模组也能生效</h3>
+          <ul class="clog-list">
+            <li>新增<strong>本地皮肤 API</strong>：启动离线账号时由启动器在 <code>127.0.0.1</code> 起一个最小 authlib-injector 服务，并通过 <code>-javaagent:authlib-injector</code> 注入，游戏会像访问账号服务器一样取皮肤/披风——<strong>实例里不需要装 CustomSkinLoader</strong>。</li>
+            <li>注入失败自动降级到「用 CustomSkinLoader」的老路，不阻断启动；该服务只监听本机、只服务已登记的资源。</li>
+            <li><strong>微软正版账号做不到无模组自定义皮肤</strong>：注入 authlib-injector 会顶掉 Mojang 正版验证，等于破坏登录。正版账号仍用官网皮肤/披风（启动器只负责读取预览），要自定义皮肤仍需装 CustomSkinLoader。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">披风（新）</h3>
+          <ul class="clog-list">
+            <li>微软账号：<strong>预览官方披风</strong>（读取 Mojang profile 的 capes），只读，提示「只能在官网更换」。</li>
+            <li>离线账号：可以<strong>自定义披风</strong>——导入 / 选择 / 删除本地披风（<code>NaiWa\capes</code>），随本地皮肤 API 一起生效。</li>
+            <li>第三方账号：只读预览其账号在皮肤站的披风。</li>
+            <li>3D 小人新增披风层（纯 CSS 3D，64×32 贴图，正面 UV <code>(1,1)-(11,17)</code>）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">已知限制</h3>
+          <ul class="clog-list">
+            <li>披风为单块薄片（未做官方的下摆弯曲/摆动）；宽度固定 10 皮肤像素，slim 模型下会略宽于躯干。</li>
+            <li>披风暂不支持拖放导入（拖到页面仍按皮肤导入），请用「添加披风」按钮选择文件。</li>
+            <li>离线披风的「生效」在启动时由主进程写入本地皮肤 API，界面只负责选择，没有单独的「应用披风」按钮。</li>
+          </ul>
+        </div>
       </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">新增：每次启动随机一张</h3>
-        <ul class="clog-list">
-          <li>三个来源各有一个「每次启动随机一张」开关（默认关）：开启后<strong>每次启动程序</strong>从该来源的池子里随机取一张作初始背景；与播放方式互不影响（单张就在这张上保持不变，顺序/随机就在它的基础上继续轮播）。</li>
-        </ul>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-1">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b34" aria-expanded="false" aria-controls="cl-p34">
+        <span class="clog-title"><span class="ver-tag">0.2.1</span><span class="clog-sub">皮肤（关键修复）</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p34" role="region" aria-labelledby="cl-b34">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">皮肤（关键修复）</h3>
+          <ul class="clog-list">
+            <li><strong>内置皮肤改为随程序内嵌</strong>：不再读启动器根目录的 <code>skins</code> 文件夹，而是像 logo 一样打进安装包（<code>resources/skins/*.png</code>，当前 15 张、约 39 KB），只读、不可增删。此前分发出去的客户端里内置皮肤恒为 0 张。（本版取代 0.2.0 的「读 <code>&lt;启动器根&gt;/skins</code>」做法。）</li>
+            <li><strong>修掉「应用了皮肤但游戏里还是默认皮肤」</strong>：CustomSkinLoader 按 <code>loadlist</code> 顺序取第一个命中的来源，而它的默认配置把 <code>LocalSkin</code> 排在 <code>TLauncher</code> / <code>LittleSkin</code> 等在线来源之后——同名玩家在那些站点上有皮肤时，本地皮肤根本轮不到（实测日志里 TLauncher 先返回了 <code>skin_&lt;名字&gt;.png</code>）。现在应用皮肤时会把 <code>LocalSkin</code> <strong>提到 loadlist 第一位</strong>，并写入与贴图一致的 <code>model</code>。</li>
+            <li>第三方（Yggdrasil）账号改为<strong>只读预览模式</strong>：3D 小人显示该账号在皮肤站上的当前皮肤；内置/本地皮肤卡片置灰不可选、拖放区隐藏、「应用到实例」禁用——皮肤由皮肤站管理，上传与本地应用都在皮肤站进行。离线与微软账号不受影响，仍可选皮肤并应用。</li>
+            <li>修掉「内置皮肤」标签页里出现「+ 添加皮肤」卡的问题：添加/导入只属于用户自己的皮肤库（<code>NaiWa\skins</code>），内置皮肤是随程序分发的只读资源，用户在本地既看不到也改不了，因此该标签页不再提供任何添加/修改入口。</li>
+            <li>在内置皮肤标签页拖入 PNG 时，导入完成后自动切回「已保存皮肤」，避免用户看不到刚导入的结果。</li>
+            <li>内置皮肤空态文案改为「随程序分发、只读，用户在本地无法添加或修改；为空说明安装包缺少内嵌资源，重装即可恢复」。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">登录</h3>
+          <ul class="clog-list">
+            <li>微软登录请求改走 <strong>Electron 的 <code>net.fetch</code></strong>（Chromium 网络栈）：系统代理与 Windows 证书库都会生效。Node 自带的 fetch 两者都不吃，这正是企业/校园网 HTTPS 拦截下直接 <code>fetch failed</code> 的常见原因。</li>
+            <li>失败信息不再只有一句 <code>fetch failed</code>：现在会区分 TLS 证书校验失败 / 域名解析失败 / 连接被重置或超时，并给出对应处理建议；可重试的网络错误会自动重试一次。</li>
+          </ul>
+        </div>
       </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">顺带修掉的隐患（做三语时才暴露出来）</h3>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-2-0">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b35" aria-expanded="false" aria-controls="cl-p35">
+        <span class="clog-title"><span class="ver-tag">0.2.0</span><span class="clog-sub">皮肤</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p35" role="region" aria-labelledby="cl-b35">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">皮肤</h3>
+          <ul class="clog-list">
+            <li>修正内置皮肤目录：改为读<strong>启动器根目录</strong>的 <code>skins</code> 文件夹（此前错读 <code>.minecraft/skins</code>，导致「内置皮肤 0 张」）。实测本机 <code>D:\minecraft\skins</code> 里 15 张皮肤全部被识别（含 64×32 与 128×128）。</li>
+            <li>「官方皮肤」统一改名「内置皮肤」；内置皮肤只读，只能选择和应用，不能在启动器里删除或覆盖。</li>
+            <li>移除皮肤页的「编辑皮肤 / 盔甲与纹饰」按钮，同时移除账号页里的「皮肤」按钮：远程上传入口整体退出界面（第三方账号本就不支持远程上传）。离线 / 微软 / 第三方账号现在都用本地皮肤库，选中即可应用到实例。</li>
+            <li>清理随之下线的皮肤选择器弹窗组件与 421 行专用样式。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">自动更新</h3>
+          <ul class="clog-list">
+            <li>更新覆盖不再弹出 cmd 控制台窗口：替换脚本改为隐藏窗口执行（<code>cmd /c &lt;script&gt;</code> + <code>windowsHide</code>），命令行不再有 <code>start /min</code>。</li>
+            <li>顺带修掉一个真实缺陷：无控制台运行时 <code>timeout /t</code> 会直接失败，使替换重试退化为忙等；改用 <code>ping -n</code> 计时，重试语义不变。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-1-9">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b36" aria-expanded="false" aria-controls="cl-p36">
+        <span class="clog-title"><span class="ver-tag">0.1.9</span><span class="clog-sub">开服（新）</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p36" role="region" aria-labelledby="cl-b36">
+      <div class="clog-body">
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">开服（新）</h3>
+          <ul class="clog-list">
+            <li>新增「开服」页：从 FastMirror 下载服务端，每个服务端独立目录 <code>servers/&lt;id&gt;/</code>，像实例一样单独管理。</li>
+            <li>支持 Java 版核心：Vanilla / Paper / Purpur / Folia / Fabric / Forge / Arclight（<strong>当前 7 个</strong>——FastMirror 目前还没有 NeoForge 构建，已预留白名单，对方上线即自动出现）；可选游戏版本与构建，下载按 sha1 校验。</li>
+            <li>新建即写好 <code>eula.txt</code>（创建即视为同意 Minecraft EULA）与基础 <code>server.properties</code>（端口、最大人数、正版验证、MOTD），端口被占用时自动往后找。</li>
+            <li>卡片上启动 / 停止 / 控制台 / 设置：控制台按 stdout / stderr / 启动器提示三色显示、自动滚到底、可直接发命令并回看历史命令。</li>
+            <li>关闭启动器前会把还在跑的服务端停掉（先发 stop，超时再强制结束），不留幽灵 java 进程。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">皮肤（新）</h3>
+          <ul class="clog-list">
+            <li>皮肤从账号里独立出来，侧边栏新增「皮肤」页；离线 / 第三方 / 微软正版账号都能用本地皮肤。</li>
+            <li>本地皮肤不上传到任何皮肤站：选中后写进实例的 CustomSkinLoader 本地皮肤目录，进游戏直接生效（<strong>只影响你自己客户端看到的画面</strong>；想让别人也看到仍需上传到 LittleSkin 等站点）。</li>
+            <li>官方默认皮肤从 <code>skins</code> 目录内置展示（只读），自己导入的皮肤存在启动器数据目录下，可删可换；支持 64×64 / 64×32 / 细臂(slim)。</li>
+            <li>3D 小人预览（不引入任何新依赖，纯 CSS 3D），可拖动旋转；预览标题显示当前账号昵称。</li>
+            <li>一键把 CustomSkinLoader 装进实例；页面对接 LittleSkin 推荐入口。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">资源页</h3>
+          <ul class="clog-list">
+            <li>来源改成一级按钮：Modrinth / 麦块社区 / CurseForge（未配置 Key 时禁用并说明），下面只显示该来源支持的类型按钮；CurseForge 支持模组与整合包，麦块社区额外有地图。</li>
+            <li>修复「切到麦块社区一片空白」：实测后端一直有数据（mod 38 / 资源包 35 / 光影 33 / 整合包 13 / 地图 20），真正原因是<strong>筛选残留</strong>——从 Modrinth 带过来的分类、当前来源不支持的版本或分辨率把结果筛空了。现在切来源会自动纠正类型并清掉不适用筛选项，空结果会直接列出「当前筛选：来源·版本·加载器·分辨率·分类」并提供一键清空。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">其它</h3>
+          <ul class="clog-list">
+            <li>清理资源页遗留的死代码与过期文案。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="clog-item" id="v0-1-8">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b37" aria-expanded="false" aria-controls="cl-p37">
+        <span class="clog-title"><span class="ver-tag">0.1.8</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p37" role="region" aria-labelledby="cl-b37">
+      <div class="clog-body">
+        <p>性能实测（同一台机器、独立数据根、各跑 5 次取中位数）：</p>
+        <div class="clog-scroll">
+          <table class="clog-table">
+            <thead><tr><th>指标</th><th>0.1.7</th><th>0.1.8</th><th>变化</th></tr></thead>
+            <tbody>
+              <tr><td>用户看到主窗口</td><td>1870 ms</td><td><strong>1357 ms</strong></td><td>−27%</td></tr>
+              <tr><td>内容抽屉首次打开</td><td>263 ms</td><td><strong>163 ms</strong></td><td>−38%</td></tr>
+              <tr><td>内容抽屉再次打开</td><td>250+ ms</td><td><strong>6 ms</strong></td><td>目录签名缓存</td></tr>
+              <tr><td>判重扫描（46 个模组）</td><td>199 ms</td><td><strong>12 ms</strong></td><td>不再算 sha1</td></tr>
+            </tbody>
+          </table>
+        </div>
         <ul class="clog-list">
-          <li><code>java/adoptium.ts</code> 原来靠 <code>message.includes(&quot;TUNA 镜像里还没有&quot;)</code> 判断「镜像未同步 → 换源」，文案一旦跟着语言变，这个判断在英/日界面下就永远不成立，会把「镜像未同步」静默降级成下载失败。已改为与语言无关的标志位。</li>
-          <li>多处<strong>模块级中文常量</strong>（微软登录的 AADSTS/XSTS 提示表、皮肤错误码、Yggdrasil 错误码表、下载源名称与描述、取消消息等）会在启动瞬间把语言「定格」成中文，切语言也不变。全部改为函数或键表，在调用时按当前语言求值。</li>
+          <li>启动链路：设置文件只读一次；initPaths 前移（<strong>顺带修掉 showSplash 从来没按设置生效的老 bug</strong>）；建目录与读设置并行；下载记录恢复挪到窗口创建之后；启动画面按「已露出时长」补差，而不是恒定等 1.5 秒。</li>
+          <li>渲染层：设置 / 应用信息 / 实例 / 图标并行取；版本清单、媒体列表、实例占用统计延后到首帧之后；隐藏窗口期间不再被后台节流冻结（实测首屏 effect 从 ~5.8 s 回到 ~40 ms）。</li>
+          <li>内容管理：光影 / 资源包分区<strong>首次切到才读盘</strong>、读过即复用（切 tab 仍不重新加载）；列表与判重不再为每个文件计算 sha1（sha1 只服务按哈希反查更新，检查更新与更新仍照算），并加「目录签名（mtime+size）」进程内缓存，安装/删除后自动失效。</li>
+          <li>修掉 settings.json 带 UTF-8 BOM 时整份设置静默回落默认值的问题（用户改过的设置可能被悄悄重置）。</li>
         </ul>
       </div>
     </div>
   </article>
 
-  <article class="clog-entry" id="v0-3-1">
-    <h2 class="clog-ver">0.3.1</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">三语界面（简体中文 / English / 日本語）</h3>
+  <article class="clog-item" id="v0-1-7">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b38" aria-expanded="false" aria-controls="cl-p38">
+        <span class="clog-title"><span class="ver-tag">0.1.7</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p38" role="region" aria-labelledby="cl-b38">
+      <div class="clog-body">
         <ul class="clog-list">
-          <li>设置页新增「界面语言」，三种语言可选、切换<strong>立即生效</strong>（不需要重启），选择会写进设置。</li>
-          <li>已翻译：侧边栏、标题栏、设置页、关于页，以及实例 / 资源 / 开服 / 皮肤 / 账号 / Java / 游戏 / 管理等页面的标题、主要按钮、空态与常见提示。</li>
-          <li>专有名词保持英文（Modrinth、CurseForge、Fabric、Forge、NeoForge、Wallpaper Engine、Steam、FastMirror、BellSoft、Adoptium、TUNA、CustomSkinLoader、authlib-injector 等）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">修复：背景播放方式没有真正按来源独立</h3>
-        <ul class="clog-list">
-          <li><strong>壁纸引擎</strong>：顺序/随机轮播的候选池之前被写死成 <code>NaiWa/backgrounds</code> 里的本地文件，所以选「顺序/随机」时换来换去都是本地图片。现在按当前来源取池子——壁纸来源用壁纸列表（视频或静态图的路径）。</li>
-          <li><strong>API 随机图</strong>：播放方式与间隔改用 <code>apiBackgroundMode / apiBackgroundIntervalSec</code>，不再受本地来源那套设置影响。</li>
-          <li>三个来源各自的播放方式、轮播间隔、开关互不干扰。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">新增：每次启动随机一张</h3>
-        <ul class="clog-list">
-          <li>三个来源各有一个「每次启动随机一张」开关（默认关）：开启后<strong>每次启动程序</strong>从该来源的池子里随机取一张作初始背景；与播放方式互不影响（单张就在这张上保持不变，顺序/随机就在它的基础上继续轮播）。</li>
+          <li>实例详情的内容管理改成「分段控件 + 单面板」：顶部一排「模组 / 光影包 / 资源包」按钮（与个性化页「启动窗口」同款外观），下面只显示所选类型的列表，按钮上带各自已装数量。</li>
+          <li>三个面板都保持挂载、非激活的隐藏，切换不丢搜索词也不重复拉数据；列表再长也不会把抽屉拉长。</li>
+          <li>检查更新、刷新、删除确认、搜索与统计行行为保持不变。</li>
+          <li>内容管理从实例详情抽屉里独立出来：实例卡片在「管理」后新增「资源」按钮，打开独立的资源抽屉（分段控件 + 三个面板），详情抽屉只留加载器 / Java / 启动窗口；「启动」页的高级选项也加了同样的「资源管理」入口。</li>
+          <li>实例卡片的「模组目录」改为「资源目录」：点开选模组 / 光影 / 材质三类目录（目录不存在时自动创建，跟随版本隔离设置）。</li>
+          <li>重复安装检测新增<strong>磁盘扫描兜底</strong>：安装索引里没有的老文件、整合包装的模组、手工放进目录的文件，也能靠 jar 的 modId、显示名、文件名主干识别出来，命中时卡片标「疑似已安装」、文件行标「疑似已装其它版本」、安装前照样弹「覆盖安装 / 取消」；判定不依赖中文译名。</li>
+          <li>修掉「角标提示了重复却不弹框」的缺陷：判重不再把「索引缓存还没加载完」当成「没装过」，缓存不可用时现查一次，查不到会明确提示「重复检查失败，本次未做重复提示」。</li>
+          <li>移除侧边栏的品牌块（logo + 两行文案）：顶部标题文字与 logo（界面图标）仍可自定义。</li>
         </ul>
       </div>
     </div>
   </article>
 
-  <article class="clog-entry" id="v0-3-1-2">
-    <h2 class="clog-ver">0.3.1</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">背景：总开关 + 三个来源各自开关 + 各自播放方式</h3>
+  <article class="clog-item" id="v0-1-6">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b39" aria-expanded="false" aria-controls="cl-p39">
+        <span class="clog-title"><span class="ver-tag">0.1.6</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p39" role="region" aria-labelledby="cl-b39">
+      <div class="clog-body">
         <ul class="clog-list">
-          <li>背景面板新增<strong>总开关</strong>「启用背景」：关掉后任何来源都不渲染（背景层直接为空），API 随机图也<strong>一次请求都不发</strong>；下面的配置仍可操作（整体压暗，方便先配好再打开）。</li>
-          <li><strong>本地背景图 / API 随机图 / Steam 壁纸引擎</strong>各自新增「启用此来源」开关：关掉的那个只在分段标签上标「已关闭」，仍可进去配置，但不参与渲染。</li>
-          <li><strong>播放方式与轮播间隔按来源拆开</strong>：三个来源各存一套（<code>backgroundMode/backgroundIntervalSec</code>、<code>apiBackgroundMode/apiBackgroundIntervalSec</code>、<code>wallpaperBackgroundMode/wallpaperBackgroundIntervalSec</code>），切到哪个来源就显示/修改哪一组。</li>
-          <li>升级兼容：新增的两个来源默认继承「本地」原有的播放方式与间隔，老配置观感不变。</li>
+          <li>实例详情新增「光影包」「资源包」管理：列表（读 pack.mcmeta 的说明）、检查更新、更新、删除，与模组同一个抽屉，互不干扰。</li>
+          <li>下载光影包 / 资源包会先查必需前置：来源声明的 required 依赖<strong>按各自类型落盘</strong>（资源包的前置 ETF / EMF 是模组，进 mods），已在实例里的标「已安装」并显示文件名。</li>
+          <li>光影几乎没有站点声明依赖，因此按加载器补一条内置规则：Fabric / Quilt / NeoForge → Iris，Forge → Oculus；先确认该版本与加载器下真有可用文件才提示，查不到就不打扰。前置弹框里这类前置带「内置规则」徽标。</li>
+          <li>前置安装改为<strong>按每条前置自己的来源</strong>选提供方（光影本体来自 CurseForge 时，Iris / Oculus 仍从 Modrinth 取）。</li>
+          <li>移除「品牌与图标」里的品牌主标题 / 副标题自定义：侧边栏固定显示「NaiWa / 奶娃启动器」；<strong>顶部标题文字与 logo（界面图标）仍可自定义</strong>。</li>
+          <li>实例列表的头像跟随「界面图标」同步换图。</li>
+          <li>实例详情的模组 / 光影包 / 资源包分区新增搜索框：按键名、文件名、资源包说明筛选，统计行显示「共 N 个，匹配 K 个」，无匹配时一键清空搜索；换实例自动清空关键词。</li>
+          <li>启动音效默认改为<strong>关闭</strong>（新装不再自动外放 bgm）；原有设置保持不变，想要自带音效可在个性化页选「默认（内置 bgm.mp3）」。</li>
+          <li>打包链修复：<code>scripts/build-app.mjs</code> 自动找到可用 pnpm 并插入 PATH（否则 electron-builder 报 <code>No JSON content found in output</code>）、打包前清理残留的 <code>win-unpacked.tmp</code>/旧 <code>win-unpacked</code>、安装包与便携 zip 同时认 <code>.tmp</code> 目录、<code>portable</code> 产物直接叫 <code>NaiWaLauncher-&lt;版本&gt;-single-exe.exe</code> 并自动复制出 GitHub 用的 <code>NaiWaLauncher.exe</code>；<code>pnpm dist</code> 一条命令出齐四个文件。</li>
+          <li>资源页新增重复安装检测：按当前实例的已装清单（安装索引 + 磁盘核对，文件被手删的不算）在搜索结果卡片打「已安装」角标、文件行标「已装此版本 / 已装其它版本」、详情按钮变「重新安装」；点安装先确认「覆盖安装 / 取消」，不再闷头重复下载。</li>
         </ul>
       </div>
     </div>
   </article>
 
-  <article class="clog-entry" id="v0-3-0">
-    <h2 class="clog-ver">0.3.0</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">背景支持三种来源</h3>
+  <article class="clog-item" id="v0-1-5">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b40" aria-expanded="false" aria-controls="cl-p40">
+        <span class="clog-title"><span class="ver-tag">0.1.5</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p40" role="region" aria-labelledby="cl-b40">
+      <div class="clog-body">
         <ul class="clog-list">
-          <li>个性化页背景顶部可在<strong>本地背景图 / API 随机图 / Steam 壁纸引擎</strong>之间切换，各自独立配置。</li>
-          <li><strong>API 随机图默认关闭</strong>：<code>backgroundApiUrl</code> 默认空串，没填就一次请求都不发（不会去试任何示例站点）；填了地址才工作，「立即换一张」按需换图。地址既可直接返回图片，也可返回含图片地址的 JSON（如 Bing 风格 <code>images[0].url</code>）。拉到的图会下载到 <code>NaiWa/cache/backgrounds</code> 并按内容哈希命名，只保留最近 8 张。</li>
-          <li><strong>壁纸引擎</strong>除了视频壁纸，现在也支持<strong>静态图壁纸</strong>（<code>project.json</code> 里 <code>type=image/gif</code> 或带预览图的项目），点一下就设为静态背景。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">修复：Steam 壁纸引擎的视频设为背景后不渲染</h3>
-        <ul class="clog-list">
-          <li>原因：壁纸的视频是<strong>盘符绝对路径</strong>（<code>F:\SteamLibrary\steamapps\workshop\content\431960\…mp4</code>），而拼接背景 URL 的函数只认 <code>data:/file:/http:/blob:</code> 前缀，于是把它当成「背景目录下的文件名」，拼出了 <code>…\NaiWa\backgrounds\F:\…</code> 这种非法地址，视频根本加载不到。</li>
-          <li>修复：<code>mediaUrl()</code> 现在识别盘符路径（<code>X:\…</code>）与 UNC 路径（<code>\\server\share</code>），直接转成 <code>file:///X:/…</code>；普通文件名仍然按背景目录拼接。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">主题预设改名</h3>
-        <ul class="clog-list">
-          <li>两套带「彩」字容易误解的预设改成普通单色名：<strong>滑稽彩 → 薄荷青</strong>（#6FCF97）、<strong>欧皇彩 → 琥珀金</strong>（#FFC53D）。颜色本来就是单色，id 保持不变，老配置照常生效。</li>
+          <li>多线程下载：多个文件并行下载（默认并发 12，可在设置里调），安装整合包与资源时显著提速。</li>
+          <li>单文件仍支持分片并发（默认 4 连接），大文件走多连接 + 断点续传。</li>
+          <li>设置里区分「文件并发数」与「单文件分片数」两档说明。</li>
         </ul>
       </div>
     </div>
   </article>
 
-  <article class="clog-entry" id="v0-2-9">
-    <h2 class="clog-ver">0.2.9</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">修复：Steam 壁纸引擎的视频设为背景后不渲染</h3>
+  <article class="clog-item" id="v0-1-4">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b41" aria-expanded="false" aria-controls="cl-p41">
+        <span class="clog-title"><span class="ver-tag">0.1.4</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p41" role="region" aria-labelledby="cl-b41">
+      <div class="clog-body">
         <ul class="clog-list">
-          <li>原因：壁纸的视频是<strong>盘符绝对路径</strong>（<code>F:\SteamLibrary\steamapps\workshop\content\431960\…mp4</code>），而拼接背景 URL 的函数只认 <code>data:/file:/http:/blob:</code> 前缀，于是把它当成「背景目录下的文件名」，拼出了 <code>…\NaiWa\backgrounds\F:\…</code> 这种非法地址，视频根本加载不到。</li>
-          <li>修复：<code>mediaUrl()</code> 现在识别盘符路径（<code>X:\…</code>）与 UNC 路径（<code>\\server\share</code>），直接转成 <code>file:///X:/…</code>；普通文件名仍然按背景目录拼接。</li>
+          <li>新增皮肤选择器：第三方（Yggdrasil / LittleSkin）账号可上传、更换、恢复默认皮肤，并选择 Steve / Alex 模型。</li>
+          <li>微软账号同样提供皮肤入口（受 Mojang 服务授权限制时给出明确提示）。</li>
+          <li>更新下载新增加速镜像 ghproxy.sakuramoe.dev（实测最快），检查更新通道扩到 5 个。</li>
         </ul>
       </div>
     </div>
   </article>
 
-  <article class="clog-entry" id="v0-2-9-2">
-    <h2 class="clog-ver">0.2.9</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">背景：可选「不使用」+ 视频可调节音量</h3>
+  <article class="clog-item" id="v0-1-3">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b42" aria-expanded="false" aria-controls="cl-p42">
+        <span class="clog-title"><span class="ver-tag">0.1.3</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p42" role="region" aria-labelledby="cl-b42">
+      <div class="clog-body">
         <ul class="clog-list">
-          <li>个性化页的背景选择新增「不使用背景」选项，选中后完全不渲染背景层。</li>
-          <li>视频背景现在可以调音量（0–100%，滑杆只在视频背景时出现）：0 即静音，默认保持静音；图片背景不受影响。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">首次关闭询问</h3>
-        <ul class="clog-list">
-          <li>第一次点关闭按钮时询问「最小化到托盘 / 直接退出 / 取消」，带「记住我的选择」勾选框；记住后写进设置，以后不再询问。</li>
-          <li>设置页可随时改这三档行为。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">识别本地 Wallpaper Engine 动态壁纸</h3>
-        <ul class="clog-list">
-          <li>自动探测 Steam 库，读取 <code>&lt;Steam 库&gt;\steamapps\workshop\content\431960</code>（431960 是 Wallpaper Engine 的 AppID）下的创意工坊壁纸。</li>
-          <li>个性化页新增「Steam 壁纸引擎」区块：网格展示预览图与标题，点一下即把该壁纸的视频设为背景（绝对路径），当前使用中的高亮显示。</li>
-          <li>只识别视频类壁纸；自动探测不到时可在设置里手动指定目录。</li>
+          <li>修复资源页「选择实例」下拉被其它卡片遮挡/错位的问题（浮层改为顶层渲染）。</li>
+          <li>「当前实例」可留空，仅浏览不安装。</li>
+          <li>整合包不再需要选择实例：一键下载并新建实例（实例名默认为整合包名）。</li>
         </ul>
       </div>
     </div>
   </article>
 
-  <article class="clog-entry" id="v0-2-8">
-    <h2 class="clog-ver">0.2.8</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">托盘图标</h3>
+  <article class="clog-item" id="v0-1-2">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b43" aria-expanded="false" aria-controls="cl-p43">
+        <span class="clog-title"><span class="ver-tag">0.1.2</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p43" role="region" aria-labelledby="cl-b43">
+      <div class="clog-body">
         <ul class="clog-list">
-          <li>托盘图标改为<strong>始终显示</strong>，不再跟「关闭到托盘」开关联动：随时点右下角图标都能把界面叫回来；那个开关现在只决定「点关闭是隐藏还是退出」。</li>
-          <li>修复<strong>重新安装到新路径后右下角看不到图标</strong>：新增固定的应用标识（AppUserModelId）。此前布局从根目录改到 <code>main\</code>，Windows 按 exe 路径把启动器当成全新应用，默认把图标收进通知区域溢出区。</li>
-          <li>万一托盘创建失败，点关闭<strong>不再隐藏窗口</strong>（改为最小化并记日志），避免出现「界面没了、托盘也没有」的状态。</li>
-          <li>托盘图标显式按 16×16 渲染，个别 DPI 缩放下更清晰。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">安装器</h3>
-        <ul class="clog-list">
-          <li>升级安装时<strong>先结束正在运行的旧版进程再清理旧布局文件</strong>：此前旧 exe 被占用删不掉，根目录会残留一个没有 resources、双击跑不起来的空壳。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">视频背景不显示 / 不铺满</h3>
-        <ul class="clog-list">
-          <li>真正原因是<strong>背景层的淡入淡出状态会永久卡住</strong>：换背景时先加 <code>.is-fading</code> 把整层透明度打到 0，等换完再由定时器拉回；一旦这个定时器被别的原因清掉（列表刷新、渲染被打断），<code>.app-bg</code> 就永远停在 <code>opacity: 0</code> —— 视频其实在正常解码播放，但整层透明，所以「什么都看不到」。</li>
-          <li>修复：淡出改由 ref 判断目标是否已生效（不再把文件名放进依赖、避免重复重入），并加<strong>看门狗</strong>——进入淡出后最多 3 倍淡出时长一定强制拉回可见；文件名比较改按 NFC 归一化，避免同一个韩文/带音标文件名因编码形式不同被判成「还没换过来」。</li>
-          <li>视频层同时改成<strong>固定定位 + 视口尺寸</strong>（<code>position: fixed</code> + <code>100vw/100vh</code> + <code>object-fit: cover</code>），不再依赖父容器高度；背景容器裁掉溢出，避免挤出滚动条。</li>
-          <li>实测验证：用 3840×2160 的真实 mp4 在 0.2.8 构建上跑真机渲染，<code>.app-bg</code> 的 className 不再含 <code>is-fading</code>、opacity=1，视频 1280×830 铺满窗口并正常播放。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源列表翻页</h3>
-        <ul class="clog-list">
-          <li>资源列表不再只有第一页 40 条：底部新增「加载更多」，滚到接近底部也会自动加载下一页，直到该来源没有更多结果（按钮变为「已全部加载」）。</li>
-          <li>翻页对全部来源（Modrinth / CurseForge / 麦块社区）与全部内容类型（模组 / 光影 / 资源包 / 整合包）以及麦块地图列表都生效；分类多选、跨页结果都做了去重。</li>
-          <li>更换搜索词、来源、游戏版本、加载器、分类、分辨率、排序或点刷新时，分页会从头开始，不会把旧结果混进来。</li>
+          <li>导航改名：下载游戏 → 游戏，下载管理 → 管理，模组 → 资源。</li>
+          <li>「资源」页重构：无需实例即可浏览；支持所有来源、分类、版本、加载器、分辨率筛选与「选择实例」安装。</li>
+          <li>下载支持真正终止（中断底层请求），终止后可继续。</li>
+          <li>下载任务持久化：中途关闭启动器后可在「管理」里继续。</li>
         </ul>
       </div>
     </div>
   </article>
 
-  <article class="clog-entry" id="v0-2-7">
-    <h2 class="clog-ver">0.2.7</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">单实例与多开控制</h3>
+  <article class="clog-item" id="v0-1-1">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b44" aria-expanded="false" aria-controls="cl-p44">
+        <span class="clog-title"><span class="ver-tag">0.1.1</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p44" role="region" aria-labelledby="cl-b44">
+      <div class="clog-body">
         <ul class="clog-list">
-          <li>启动器<strong>同时只能运行一个</strong>：再次双击时会把你已在运行的窗口叫回前台，并提示「已经有一个在运行」。托盘隐藏状态下也能正确唤回。</li>
-          <li>游戏实例默认<strong>只允许同时开一个</strong>：重复点启动会给可读提示，避免连点把内存吃满；需要多开可在「启动」页把「同时运行的实例」改成「无限」。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">视频动态背景</h3>
-        <ul class="clog-list">
-          <li>个性化背景支持<strong>视频</strong>（mp4 / webm / ogv）：放到 <code>NaiWa/backgrounds</code> 后点刷新即可选，作为背景自动循环播放（静音），与图片一起参与「顺序轮播 / 随机轮播」。</li>
-          <li>背景层按类型自动切换 <code>&lt;img&gt;</code> 与 <code>&lt;video&gt;</code>，主题蒙版、透明度、模糊等效果保持不变。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">安装版目录结构</h3>
-        <ul class="clog-list">
-          <li>安装版的程序文件全部收进 <code>main\</code> 子目录，根目录只留一个 <code>NaiWa Launcher.lnk</code> 快捷方式与数据目录（<code>.minecraft</code>、<code>NaiWa</code>、<code>servers</code>、<code>skins</code>、<code>capes</code>）——数据与程序彻底分开，升级/迁移时不会把数据混进程序目录。</li>
-          <li>卸载只删除 <code>main\</code> 与快捷方式，<strong>玩家数据一律保留</strong>。</li>
-          <li>自动更新在安装版下会把新版装回原来的 <code>main\</code> 位置并重启。</li>
+          <li>下载任务持久化：中途关闭启动器后可在「下载管理」里继续（断点续传）。</li>
+          <li>新增「下载管理」页，侧边栏入口，浮动任务卡点击直达。</li>
+          <li>修正抽屉标题被自绘标题栏遮挡的问题（全局 overlay 让出 40px）。</li>
+          <li>内置微软 client id 更新为 <code>fd3e219a-6e6a-4188-8a39-e241f0e63324</code>。</li>
+          <li>侧边栏品牌可自定义（图标 / 主标题 / 副标题）。</li>
+          <li>联机：局域网 + 内置樱花穿透（隧道、流量、签到状态只读）。</li>
+          <li>加载器新增 Quilt / LiteLoader；麦块社区新增光影 / 资源包 / 整合包 / 地图。</li>
         </ul>
       </div>
     </div>
   </article>
 
-  <article class="clog-entry" id="v0-2-6">
-    <h2 class="clog-ver">0.2.6</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">Java 下载源</h3>
+  <article class="clog-item" id="v0-1-0">
+    <h2 class="clog-head">
+      <button class="clog-btn" type="button" id="cl-b45" aria-expanded="false" aria-controls="cl-p45">
+        <span class="clog-title"><span class="ver-tag">0.1.0</span><span class="clog-sub">启动器本体</span></span>
+        <span class="clog-icon" aria-hidden="true"></span>
+      </button>
+    </h2>
+    <div class="clog-panel" id="cl-p45" role="region" aria-labelledby="cl-b45">
+      <div class="clog-body">
+        <p>首个可运行版本（Windows x64，单文件便携 + 安装包）。</p>
         <ul class="clog-list">
-          <li>JDK 新增两个下载源，与「资源」页同款的来源按钮：<strong>BellSoft Liberica</strong> / <strong>Adoptium (Temurin)</strong> / <strong>清华 TUNA 镜像</strong> / <strong>自动（测速最快）</strong>。选「自动」时会实时探测三个源的耗时并显示「各源耗时 → 选了谁」。</li>
-          <li>Adoptium 走官方 API（带 sha256 校验），下载直链指向 GitHub；清华 TUNA 用同一份清单换镜像地址，国内更快。</li>
-          <li>新装的 JDK 目录名带来源前缀（如 <code>tuna-21-21.0.12</code>），并写一份来源标记文件；已装列表每行显示来源徽标：BellSoft / Adoptium / 清华 TUNA / 系统 / 未知。识别顺序：标记文件 → 目录名前缀 → JDK 自带 <code>release</code> 文件的 IMPLEMENTOR → 判定为本机系统。</li>
+          <li>内置微软 client id 更新为 <code>fd3e219a-6e6a-4188-8a39-e241f0e63324</code>（设备码流程实测返回 user_code）。</li>
         </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">启动速度（便携版再优化）</h3>
-        <ul class="clog-list">
-          <li>背包里删掉两块完全没用的体积：<strong>语言包从 55 种裁到中英两种</strong>（43.7 MB → 约 2 MB），<strong>react / react-dom 移出运行时依赖</strong>（它们早已被 Vite 打包进 dist，随包只是重复，8.1 MB → 约 1 MB）。</li>
-          <li>解压后总大小从 334.5 MB 降到约 285 MB，便携单文件版每次双击的解压量随之减少；<strong>要「秒开」请用 Setup 安装版或 portable-x64.zip</strong>——它们没有自解压壳，实测到主窗口约 1.3 秒。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">自动更新（安装版也能用）</h3>
-        <ul class="clog-list">
-          <li>安装包改用<strong>固定文件名</strong> <code>NaiWaLauncher-Setup.exe</code>（GitHub Release 上永远指向最新版），同时仍生成一份带版本号的 <code>NaiWaLauncher-Setup-&lt;版本&gt;.exe</code> 便于归档。</li>
-          <li>安装版（包括装在 <code>D:\minecraft\NW</code> 这类自定义目录的）点「立即更新」不再提示&quot;安装版无法自动更新&quot;：会下载 Setup 包、<strong>静默安装回当前所在目录</strong>、然后自动重启，原有实例、皮肤、服务端数据都在原地不动。</li>
-          <li>静默安装时安装器按 <code>/D=</code> 指定的目录原地安装，不再自动追加 <code>naiwa</code> 子目录。</li>
-          <li>免安装版仍然走原来的「替换自身 exe」路径，两条路各自正确。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">关于页</h3>
-        <ul class="clog-list">
-          <li>「更新日志」与「核心团队」由左右两栏改为<strong>上下排列，核心团队在上</strong>。</li>
-          <li>更新日志<strong>只显示当前版本</strong>的更新内容，右上按钮改为「历史版本」，更早的日志去仓库的 <code>CHANGELOG.md</code> 查看。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-2-5">
-    <h2 class="clog-ver">0.2.5</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">内存优化（设置里可控）</h3>
-        <ul class="clog-list">
-          <li>启动选项新增「游戏内存优化」开关：开启后启动游戏会追加一套面向低延迟的 G1GC 参数（Aikar 风格，减少整合包 GC 卡顿），关掉则只下发 <code>-Xms/-Xmx</code>，交给 JVM 默认 GC。实例里的「额外 JVM 参数」始终优先级最高。</li>
-          <li>说明：这套参数以前是<strong>无条件</strong>下发的，现在变成可见、可控的开关，默认保持开启（与历史行为一致）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">启动速度</h3>
-        <ul class="clog-list">
-          <li>启动画面（logo）现在在本进程的<strong>第一个 await 之前</strong>创建：是否显示由同步读取设置文件决定（文件极小），不再等异步设置加载完才出图。</li>
-          <li>便携单文件版改为<strong>固定解压目录</strong>（<code>NaiWaLauncher</code>）并复用缓存：此前每次双击都要把 82 MB 重新解压到 <code>%TEMP%</code> 的随机目录，这是「双击后好几秒才看到 logo」的主要原因；首次仍需解压，之后启动明显变快。安装版不受影响。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">杀毒软件误报</h3>
-        <ul class="clog-list">
-          <li><strong>默认关闭两处敏感行为</strong>，设置里可显式开启：
-            <ul>
-              <li>「高级进程操作」：以前每次启动都会旁挂一个隐藏的 PowerShell 脚本，等游戏进程出现后设置优先级、修改窗口标题——这类「操作别的进程」是杀软的重点特征。现在默认不执行，只有用户主动开启才走这条路。</li>
-              <li>「离线本地皮肤 API」：给离线账号注入 authlib-injector（javaagent）来读本地皮肤/披风，注入同样敏感。默认关闭，需要时再开；关着时用「一键安装 CustomSkinLoader」的方式。</li>
-            </ul>
-          </li>
-          <li>第三方（Yggdrasil）账号登录仍然需要 authlib-injector 注入，这一条无法关闭（否则第三方账号无法登录），已在说明里如实标注。</li>
-          <li>新增 <code>docs/AV-FALSE-POSITIVE.md</code>：列出程序会做与不会做的全部行为、构建设置（<strong>不加壳、不混淆</strong>，<code>asar: false</code> 明文分发）、exe 版本信息字段，以及 Defender / 360 / 火绒的误报申诉入口与说明要点。README 增加对应小节。</li>
-          <li>说明：单文件便携版是 7-Zip 自解压结构，天然更容易被启发式误判；遇到误报建议改用 <code>Setup</code> 安装版或 <code>portable-x64.zip</code>。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-2-4">
-    <h2 class="clog-ver">0.2.4</h2>
-    <div class="clog-body">
-      <ul class="clog-list">
-        <li>「关闭到托盘」这个设置项以前点了没有任何作用（代码里只有开关、没有托盘实现）。现在真正生效：开启后点窗口关闭<strong>不再退出程序</strong>，而是隐藏到系统托盘；右下角出现一个小图标，单击/双击或右键菜单「打开界面」都能把窗口叫回来，右键「退出启动器」才是真正退出（会先停掉正在运行的服务端）。</li>
-        <li>设置里关掉「关闭到托盘」会立刻移除托盘图标，行为回到「点关闭就退出」，不需要重启。</li>
-      </ul>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-2-3">
-    <h2 class="clog-ver">0.2.3</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">内置披风（新）</h3>
-        <ul class="clog-list">
-          <li>内置披风随程序分发（<code>resources/capes</code>，10 张官方风格披风），与内置皮肤同一套规则：只读、界面里不可添加也不可删除，用户在本地找不到也改不了。</li>
-          <li>披风区改成与皮肤一致的两段：<strong>已保存披风</strong>（<code>NaiWa\capes</code>，可导入/删除）/ <strong>内置披风</strong>（只读），两个标签各带数量。</li>
-          <li>使用范围：<strong>只有离线账号</strong>能选择并使用本地与内置披风；微软正版与第三方账号一律只读（只预览账号自身的披风，内置披风同样不可选）。主进程侧也会拒绝非离线账号的选择请求，不只靠界面置灰。</li>
-          <li>披风导入的尺寸规则与站点素材对齐：<code>64×32</code>、<code>22×17</code> 原样接受；**<code>64×32</code> 的整数倍放大图（如 128×64、1024×512）会自动按最近邻缩放到 <code>64×32</code>** 再落盘；其它尺寸拒绝并提示规则。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">推荐站点</h3>
-        <ul class="clog-list">
-          <li>皮肤页新增推荐：https://mcstat.org/zh-Hans/skins/capes （挑皮肤与披风），与 LittleSkin（上传后别人也能看到）并列。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-2-2">
-    <h2 class="clog-ver">0.2.2</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">皮肤：离线账号不装模组也能生效</h3>
-        <ul class="clog-list">
-          <li>新增<strong>本地皮肤 API</strong>：启动离线账号时由启动器在 <code>127.0.0.1</code> 起一个最小 authlib-injector 服务，并通过 <code>-javaagent:authlib-injector</code> 注入，游戏会像访问账号服务器一样取皮肤/披风——<strong>实例里不需要装 CustomSkinLoader</strong>。</li>
-          <li>注入失败自动降级到「用 CustomSkinLoader」的老路，不阻断启动；该服务只监听本机、只服务已登记的资源。</li>
-          <li><strong>微软正版账号做不到无模组自定义皮肤</strong>：注入 authlib-injector 会顶掉 Mojang 正版验证，等于破坏登录。正版账号仍用官网皮肤/披风（启动器只负责读取预览），要自定义皮肤仍需装 CustomSkinLoader。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">披风（新）</h3>
-        <ul class="clog-list">
-          <li>微软账号：<strong>预览官方披风</strong>（读取 Mojang profile 的 capes），只读，提示「只能在官网更换」。</li>
-          <li>离线账号：可以<strong>自定义披风</strong>——导入 / 选择 / 删除本地披风（<code>NaiWa\capes</code>），随本地皮肤 API 一起生效。</li>
-          <li>第三方账号：只读预览其账号在皮肤站的披风。</li>
-          <li>3D 小人新增披风层（纯 CSS 3D，64×32 贴图，正面 UV <code>(1,1)-(11,17)</code>）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">已知限制</h3>
-        <ul class="clog-list">
-          <li>披风为单块薄片（未做官方的下摆弯曲/摆动）；宽度固定 10 皮肤像素，slim 模型下会略宽于躯干。</li>
-          <li>披风暂不支持拖放导入（拖到页面仍按皮肤导入），请用「添加披风」按钮选择文件。</li>
-          <li>离线披风的「生效」在启动时由主进程写入本地皮肤 API，界面只负责选择，没有单独的「应用披风」按钮。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-2-1">
-    <h2 class="clog-ver">0.2.1</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">皮肤（关键修复）</h3>
-        <ul class="clog-list">
-          <li><strong>内置皮肤改为随程序内嵌</strong>：不再读启动器根目录的 <code>skins</code> 文件夹，而是像 logo 一样打进安装包（<code>resources/skins/*.png</code>，当前 15 张、约 39 KB），只读、不可增删。此前分发出去的客户端里内置皮肤恒为 0 张。（本版取代 0.2.0 的「读 <code>&lt;启动器根&gt;/skins</code>」做法。）</li>
-          <li><strong>修掉「应用了皮肤但游戏里还是默认皮肤」</strong>：CustomSkinLoader 按 <code>loadlist</code> 顺序取第一个命中的来源，而它的默认配置把 <code>LocalSkin</code> 排在 <code>TLauncher</code> / <code>LittleSkin</code> 等在线来源之后——同名玩家在那些站点上有皮肤时，本地皮肤根本轮不到（实测日志里 TLauncher 先返回了 <code>skin_&lt;名字&gt;.png</code>）。现在应用皮肤时会把 <code>LocalSkin</code> <strong>提到 loadlist 第一位</strong>，并写入与贴图一致的 <code>model</code>。</li>
-          <li>第三方（Yggdrasil）账号改为<strong>只读预览模式</strong>：3D 小人显示该账号在皮肤站上的当前皮肤；内置/本地皮肤卡片置灰不可选、拖放区隐藏、「应用到实例」禁用——皮肤由皮肤站管理，上传与本地应用都在皮肤站进行。离线与微软账号不受影响，仍可选皮肤并应用。</li>
-          <li>修掉「内置皮肤」标签页里出现「+ 添加皮肤」卡的问题：添加/导入只属于用户自己的皮肤库（<code>NaiWa\skins</code>），内置皮肤是随程序分发的只读资源，用户在本地既看不到也改不了，因此该标签页不再提供任何添加/修改入口。</li>
-          <li>在内置皮肤标签页拖入 PNG 时，导入完成后自动切回「已保存皮肤」，避免用户看不到刚导入的结果。</li>
-          <li>内置皮肤空态文案改为「随程序分发、只读，用户在本地无法添加或修改；为空说明安装包缺少内嵌资源，重装即可恢复」。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">登录</h3>
-        <ul class="clog-list">
-          <li>微软登录请求改走 **Electron 的 <code>net.fetch</code>**（Chromium 网络栈）：系统代理与 Windows 证书库都会生效。Node 自带的 fetch 两者都不吃，这正是企业/校园网 HTTPS 拦截下直接 <code>fetch failed</code> 的常见原因。</li>
-          <li>失败信息不再只有一句 <code>fetch failed</code>：现在会区分 TLS 证书校验失败 / 域名解析失败 / 连接被重置或超时，并给出对应处理建议；可重试的网络错误会自动重试一次。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-2-0">
-    <h2 class="clog-ver">0.2.0</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">皮肤</h3>
-        <ul class="clog-list">
-          <li>修正内置皮肤目录：改为读<strong>启动器根目录</strong>的 <code>skins</code> 文件夹（此前错读 <code>.minecraft/skins</code>，导致「内置皮肤 0 张」）。实测本机 <code>D:\minecraft\skins</code> 里 15 张皮肤全部被识别（含 64×32 与 128×128）。</li>
-          <li>「官方皮肤」统一改名「内置皮肤」；内置皮肤只读，只能选择和应用，不能在启动器里删除或覆盖。</li>
-          <li>移除皮肤页的「编辑皮肤 / 盔甲与纹饰」按钮，同时移除账号页里的「皮肤」按钮：远程上传入口整体退出界面（第三方账号本就不支持远程上传）。离线 / 微软 / 第三方账号现在都用本地皮肤库，选中即可应用到实例。</li>
-          <li>清理随之下线的皮肤选择器弹窗组件与 421 行专用样式。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">自动更新</h3>
-        <ul class="clog-list">
-          <li>更新覆盖不再弹出 cmd 控制台窗口：替换脚本改为隐藏窗口执行（<code>cmd /c &lt;script&gt;</code> + <code>windowsHide</code>），命令行不再有 <code>start /min</code>。</li>
-          <li>顺带修掉一个真实缺陷：无控制台运行时 <code>timeout /t</code> 会直接失败，使替换重试退化为忙等；改用 <code>ping -n</code> 计时，重试语义不变。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-9">
-    <h2 class="clog-ver">0.1.9</h2>
-    <div class="clog-body">
-      <div class="clog-sec">
-        <h3 class="clog-group">开服（新）</h3>
-        <ul class="clog-list">
-          <li>新增「开服」页：从 FastMirror 下载服务端，每个服务端独立目录 <code>servers/&lt;id&gt;/</code>，像实例一样单独管理。</li>
-          <li>支持 Java 版核心：Vanilla / Paper / Purpur / Folia / Fabric / Forge / Arclight（<strong>当前 7 个</strong>——FastMirror 目前还没有 NeoForge 构建，已预留白名单，对方上线即自动出现）；可选游戏版本与构建，下载按 sha1 校验。</li>
-          <li>新建即写好 <code>eula.txt</code>（创建即视为同意 Minecraft EULA）与基础 <code>server.properties</code>（端口、最大人数、正版验证、MOTD），端口被占用时自动往后找。</li>
-          <li>卡片上启动 / 停止 / 控制台 / 设置：控制台按 stdout / stderr / 启动器提示三色显示、自动滚到底、可直接发命令并回看历史命令。</li>
-          <li>关闭启动器前会把还在跑的服务端停掉（先发 stop，超时再强制结束），不留幽灵 java 进程。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">皮肤（新）</h3>
-        <ul class="clog-list">
-          <li>皮肤从账号里独立出来，侧边栏新增「皮肤」页；离线 / 第三方 / 微软正版账号都能用本地皮肤。</li>
-          <li>本地皮肤不上传到任何皮肤站：选中后写进实例的 CustomSkinLoader 本地皮肤目录，进游戏直接生效（<strong>只影响你自己客户端看到的画面</strong>；想让别人也看到仍需上传到 LittleSkin 等站点）。</li>
-          <li>官方默认皮肤从 <code>skins</code> 目录内置展示（只读），自己导入的皮肤存在启动器数据目录下，可删可换；支持 64×64 / 64×32 / 细臂(slim)。</li>
-          <li>3D 小人预览（不引入任何新依赖，纯 CSS 3D），可拖动旋转；预览标题显示当前账号昵称。</li>
-          <li>一键把 CustomSkinLoader 装进实例；页面对接 LittleSkin 推荐入口。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">资源页</h3>
-        <ul class="clog-list">
-          <li>来源改成一级按钮：Modrinth / 麦块社区 / CurseForge（未配置 Key 时禁用并说明），下面只显示该来源支持的类型按钮；CurseForge 支持模组与整合包，麦块社区额外有地图。</li>
-          <li>修复「切到麦块社区一片空白」：实测后端一直有数据（mod 38 / 资源包 35 / 光影 33 / 整合包 13 / 地图 20），真正原因是<strong>筛选残留</strong>——从 Modrinth 带过来的分类、当前来源不支持的版本或分辨率把结果筛空了。现在切来源会自动纠正类型并清掉不适用筛选项，空结果会直接列出「当前筛选：来源·版本·加载器·分辨率·分类」并提供一键清空。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">其它</h3>
-        <ul class="clog-list">
-          <li>清理资源页遗留的死代码与过期文案。</li>
-        </ul>
-      </div>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-8">
-    <h2 class="clog-ver">0.1.8</h2>
-    <div class="clog-body">
-      <p>性能实测（同一台机器、独立数据根、各跑 5 次取中位数）：</p>
-      <div class="clog-scroll">
-        <table class="clog-table">
-          <thead><tr><th>指标</th><th>0.1.7</th><th>0.1.8</th><th>变化</th></tr></thead>
-          <tbody>
-            <tr><td>用户看到主窗口</td><td>1870 ms</td><td><strong>1357 ms</strong></td><td>−27%</td></tr>
-            <tr><td>内容抽屉首次打开</td><td>263 ms</td><td><strong>163 ms</strong></td><td>−38%</td></tr>
-            <tr><td>内容抽屉再次打开</td><td>250+ ms</td><td><strong>6 ms</strong></td><td>目录签名缓存</td></tr>
-            <tr><td>判重扫描（46 个模组）</td><td>199 ms</td><td><strong>12 ms</strong></td><td>不再算 sha1</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <ul class="clog-list">
-        <li>启动链路：设置文件只读一次；initPaths 前移（<strong>顺带修掉 showSplash 从来没按设置生效的老 bug</strong>）；建目录与读设置并行；下载记录恢复挪到窗口创建之后；启动画面按「已露出时长」补差，而不是恒定等 1.5 秒。</li>
-        <li>渲染层：设置 / 应用信息 / 实例 / 图标并行取；版本清单、媒体列表、实例占用统计延后到首帧之后；隐藏窗口期间不再被后台节流冻结（实测首屏 effect 从 ~5.8 s 回到 ~40 ms）。</li>
-        <li>内容管理：光影 / 资源包分区<strong>首次切到才读盘</strong>、读过即复用（切 tab 仍不重新加载）；列表与判重不再为每个文件计算 sha1（sha1 只服务按哈希反查更新，检查更新与更新仍照算），并加「目录签名（mtime+size）」进程内缓存，安装/删除后自动失效。</li>
-        <li>修掉 settings.json 带 UTF-8 BOM 时整份设置静默回落默认值的问题（用户改过的设置可能被悄悄重置）。</li>
-      </ul>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-7">
-    <h2 class="clog-ver">0.1.7</h2>
-    <div class="clog-body">
-      <ul class="clog-list">
-        <li>实例详情的内容管理改成「分段控件 + 单面板」：顶部一排「模组 / 光影包 / 资源包」按钮（与个性化页「启动窗口」同款外观），下面只显示所选类型的列表，按钮上带各自已装数量。</li>
-        <li>三个面板都保持挂载、非激活的隐藏，切换不丢搜索词也不重复拉数据；列表再长也不会把抽屉拉长。</li>
-        <li>检查更新、刷新、删除确认、搜索与统计行行为保持不变。</li>
-        <li>内容管理从实例详情抽屉里独立出来：实例卡片在「管理」后新增「资源」按钮，打开独立的资源抽屉（分段控件 + 三个面板），详情抽屉只留加载器 / Java / 启动窗口；「启动」页的高级选项也加了同样的「资源管理」入口。</li>
-        <li>实例卡片的「模组目录」改为「资源目录」：点开选模组 / 光影 / 材质三类目录（目录不存在时自动创建，跟随版本隔离设置）。</li>
-        <li>重复安装检测新增<strong>磁盘扫描兜底</strong>：安装索引里没有的老文件、整合包装的模组、手工放进目录的文件，也能靠 jar 的 modId、显示名、文件名主干识别出来，命中时卡片标「疑似已安装」、文件行标「疑似已装其它版本」、安装前照样弹「覆盖安装 / 取消」；判定不依赖中文译名。</li>
-        <li>修掉「角标提示了重复却不弹框」的缺陷：判重不再把「索引缓存还没加载完」当成「没装过」，缓存不可用时现查一次，查不到会明确提示「重复检查失败，本次未做重复提示」。</li>
-        <li>移除侧边栏的品牌块（logo + 两行文案）：顶部标题文字与 logo（界面图标）仍可自定义。</li>
-      </ul>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-6">
-    <h2 class="clog-ver">0.1.6</h2>
-    <div class="clog-body">
-      <ul class="clog-list">
-        <li>实例详情新增「光影包」「资源包」管理：列表（读 pack.mcmeta 的说明）、检查更新、更新、删除，与模组同一个抽屉，互不干扰。</li>
-        <li>下载光影包 / 资源包会先查必需前置：来源声明的 required 依赖<strong>按各自类型落盘</strong>（资源包的前置 ETF / EMF 是模组，进 mods），已在实例里的标「已安装」并显示文件名。</li>
-        <li>光影几乎没有站点声明依赖，因此按加载器补一条内置规则：Fabric / Quilt / NeoForge → Iris，Forge → Oculus；先确认该版本与加载器下真有可用文件才提示，查不到就不打扰。前置弹框里这类前置带「内置规则」徽标。</li>
-        <li>前置安装改为<strong>按每条前置自己的来源</strong>选提供方（光影本体来自 CurseForge 时，Iris / Oculus 仍从 Modrinth 取）。</li>
-        <li>移除「品牌与图标」里的品牌主标题 / 副标题自定义：侧边栏固定显示「NaiWa / 奶娃启动器」；<strong>顶部标题文字与 logo（界面图标）仍可自定义</strong>。</li>
-        <li>实例列表的头像跟随「界面图标」同步换图。</li>
-        <li>实例详情的模组 / 光影包 / 资源包分区新增搜索框：按键名、文件名、资源包说明筛选，统计行显示「共 N 个，匹配 K 个」，无匹配时一键清空搜索；换实例自动清空关键词。</li>
-        <li>启动音效默认改为<strong>关闭</strong>（新装不再自动外放 bgm）；原有设置保持不变，想要自带音效可在个性化页选「默认（内置 bgm.mp3）」。</li>
-        <li>打包链修复：<code>scripts/build-app.mjs</code> 自动找到可用 pnpm 并插入 PATH（否则 electron-builder 报 <code>No JSON content found in output</code>）、打包前清理残留的 <code>win-unpacked.tmp</code>/旧 <code>win-unpacked</code>、安装包与便携 zip 同时认 <code>.tmp</code> 目录、<code>portable</code> 产物直接叫 <code>NaiWaLauncher-&lt;版本&gt;-single-exe.exe</code> 并自动复制出 GitHub 用的 <code>NaiWaLauncher.exe</code>；<code>pnpm dist</code> 一条命令出齐四个文件。</li>
-        <li>资源页新增重复安装检测：按当前实例的已装清单（安装索引 + 磁盘核对，文件被手删的不算）在搜索结果卡片打「已安装」角标、文件行标「已装此版本 / 已装其它版本」、详情按钮变「重新安装」；点安装先确认「覆盖安装 / 取消」，不再闷头重复下载。</li>
-      </ul>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-5">
-    <h2 class="clog-ver">0.1.5</h2>
-    <div class="clog-body">
-      <ul class="clog-list">
-        <li>多线程下载：多个文件并行下载（默认并发 12，可在设置里调），安装整合包与资源时显著提速。</li>
-        <li>单文件仍支持分片并发（默认 4 连接），大文件走多连接 + 断点续传。</li>
-        <li>设置里区分「文件并发数」与「单文件分片数」两档说明。</li>
-      </ul>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-4">
-    <h2 class="clog-ver">0.1.4</h2>
-    <div class="clog-body">
-      <ul class="clog-list">
-        <li>新增皮肤选择器：第三方（Yggdrasil / LittleSkin）账号可上传、更换、恢复默认皮肤，并选择 Steve / Alex 模型。</li>
-        <li>微软账号同样提供皮肤入口（受 Mojang 服务授权限制时给出明确提示）。</li>
-        <li>更新下载新增加速镜像 ghproxy.sakuramoe.dev（实测最快），检查更新通道扩到 5 个。</li>
-      </ul>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-3">
-    <h2 class="clog-ver">0.1.3</h2>
-    <div class="clog-body">
-      <ul class="clog-list">
-        <li>修复资源页「选择实例」下拉被其它卡片遮挡/错位的问题（浮层改为顶层渲染）。</li>
-        <li>「当前实例」可留空，仅浏览不安装。</li>
-        <li>整合包不再需要选择实例：一键下载并新建实例（实例名默认为整合包名）。</li>
-      </ul>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-2">
-    <h2 class="clog-ver">0.1.2</h2>
-    <div class="clog-body">
-      <ul class="clog-list">
-        <li>导航改名：下载游戏 → 游戏，下载管理 → 管理，模组 → 资源。</li>
-        <li>「资源」页重构：无需实例即可浏览；支持所有来源、分类、版本、加载器、分辨率筛选与「选择实例」安装。</li>
-        <li>下载支持真正终止（中断底层请求），终止后可继续。</li>
-        <li>下载任务持久化：中途关闭启动器后可在「管理」里继续。</li>
-      </ul>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-1">
-    <h2 class="clog-ver">0.1.1</h2>
-    <div class="clog-body">
-      <ul class="clog-list">
-        <li>下载任务持久化：中途关闭启动器后可在「下载管理」里继续（断点续传）。</li>
-        <li>新增「下载管理」页，侧边栏入口，浮动任务卡点击直达。</li>
-        <li>修正抽屉标题被自绘标题栏遮挡的问题（全局 overlay 让出 40px）。</li>
-        <li>内置微软 client id 更新为 <code>fd3e219a-6e6a-4188-8a39-e241f0e63324</code>。</li>
-        <li>侧边栏品牌可自定义（图标 / 主标题 / 副标题）。</li>
-        <li>联机：局域网 + 内置樱花穿透（隧道、流量、签到状态只读）。</li>
-        <li>加载器新增 Quilt / LiteLoader；麦块社区新增光影 / 资源包 / 整合包 / 地图。</li>
-      </ul>
-    </div>
-  </article>
-
-  <article class="clog-entry" id="v0-1-0">
-    <h2 class="clog-ver">0.1.0</h2>
-    <div class="clog-body">
-      <p>首个可运行版本（Windows x64，单文件便携 + 安装包）。</p>
-      <ul class="clog-list">
-        <li>内置微软 client id 更新为 <code>fd3e219a-6e6a-4188-8a39-e241f0e63324</code>（设备码流程实测返回 user_code）。</li>
-      </ul>
-      <div class="clog-sec">
-        <h3 class="clog-group">启动器本体</h3>
-        <ul class="clog-list">
-          <li>启动时 logo 淡入 → 渐变消失 → 主界面淡入；可在个性化里关闭启动动画。</li>
-          <li>单文件便携 exe，运行时自解压，数据落在 exe 同级；安装包只复制这一个 exe 到 <code>&lt;自选路径&gt;\naiwa</code>。</li>
-          <li>存储结构模仿 PCL2：<code>.minecraft</code>（游戏数据）+ <code>NaiWa</code>（启动器数据），旧布局自动迁移。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">版本与加载器</h3>
-        <ul class="clog-list">
-          <li>官方版本清单（920 个版本）、原版完整安装（客户端 jar / libraries / natives / assets，sha1 校验）。</li>
-          <li>Fabric、Forge、NeoForge 安装；NeoForge 走 BMCLAPI 镜像；加载器类型可在实例详情里切换，切换失败不半途改元数据。</li>
-          <li>多实例并存、按实例隔离游戏目录与 mods；切换实例后模组安装落到该实例。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">下载</h3>
-        <ul class="clog-list">
-          <li>多线程 Range 下载 + 断点续传 + 失败重试 + 全局令牌桶限速。</li>
-          <li>下载源：官方 / BMCLAPI / 自动测速；版本清单源可单独指定。</li>
-          <li>镜像缺对象时自动跨源回退（实测日志配置 404 → 官方源 200）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">下载源</h3>
-        <ul class="clog-list">
-          <li>新增上海交大镜像（仅依赖库）与 FastMinecraftMirror（分域名镜像）。</li>
-          <li>自动测速改为「健康镜像里取最快」，不可达的镜像标记 unhealthy 并被跳过；单源失败自动跨源回退。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">模组</h3>
-        <ul class="clog-list">
-          <li>Modrinth 完整支持；CurseForge 需自备 API Key（设置页填写，缺失/被拒给出可读提示）。</li>
-          <li>搜索、文件列表、按「完全匹配 → 同系列 → 仅加载器 → 仅版本」五档择优安装。</li>
-          <li>实例级模组管理：列表（解析 fabric.mod.json / mods.toml / MANIFEST 元数据）、检查更新（sha1 反查 + CurseForge murmur2 指纹）、更新、删除。</li>
-          <li>可自定义模组文件名模板（<code>{name} {slug} {version} {loader} {mc}</code>）。</li>
-          <li>模组详情面板：简介、完整介绍（HTML 转纯文本）、分类/游戏版本/加载器、画廊、许可、打开项目主页、一键安装到当前实例。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">标题栏与主题</h3>
-        <ul class="clog-list">
-          <li>移除系统标题栏，窗口统一无边框，自绘标题栏只剩【精简】【图片】两种外观，支持自定义标题文字。</li>
-          <li>背景图支持 单张 / 顺序轮播 / 随机轮播，轮播间隔可调（5–600 秒）。</li>
-          <li>修正主题：滑稽彩与欧皇彩不再使用渐变彩色（改为纯色系），自定义主题可选择开启渐变。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">存档</h3>
-        <ul class="clog-list">
-          <li>实例内列出现有单人存档（图标、大小、最后修改），一键「进入」直接加载（<code>--quickPlaySingleplayer</code>，需 1.20+）。</li>
-          <li>「新建存档并进入」：让游戏自动创建世界并直接进入（世界名由游戏按当前语言生成）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">模组前置依赖</h3>
-        <ul class="clog-list">
-          <li>安装前解析必需依赖（Modrinth <code>dependency_type=required</code> / CurseForge <code>relationType=3</code>）。</li>
-          <li>已在当前实例安装的前置标「已安装」并显示文件名；缺失的可「一并安装」，安装结果会列出连带装上的前置。</li>
-          <li>维护 <code>NaiWa/meta/mod-install-map.json</code> 安装索引，重复安装不重复下载。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">中文搜索与翻译</h3>
-        <ul class="clog-list">
-          <li>搜索框支持中文：查询含中文时先翻译为英文再检索（uapis.cn，无需 Key）。</li>
-          <li>结果标题与简介实时译为简体中文；7 天磁盘缓存、全局串行节流、429 负缓存，避免触发上游限流。</li>
-          <li>设置里可分别关闭「模组列表实时翻译」与「中文搜索」。</li>
-          <li>翻译提供方自动降级：DeepL（可填自己的 Key，默认内置一把免费 Key）→ uapis.cn → suapi.net；失败即切、10 分钟粘滞、负缓存 5 分钟。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">Java</h3>
-        <ul class="clog-list">
-          <li>BellSoft Liberica JDK 下载安装到 <code>NaiWa/java</code>，自动探测本机已装 JDK（PATH + 常见厂商目录）。</li>
-          <li>按 Minecraft 版本自动选择（≤1.16.5 → 8，1.17–1.20.4 → 17，1.20.5+ → 21），缺失可自动下载。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">分发</h3>
-        <ul class="clog-list">
-          <li>两种形态：NSIS 安装包（默认 C:\Program Files\naiwa，可改路径）与免安装 ZIP（解压即用，可放任意可写目录）。</li>
-          <li>安装/升级不删 <code>.minecraft</code> 与 <code>NaiWa</code>。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">Java</h3>
-        <ul class="clog-list">
-          <li>实例级 Java 指定（实例详情 → Java）：可固定某个已安装 JDK，文件失效会明确提示并支持一键清除。</li>
-          <li>设置里「自动匹配 Java 版本」：开启时<strong>以版本 JSON 的 javaVersion 为准</strong>（26.x 起最低 Java 25），兜底为 ≤1.16.5→8、1.17–1.20.4→17、1.20.5–1.25→21；关闭后必须逐实例指定（启动前显式报错，不静默换 Java）。</li>
-        </ul>
-      </div>
-      <div class="clog-sec">
-        <h3 class="clog-group">界面</h3>
-        <ul class="clog-list">
-          <li>实例 / 下载游戏 / 模组 / Java / 个性化 / 启动 / 其它 / 设置 八个页面。</li>
-          <li>个性化：15 套主题 + 自定义取色、界面不透明度、背景图片、背景音乐、标题栏样式。</li>
-          <li>启动页：版本隔离、窗口标题、自定义信息、启动器可见性、进程优先级、窗口大小、内存分配、高级 JVM 参数。</li>
-          <li>其它页：下载源、线程数与限速、社区资源与文件名格式、更新提示、强制中文。</li>
-          <li>游戏内默认简体中文（<code>options.txt</code> 写入 <code>lang:zh_cn</code>，尊重玩家手动改过的语言，可强制）。</li>
-        </ul>
+        <div class="clog-sec">
+          <h3 class="clog-group is-echo">启动器本体</h3>
+          <ul class="clog-list">
+            <li>启动时 logo 淡入 → 渐变消失 → 主界面淡入；可在个性化里关闭启动动画。</li>
+            <li>单文件便携 exe，运行时自解压，数据落在 exe 同级；安装包只复制这一个 exe 到 <code>&lt;自选路径&gt;\naiwa</code>。</li>
+            <li>存储结构模仿 PCL2：<code>.minecraft</code>（游戏数据）+ <code>NaiWa</code>（启动器数据），旧布局自动迁移。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">版本与加载器</h3>
+          <ul class="clog-list">
+            <li>官方版本清单（920 个版本）、原版完整安装（客户端 jar / libraries / natives / assets，sha1 校验）。</li>
+            <li>Fabric、Forge、NeoForge 安装；NeoForge 走 BMCLAPI 镜像；加载器类型可在实例详情里切换，切换失败不半途改元数据。</li>
+            <li>多实例并存、按实例隔离游戏目录与 mods；切换实例后模组安装落到该实例。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">下载</h3>
+          <ul class="clog-list">
+            <li>多线程 Range 下载 + 断点续传 + 失败重试 + 全局令牌桶限速。</li>
+            <li>下载源：官方 / BMCLAPI / 自动测速；版本清单源可单独指定。</li>
+            <li>镜像缺对象时自动跨源回退（实测日志配置 404 → 官方源 200）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">下载源</h3>
+          <ul class="clog-list">
+            <li>新增上海交大镜像（仅依赖库）与 FastMinecraftMirror（分域名镜像）。</li>
+            <li>自动测速改为「健康镜像里取最快」，不可达的镜像标记 unhealthy 并被跳过；单源失败自动跨源回退。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">模组</h3>
+          <ul class="clog-list">
+            <li>Modrinth 完整支持；CurseForge 需自备 API Key（设置页填写，缺失/被拒给出可读提示）。</li>
+            <li>搜索、文件列表、按「完全匹配 → 同系列 → 仅加载器 → 仅版本」五档择优安装。</li>
+            <li>实例级模组管理：列表（解析 fabric.mod.json / mods.toml / MANIFEST 元数据）、检查更新（sha1 反查 + CurseForge murmur2 指纹）、更新、删除。</li>
+            <li>可自定义模组文件名模板（<code>{name} {slug} {version} {loader} {mc}</code>）。</li>
+            <li>模组详情面板：简介、完整介绍（HTML 转纯文本）、分类/游戏版本/加载器、画廊、许可、打开项目主页、一键安装到当前实例。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">标题栏与主题</h3>
+          <ul class="clog-list">
+            <li>移除系统标题栏，窗口统一无边框，自绘标题栏只剩【精简】【图片】两种外观，支持自定义标题文字。</li>
+            <li>背景图支持 单张 / 顺序轮播 / 随机轮播，轮播间隔可调（5–600 秒）。</li>
+            <li>修正主题：滑稽彩与欧皇彩不再使用渐变彩色（改为纯色系），自定义主题可选择开启渐变。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">存档</h3>
+          <ul class="clog-list">
+            <li>实例内列出现有单人存档（图标、大小、最后修改），一键「进入」直接加载（<code>--quickPlaySingleplayer</code>，需 1.20+）。</li>
+            <li>「新建存档并进入」：让游戏自动创建世界并直接进入（世界名由游戏按当前语言生成）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">模组前置依赖</h3>
+          <ul class="clog-list">
+            <li>安装前解析必需依赖（Modrinth <code>dependency_type=required</code> / CurseForge <code>relationType=3</code>）。</li>
+            <li>已在当前实例安装的前置标「已安装」并显示文件名；缺失的可「一并安装」，安装结果会列出连带装上的前置。</li>
+            <li>维护 <code>NaiWa/meta/mod-install-map.json</code> 安装索引，重复安装不重复下载。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">中文搜索与翻译</h3>
+          <ul class="clog-list">
+            <li>搜索框支持中文：查询含中文时先翻译为英文再检索（uapis.cn，无需 Key）。</li>
+            <li>结果标题与简介实时译为简体中文；7 天磁盘缓存、全局串行节流、429 负缓存，避免触发上游限流。</li>
+            <li>设置里可分别关闭「模组列表实时翻译」与「中文搜索」。</li>
+            <li>翻译提供方自动降级：DeepL（可填自己的 Key，默认内置一把免费 Key）→ uapis.cn → suapi.net；失败即切、10 分钟粘滞、负缓存 5 分钟。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">Java</h3>
+          <ul class="clog-list">
+            <li>BellSoft Liberica JDK 下载安装到 <code>NaiWa/java</code>，自动探测本机已装 JDK（PATH + 常见厂商目录）。</li>
+            <li>按 Minecraft 版本自动选择（≤1.16.5 → 8，1.17–1.20.4 → 17，1.20.5+ → 21），缺失可自动下载。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">分发</h3>
+          <ul class="clog-list">
+            <li>两种形态：NSIS 安装包（默认 C:\Program Files\naiwa，可改路径）与免安装 ZIP（解压即用，可放任意可写目录）。</li>
+            <li>安装/升级不删 <code>.minecraft</code> 与 <code>NaiWa</code>。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">Java</h3>
+          <ul class="clog-list">
+            <li>实例级 Java 指定（实例详情 → Java）：可固定某个已安装 JDK，文件失效会明确提示并支持一键清除。</li>
+            <li>设置里「自动匹配 Java 版本」：开启时<strong>以版本 JSON 的 javaVersion 为准</strong>（26.x 起最低 Java 25），兜底为 ≤1.16.5→8、1.17–1.20.4→17、1.20.5–1.25→21；关闭后必须逐实例指定（启动前显式报错，不静默换 Java）。</li>
+          </ul>
+        </div>
+        <div class="clog-sec">
+          <h3 class="clog-group">界面</h3>
+          <ul class="clog-list">
+            <li>实例 / 下载游戏 / 模组 / Java / 个性化 / 启动 / 其它 / 设置 八个页面。</li>
+            <li>个性化：15 套主题 + 自定义取色、界面不透明度、背景图片、背景音乐、标题栏样式。</li>
+            <li>启动页：版本隔离、窗口标题、自定义信息、启动器可见性、进程优先级、窗口大小、内存分配、高级 JVM 参数。</li>
+            <li>其它页：下载源、线程数与限速、社区资源与文件名格式、更新提示、强制中文。</li>
+            <li>游戏内默认简体中文（<code>options.txt</code> 写入 <code>lang:zh_cn</code>，尊重玩家手动改过的语言，可强制）。</li>
+          </ul>
+        </div>
       </div>
     </div>
   </article>

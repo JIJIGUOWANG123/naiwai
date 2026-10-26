@@ -1184,6 +1184,9 @@ body.nav-open { overflow: hidden; }
   .btn-lg { padding: 13px 22px; font-size: 0.9375rem; }
   .hero-actions .btn { flex: 1 1 100%; }
   .acc-btn { padding: 18px 2px; font-size: 0.9375rem; }
+  .clog-btn { padding: 13px 14px; gap: 10px; }
+  .clog-body { padding: 0 14px 18px; }
+  .clog-hint { font-size: 0.78rem; }
   .path-hint { font-size: 0.75rem; }
   .chips li, .cores li { font-size: 0.75rem; padding: 5px 11px; }
   .credits-list a { font-size: 0.75rem; padding: 5px 11px; }
@@ -1231,30 +1234,118 @@ body.nav-open { overflow: hidden; }
   padding-top: calc(var(--header-h) + 72px);
   padding-bottom: 92px;
 }
-/* 更新日志里常有长路径 / 长链接，网格项必须允许收缩，否则窄屏会顶出横向滚动 */
-.clog { display: grid; gap: 52px; }
-.clog-entry { display: grid; gap: 12px; min-width: 0; }
-.clog-ver {
-  display: inline-flex;
+
+/* 折叠卡片：更新日志页一个版本一张，首页「最近三条」复用同一套类名。
+   收起态用 max-height:0 而不是 display:none，高度由 JS 量 scrollHeight 后设成像素值，
+   Chromium 140 上 grid-template-rows: 0fr→1fr 不生效，所以不走那条路。 */
+.clog { display: grid; gap: 14px; }
+
+.clog-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-bottom: 16px;
+}
+.clog-hint { color: var(--muted-soft); font-size: 0.8125rem; }
+.clog-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+
+.clog-item {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.clog-item:hover { border-color: var(--line-strong); box-shadow: var(--shadow-2); }
+
+.clog-head { margin: 0; }
+.clog-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  padding: 15px 18px;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  transition: background-color 0.2s var(--ease);
+}
+.clog-btn:hover { background: var(--bg-alt); }
+.clog-btn:focus-visible { outline: 2px solid var(--rose-500); outline-offset: -2px; }
+
+.clog-title {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: 0;
-  font-variant-numeric: tabular-nums;
+  min-width: 0;
 }
-.clog-ver::before {
-  content: "";
-  width: 8px;
-  height: 8px;
+.clog-sub {
+  min-width: 0;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+/* 右侧展开箭头：收起朝下 ⌄，展开朝上 */
+.clog-icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: var(--rose-500);
-  box-shadow: 0 0 0 4px var(--rose-050);
+  border: 1px solid var(--line-strong);
+  transition: background-color 0.22s var(--ease), border-color 0.22s var(--ease);
 }
-.clog-body { display: grid; gap: 22px; min-width: 0; }
+.clog-icon::before {
+  content: "";
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 1.6px solid var(--ink-soft);
+  border-bottom: 1.6px solid var(--ink-soft);
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: transform 0.24s var(--ease), border-color 0.22s var(--ease);
+}
+.clog-item.is-open .clog-icon { background: var(--rose-600); border-color: var(--rose-600); }
+.clog-item.is-open .clog-icon::before {
+  top: 56%;
+  border-color: #fff;
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.clog-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.24s var(--ease);
+}
+.clog-item.is-open .clog-panel { max-height: none; }
+/* 脚本没跑起来时（没有 .js）不折叠：45 个版本照常全部可读，批量按钮和箭头也不显示 */
+html:not(.js) .clog-panel { max-height: none; }
+html:not(.js) .clog-tools,
+html:not(.js) .clog-icon { display: none; }
+
+.clog-body {
+  display: grid;
+  gap: 22px;
+  min-width: 0;
+  padding: 0 18px 22px;
+}
 .clog-sec { display: grid; gap: 10px; min-width: 0; }
 .clog-group { font-size: 1.0125rem; font-weight: 700; }
+/* 标题行已经写明首个小结标题，正文里同一条不重复显示（DOM 里保留，便于直接看源码） */
+.clog-group.is-echo { display: none; }
 .clog-body p {
   color: var(--muted);
   font-size: 0.9375rem;

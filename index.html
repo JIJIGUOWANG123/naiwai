@@ -322,33 +322,53 @@
         <p class="section-lead">这里只放最近三条，完整历史在 <a class="inline-link" href="changelog.html">独立更新日志页面</a>，与仓库的 <code>CHANGELOG.md</code> 一致。</p>
       </header>
 
-      <div class="accordion" data-accordion>
-        <div class="acc-item is-open">
-          <h3 class="acc-head">
-            <button class="acc-btn" type="button" id="cl-b0" aria-expanded="true" aria-controls="cl-p0">
-              <span class="acc-title"><span class="ver-tag">0.5.2</span>关于页新增「官方网站」入口</span>
-              <span class="acc-icon" aria-hidden="true"></span>
+      <div class="clog" id="recent-changelog">
+        <div class="clog-item is-open">
+          <h3 class="clog-head">
+            <button class="clog-btn" type="button" id="cl-b0" aria-expanded="true" aria-controls="cl-p0">
+              <span class="clog-title"><span class="ver-tag">0.5.3</span><span class="clog-sub">设置页重新分四类</span></span>
+              <span class="clog-icon" aria-hidden="true"></span>
             </button>
           </h3>
-          <div class="acc-panel" id="cl-p0" role="region" aria-labelledby="cl-b0">
-            <div class="acc-body">
-              <ul>
+          <div class="clog-panel" id="cl-p0" role="region" aria-labelledby="cl-b0">
+            <div class="clog-body">
+              <ul class="clog-list">
+                <li>设置页改成「基础 / 下载 / 风格 / 其他」四个标签，按用途归类；「个性化 / 启动 / 其它」三个独立页面<strong>并入设置</strong>，侧栏只留一个「设置」。</li>
+                <li>下载源只剩 官方 / BMCLAPI / 上海交大 / 自动测速，老配置里存过 FastMinecraftMirror 的自动回落成「自动」。</li>
+                <li>目录搬家：启动器数据迁到 <code>main\NaiWa</code>、服务端迁到 <code>.minecraft\servers</code>，升级后首次启动<strong>自动迁移</strong>，失败保留原数据、同名文件不覆盖。</li>
+                <li>链接与致谢新增 HMCL / Luna Launcher / QooKix，致谢共 29 项。</li>
+                <li>免安装版新增 <code>.7z</code> 包（75 MB），蓝奏云 100 MB 限制内可直接上传；安装版 89 MB、单文件版 76.5 MB。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="clog-item">
+          <h3 class="clog-head">
+            <button class="clog-btn" type="button" id="cl-b1" aria-expanded="false" aria-controls="cl-p1">
+              <span class="clog-title"><span class="ver-tag">0.5.2</span><span class="clog-sub">关于页新增「官方网站」入口</span></span>
+              <span class="clog-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="clog-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
+            <div class="clog-body">
+              <ul class="clog-list">
                 <li>关于页「链接与致谢」新增条目「官方网站」（下载与更新日志），指向 <code>https://jijiguowang123.github.io/naiwai/</code>，排在致谢最前面；致谢共 26 项。</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div class="acc-item">
-          <h3 class="acc-head">
-            <button class="acc-btn" type="button" id="cl-b1" aria-expanded="false" aria-controls="cl-p1">
-              <span class="acc-title"><span class="ver-tag">0.5.1</span>实例布局改成和 PCL2 一样</span>
-              <span class="acc-icon" aria-hidden="true"></span>
+        <div class="clog-item">
+          <h3 class="clog-head">
+            <button class="clog-btn" type="button" id="cl-b2" aria-expanded="false" aria-controls="cl-p2">
+              <span class="clog-title"><span class="ver-tag">0.5.1</span><span class="clog-sub">实例布局改成和 PCL2 一样</span></span>
+              <span class="clog-icon" aria-hidden="true"></span>
             </button>
           </h3>
-          <div class="acc-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
-            <div class="acc-body">
-              <ul>
+          <div class="clog-panel" id="cl-p2" role="region" aria-labelledby="cl-b2">
+            <div class="clog-body">
+              <ul class="clog-list">
                 <li>一个实例 = <code>versions\&lt;实例名&gt;\</code> 一个目录，版本 json、client jar、natives、mods、config、saves 都在里面；建实例后会清掉不再需要的共享原版目录。</li>
                 <li>实例页新增「迁移旧版本布局」：检测到旧实例才可用，执行顺序是复制 → 逐文件校验 → 原子改名 → 改记录 → 删源，失败保留原文件，可续做、重复点幂等。</li>
                 <li>设置新增「游戏资源清理」：先显示 libraries / assets 占用，必须勾选确认才能清理；白名单只允许清 <code>libraries</code>、<code>assets</code> 与没人使用的原版版本目录。</li>
@@ -358,29 +378,6 @@
             </div>
           </div>
         </div>
-
-        <div class="acc-item">
-          <h3 class="acc-head">
-            <button class="acc-btn" type="button" id="cl-b2" aria-expanded="false" aria-controls="cl-p2">
-              <span class="acc-title"><span class="ver-tag">0.5.0</span>设置合并、插件筛选、类别跟随语言</span>
-              <span class="acc-icon" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="acc-panel" id="cl-p2" role="region" aria-labelledby="cl-b2">
-            <div class="acc-body">
-              <ul>
-                <li>「个性化」「启动」「其它」三个页面并入「设置」，用标签切换；侧栏只留一个「设置」并放到最下面。</li>
-                <li>插件类型新增加载器筛选（Paper / Spigot / Bukkit / Folia / Purpur / Sponge）与 19 项插件类别多选。</li>
-                <li>所有资源的类别名跟随界面语言显示（中 / 英 / 日），未收录的类别显示原名。</li>
-                <li>详情页没选安装目标时，安装按钮直接置灰并写明原因，不必点了才提示。</li>
-                <li>下载源新增 FastMinecraftMirror，自动模式在 BMCLAPI 与它之间取更快的，失败回退官方。</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-
-
       </div>
 
       <div class="cl-cta">

@@ -129,7 +129,14 @@ OSS / COS / R2 这类直接上传目录、把 `index.html` 设为默认首页即
 这一页与 `index.html` 共用同一套页头、导航、页脚和 `assets/js/main.js`，
 内容区是**静态写死的 HTML**（来源：仓库根目录的 `CHANGELOG.md`）。
 
-- 转换规则：`## 版本号` → 版本标题、`###` → 小标题、`- ` → 列表项；只做转义，**不改内容**。
+- 转换规则：`## 版本号` → 一张版本卡片、`###` → 卡片内小标题、`- ` → 列表项；只做转义，**不改内容**。
+- 卡片结构：`article.clog-item` → `h2.clog-head > button.clog-btn`（`aria-expanded` + `aria-controls`）
+  → `div.clog-panel > div.clog-body`。版本号在 `.ver-tag`，标题行副标题 `.clog-sub` 取该版本第一个小标题；
+  小标题与副标题重复时给那个 `h3.clog-group` 加 `is-echo`，展开后不再重复显示。首页「最近三条」用同一套类名。
+- **默认只展开第一条**（最新版）：只有它带 `is-open` + `aria-expanded="true"`，其余收起（`max-height:0`）。
+  点标题行展开/收起，高度由 `main.js` 量 `scrollHeight` 设 `max-height`
+  （Chromium 140 上 `grid-template-rows: 0fr→1fr` 实测不生效，不要换回去）。
+- 右上角「全部展开 / 全部收起」（`#clog-expand-all` / `#clog-collapse-all`），只作用于 `.clog-item`。
 - 页面顶部有一行「完整历史见 GitHub：CHANGELOG.md」，指向仓库里的原文。
 - **为什么不做动态拉取**：本站 CSP 是 `default-src 'self'`，页面自己也承诺不发外部请求；
   用 `fetch()` 去拉 GitHub 会同时踩 CSP、CORS 与国内网络不稳三个坑，静态写入一次最稳。
@@ -137,7 +144,7 @@ OSS / COS / R2 这类直接上传目录、把 `index.html` 设为默认首页即
   1. `<meta http-equiv="Content-Security-Policy">` 的 `connect-src` 放行目标域名
      （例如 `connect-src 'self' https://raw.githubusercontent.com`，当前只有 `'self'`）；
   2. 目标地址要允许跨域（raw.githubusercontent.com 允许；api.github.com 有速率限制）。
-- 改完 `CHANGELOG.md` 后要重新生成这一页：替换 `<div class="clog">…</div>` 里的内容即可，
+- 改完 `CHANGELOG.md` 后要重新生成这一页：替换 `<div class="clog" id="clog-list">…</div>` 里的内容即可，
   导航与页脚不用动（导航里的「更新日志」在首页是指向 `changelog.html` 的链接，在本页高亮自己）。
 
 ---
@@ -165,7 +172,7 @@ OSS / COS / R2 这类直接上传目录、把 `index.html` 设为默认首页即
   想用 Inter CDN，在 `index.html` `<head>` 里取消那一行注释即可；
   **记得同时把 Content-Security-Policy 的 `style-src` / `font-src` 加上 `https://fonts.googleapis.com https://fonts.gstatic.com`**，否则会被 CSP 拦掉。
 - **布局**：容器最大 1160px；Hero 居中 + 叠层截图；功能为 9 张编号卡片（3×3）；
-  分区展示左右交替；下载区单按钮居中；更新日志 / FAQ 用手风琴；社区为链接卡。
+  分区展示左右交替；下载区单按钮居中；更新日志用折叠卡片、FAQ 用手风琴（同一套 JS）；社区为链接卡。
 - **断点**：`>1024px` 桌面三栏、`≤1024px` 两栏 + 汉堡菜单、`≤768px` 单栏、`≤480px` 紧凑排版。
   任意宽度都保证 `scrollWidth ≤ clientWidth`（无横向滚动）。
 - **深色偏好**：`@media (prefers-color-scheme: dark)` 覆盖一套配色；浅色始终是默认且优先。

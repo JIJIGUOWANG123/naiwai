@@ -270,53 +270,103 @@
     queueSweep();
   }
 
-  /* ---------- 4. 手风琴（FAQ / 更新日志） ---------- */
+  /* ---------- 4. 折叠卡片 / 手风琴（更新日志卡片 + 常见问题） ---------- */
 
-  function expandPanel(item, panel) {
-    item.classList.add("is-open");
-    panel.style.maxHeight = panel.scrollHeight + "px";
-    panel.addEventListener("transitionend", function handler(event) {
-      if (event.propertyName !== "max-height") return;
-      panel.removeEventListener("transitionend", handler);
-      if (item.classList.contains("is-open")) panel.style.maxHeight = "none";
-    });
+  /* 一套实现同时服务 .clog-item（更新日志页、首页「最近三条」）与 .acc-item（常见问题）：
+     面板靠标题按钮的 aria-controls 定位；收起态是 max-height:0，展开时先量 scrollHeight
+     再设像素值（0 → 像素可插值），过渡结束改回 none，窗口变宽后文字换行才不会被裁。 */
+  var accordionItems = [];
+
+  function panelOf(item) {
+    var btn = item.querySelector("button[aria-controls]");
+    var panel = btn ? document.getElementById(btn.getAttribute("aria-controls")) : null;
+    return btn && panel ? { btn: btn, panel: panel } : null;
   }
 
-  function collapsePanel(item, panel) {
-    if (panel.style.maxHeight === "none" || !panel.style.maxHeight) {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-      void panel.offsetHeight;
+  function openItem(item, ref) {
+    /* 顺序要紧：先量（面板还是收起态）→ 设像素高度 → 再加 is-open，
+       中间不触发强制布局，过渡才会真的从 0 走到目标高度。 */
+    ref.panel.style.maxHeight = ref.panel.scrollHeight + "px";
+    item.classList.add("is-open");
+    ref.btn.setAttribute("aria-expanded", "true");
+
+    var timer = 0;
+    function settle() {
+      if (!timer) return;
+      window.clearTimeout(timer);
+      timer = 0;
+      ref.panel.removeEventListener("transitionend", onEnd);
+      if (item.classList.contains("is-open")) ref.panel.style.maxHeight = "none";
+    }
+    function onEnd(event) {
+      if (event.propertyName === "max-height") settle();
+    }
+    timer = window.setTimeout(settle, 320);
+    ref.panel.addEventListener("transitionend", onEnd);
+  }
+
+  function closeItem(item, ref) {
+    if (ref.panel.style.maxHeight === "none" || !ref.panel.style.maxHeight) {
+      ref.panel.style.maxHeight = ref.panel.scrollHeight + "px";
+      void ref.panel.offsetHeight;
     }
     item.classList.remove("is-open");
-    panel.style.maxHeight = "0px";
+    ref.btn.setAttribute("aria-expanded", "false");
+    ref.panel.style.maxHeight = "0px";
   }
 
-  var accButtons = Array.prototype.slice.call(document.querySelectorAll(".acc-btn"));
-
-  accButtons.forEach(function (btn) {
-    var item = btn.closest(".acc-item");
-    var panel = item ? item.querySelector(".acc-panel") : null;
-    if (!item || !panel) return;
-
-    if (item.classList.contains("is-open")) panel.style.maxHeight = "none";
-    btn.setAttribute("aria-expanded", item.classList.contains("is-open") ? "true" : "false");
-
-    btn.addEventListener("click", function () {
-      var open = !item.classList.contains("is-open");
-      if (open) expandPanel(item, panel);
-      else collapsePanel(item, panel);
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
+  function collectAccordions(selector) {
+    Array.prototype.forEach.call(document.querySelectorAll(selector), function (item) {
+      var ref = panelOf(item);
+      if (!ref) return;
+      if (item.classList.contains("is-open")) {
+        ref.panel.style.maxHeight = "none";
+        ref.btn.setAttribute("aria-expanded", "true");
+      }
+      ref.btn.addEventListener("click", function () {
+        if (item.classList.contains("is-open")) closeItem(item, ref);
+        else openItem(item, ref);
+      });
+      accordionItems.push({ item: item, ref: ref });
     });
-  });
+  }
+
+  collectAccordions(".clog-item");
+  collectAccordions(".acc-item");
+
+  /* 更新日志页右上角：全部展开 / 全部收起（只作用于 .clog-item 卡片） */
+  function clogCards() {
+    return accordionItems.filter(function (rec) {
+      return rec.item.classList.contains("clog-item");
+    });
+  }
+
+  var expandAllBtn = document.getElementById("clog-expand-all");
+  var collapseAllBtn = document.getElementById("clog-collapse-all");
+
+  if (expandAllBtn) {
+    expandAllBtn.addEventListener("click", function () {
+      clogCards().forEach(function (rec) {
+        if (!rec.item.classList.contains("is-open")) openItem(rec.item, rec.ref);
+      });
+    });
+  }
+  if (collapseAllBtn) {
+    collapseAllBtn.addEventListener("click", function () {
+      clogCards().forEach(function (rec) {
+        if (rec.item.classList.contains("is-open")) closeItem(rec.item, rec.ref);
+      });
+    });
+  }
 
   /* 窗口尺寸变化时，已展开的面板重算高度，避免文字换行后被裁切 */
   window.addEventListener("resize", function () {
-    Array.prototype.forEach.call(
-      document.querySelectorAll(".acc-item.is-open .acc-panel"),
-      function (panel) {
-        if (panel.style.maxHeight !== "none") panel.style.maxHeight = panel.scrollHeight + "px";
+    accordionItems.forEach(function (rec) {
+      if (!rec.item.classList.contains("is-open")) return;
+      if (rec.ref.panel.style.maxHeight !== "none") {
+        rec.ref.panel.style.maxHeight = rec.ref.panel.scrollHeight + "px";
       }
-    );
+    });
   });
 
   /* ---------- 5. 键盘：Esc 收起移动端菜单 ---------- */
