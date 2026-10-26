@@ -1,0 +1,607 @@
+{
+  "pages": {
+    "index": {
+      "navActionCount": 1,
+      "navActionHrefs": [
+        "https://github.com/JIJIGUOWANG123/NaiWaLauncher"
+      ],
+      "navActionsBtnCount": 0,
+      "navPrimaryBtnCount": 0,
+      "navChangelogHref": "changelog.html",
+      "navListItems": [
+        "功能 -> #features",
+        "下载 -> #download",
+        "常见问题 -> #faq",
+        "更新日志 -> changelog.html",
+        "社区 -> #community"
+      ],
+      "dataVersionCount": 0,
+      "heroMetaText": "Windows x64 · 从 GitHub Releases 下载 · Electron + React · MIT License",
+      "heroMetaHasVersion": false,
+      "downloadH2Text": "下载奶娃启动器",
+      "downloadH2HasVersion": false,
+      "versionLikeText": [
+        {
+          "tag": "span",
+          "text": "0.5.3",
+          "inSection": "changelog"
+        },
+        {
+          "tag": "span",
+          "text": "0.5.2",
+          "inSection": "changelog"
+        },
+        {
+          "tag": "span",
+          "text": "0.5.1",
+          "inSection": "changelog"
+        }
+      ],
+      "heroButtons": [
+        {
+          "text": "下载启动器",
+          "href": "https://github.com/JIJIGUOWANG123/NaiWaLauncher/releases",
+          "cls": "btn btn-primary btn-lg is-ready",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "text": "蓝奏云下载（免安装）",
+          "href": "https://wwaof.lanzouc.com/b0umlo3ij",
+          "cls": "btn btn-ghost btn-lg",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        }
+      ],
+      "lanzou": {
+        "href": "https://wwaof.lanzouc.com/b0umlo3ij",
+        "target": "_blank",
+        "rel": "noopener noreferrer",
+        "copy": "e71u",
+        "cls": "btn btn-ghost btn-lg"
+      },
+      "lanzouNote": "免安装版 · 访问密码 e71u",
+      "communityCardCount": 3,
+      "communityCards": [
+        {
+          "title": "GitHub 仓库",
+          "href": "https://github.com/JIJIGUOWANG123/NaiWaLauncher",
+          "target": "_blank"
+        },
+        {
+          "title": "Releases",
+          "href": "https://github.com/JIJIGUOWANG123/NaiWaLauncher/releases",
+          "target": "_blank"
+        },
+        {
+          "title": "交流群",
+          "href": "https://qm.qq.com/q/42ksfWCEw0",
+          "target": "_blank"
+        }
+      ],
+      "creditCount": 8,
+      "credits": [
+        {
+          "text": "Modrinth",
+          "href": "https://modrinth.com/",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "text": "CurseForge",
+          "href": "https://www.curseforge.com/minecraft",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "text": "MCIM（MCMirror）",
+          "href": "https://github.com/mcmod-info-mirror",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "text": "BMCLAPI",
+          "href": "https://bmclapi2.bangbang93.com/",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "text": "FastMirror",
+          "href": "https://www.fastmirror.net/#/home",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "text": "麦块",
+          "href": "https://bbs.minekuai.com/",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "text": "MC 百科",
+          "href": "https://www.mcmod.cn/",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        {
+          "text": "MCBBS",
+          "href": "https://www.mcbbs.co/",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        }
+      ],
+      "changelogAccordionItems": 3,
+      "changelogVersions": [
+        "0.5.3",
+        "0.5.2",
+        "0.5.1"
+      ],
+      "changelogCta": {
+        "href": "changelog.html",
+        "text": "查看完整更新日志 →"
+      },
+      "footerChangelogHrefs": [
+        "changelog.html"
+      ],
+      "horizontalOverflow": 0,
+      "headerHtml": "<header class=\"site-header\" id=\"site-header\">\n  <div class=\"container header-inner\">\n    <a class=\"brand\" href=\"#top\" aria-label=\"奶娃启动器，回到页面顶部\">\n      <img class=\"brand-logo\" src=\"assets/img/logo.png\" alt=\"\" width=\"36\" height=\"36\">\n      <span class=\"brand-name\">奶娃启动器<em>NaiWa Launcher</em></span>\n    </a>\n\n    <nav class=\"nav\" id=\"primary-nav\" aria-label=\"主导航\">\n      <ul class=\"nav-list\">\n        <li><a href=\"#features\">功能</a></li>\n        <li><a href=\"#download\">下载</a></li>\n        <li><a href=\"#faq\">常见问题</a></li>\n        <li><a href=\"changelog.html\">更新日志</a></li>\n        <li><a href=\"#community\">社区</a></li>\n      </ul>\n      <div class=\"nav-actions\">\n        <a class=\"nav-source is-ready\" data-dl=\"repo\" data-dl-keep-label=\"\" href=\"https://github.com/JIJIGUOWANG123/NaiWaLauncher\" rel=\"noopener noreferrer\" target=\"_blank\">开放源代码</a>\n      </div>\n    </nav>\n\n    <button class=\"nav-toggle\" id=\"nav-toggle\" type=\"button\" aria-expanded=\"false\" aria-controls=\"primary-nav\" aria-label=\"打开菜单\">\n      <span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span>\n      <span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span>\n      <span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span>\n    </button>\n  </div>\n</header>",
+      "shots": [
+        {
+          "file": "index-1440.png",
+          "width": 1440,
+          "height": 9044,
+          "pageHeight": 9044,
+          "truncated": false,
+          "overflow": 0
+        },
+        {
+          "file": "index-820.png",
+          "width": 820,
+          "height": 10949,
+          "pageHeight": 10949,
+          "truncated": false,
+          "overflow": 0
+        },
+        {
+          "file": "index-390.png",
+          "width": 390,
+          "height": 11412,
+          "pageHeight": 11412,
+          "truncated": false,
+          "overflow": 0
+        }
+      ],
+      "accordion": {
+        "recentOpen": {
+          "id": "cl-b1",
+          "aria": "true",
+          "height": 77
+        },
+        "recentClosed": {
+          "id": "cl-b1",
+          "aria": "false",
+          "height": 0
+        },
+        "faqOpen": {
+          "id": "fq-b1",
+          "aria": "true",
+          "height": 49
+        },
+        "faqClosed": {
+          "id": "fq-b1",
+          "aria": "false",
+          "height": 0
+        }
+      },
+      "clipboardAfterClick": "e71u",
+      "hintAfterClick": {
+        "text": "已复制访问密码 e71u",
+        "cls": "copy-hint is-on",
+        "opacity": "1"
+      },
+      "hintAfterFade": {
+        "text": "已复制访问密码 e71u",
+        "cls": "copy-hint",
+        "opacity": "0"
+      }
+    },
+    "changelog": {
+      "title": "更新日志 — 奶娃启动器 NaiWa Launcher",
+      "headerHtml": "<header class=\"site-header\" id=\"site-header\">\n  <div class=\"container header-inner\">\n    <a class=\"brand\" href=\"index.html\" aria-label=\"奶娃启动器，回到页面顶部\">\n      <img class=\"brand-logo\" src=\"assets/img/logo.png\" alt=\"\" width=\"36\" height=\"36\">\n      <span class=\"brand-name\">奶娃启动器<em>NaiWa Launcher</em></span>\n    </a>\n\n    <nav class=\"nav\" id=\"primary-nav\" aria-label=\"主导航\">\n      <ul class=\"nav-list\">\n        <li><a href=\"index.html#features\">功能</a></li>\n        <li><a href=\"index.html#download\">下载</a></li>\n        <li><a href=\"index.html#faq\">常见问题</a></li>\n        <li><a href=\"changelog.html\" class=\"is-active\" aria-current=\"page\">更新日志</a></li>\n        <li><a href=\"index.html#community\">社区</a></li>\n      </ul>\n      <div class=\"nav-actions\">\n        <a class=\"nav-source is-ready\" data-dl=\"repo\" data-dl-keep-label=\"\" href=\"https://github.com/JIJIGUOWANG123/NaiWaLauncher\" rel=\"noopener noreferrer\" target=\"_blank\">开放源代码</a>\n      </div>\n    </nav>\n\n    <button class=\"nav-toggle\" id=\"nav-toggle\" type=\"button\" aria-expanded=\"false\" aria-controls=\"primary-nav\" aria-label=\"打开菜单\">\n      <span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span>\n      <span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span>\n      <span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span>\n    </button>\n  </div>\n</header>",
+      "entryCount": 46,
+      "cardCount": 46,
+      "groupCount": 139,
+      "itemCount": 421,
+      "expandedCount": 1,
+      "ariaTrue": 1,
+      "ariaFalse": 45,
+      "openIds": [
+        0
+      ],
+      "firstHeight": 820,
+      "zeroHeightCount": 45,
+      "zeroHeightSkippingFirst": 45,
+      "btnTagNames": [
+        "BUTTON"
+      ],
+      "ariaLinked": true,
+      "panelIds": true,
+      "firstVersions": [
+        "0.5.3",
+        "0.5.2",
+        "0.5.1",
+        "0.5.0"
+      ],
+      "lastVersion": "0.1.0",
+      "has051": true,
+      "has049": true,
+      "has010": true,
+      "ghLink": "https://github.com/JIJIGUOWANG123/NaiWaLauncher/blob/main/CHANGELOG.md",
+      "ghTarget": "_blank",
+      "ghRel": "noopener noreferrer",
+      "toolbar": {
+        "expand": "全部展开",
+        "collapse": "全部收起"
+      },
+      "activeNav": {
+        "href": "changelog.html",
+        "cls": "is-active",
+        "current": "page"
+      },
+      "navListItems": [
+        "功能 -> index.html#features",
+        "下载 -> index.html#download",
+        "常见问题 -> index.html#faq",
+        "更新日志 -> changelog.html",
+        "社区 -> index.html#community"
+      ],
+      "imgCount": 2,
+      "imagesBroken": 0,
+      "styleSheetCount": 1,
+      "jsClassOn": true,
+      "brandHref": "index.html",
+      "ctaHref": "index.html",
+      "horizontalOverflow": 0,
+      "overflowByWidth": {
+        "390": 0,
+        "820": 0,
+        "1440": 0
+      },
+      "shots": [
+        {
+          "file": "changelog-1440.png",
+          "width": 1440,
+          "height": 4877,
+          "pageHeight": 4877,
+          "truncated": false,
+          "overflow": 0
+        }
+      ],
+      "foldedShot": {
+        "file": "changelog-folded.png",
+        "width": 1440,
+        "height": 900,
+        "overflow": 0
+      },
+      "clickSecond": {
+        "x": 713,
+        "y": 492,
+        "w": 810,
+        "h": 56
+      },
+      "afterClickSecond": {
+        "cards": 46,
+        "expanded": 2,
+        "ariaTrue": 2,
+        "ariaFalse": 44,
+        "openIds": [
+          0,
+          1
+        ],
+        "heights": [
+          820,
+          77,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "secondHeight": 77,
+        "zeroHeightCount": 44,
+        "focused": "cl-b1"
+      },
+      "expandedShot": {
+        "file": "changelog-expanded.png",
+        "width": 1440,
+        "height": 4954,
+        "pageHeight": 4954,
+        "truncated": false,
+        "overflow": 0
+      },
+      "afterExpandAll": {
+        "cards": 46,
+        "expanded": 46,
+        "ariaTrue": 46,
+        "ariaFalse": 0,
+        "openIds": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45
+        ],
+        "heights": [
+          820,
+          77,
+          773,
+          764,
+          283,
+          488,
+          1252,
+          113,
+          603,
+          452,
+          531,
+          1115,
+          628,
+          1336,
+          616,
+          698,
+          613,
+          767,
+          867,
+          985,
+          680,
+          867,
+          488,
+          267,
+          507,
+          167,
+          461,
+          903,
+          488,
+          758,
+          731,
+          140,
+          373,
+          543,
+          673,
+          382,
+          858,
+          551,
+          467,
+          676,
+          122,
+          122,
+          122,
+          158,
+          267,
+          2255
+        ],
+        "secondHeight": 77,
+        "zeroHeightCount": 0,
+        "focused": "clog-expand-all"
+      },
+      "afterCollapseAll": {
+        "cards": 46,
+        "expanded": 0,
+        "ariaTrue": 0,
+        "ariaFalse": 46,
+        "openIds": [],
+        "heights": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "secondHeight": 0,
+        "zeroHeightCount": 46,
+        "focused": "clog-collapse-all"
+      },
+      "focusedBeforeEnter": "cl-b1",
+      "focusPage": "changelog.html",
+      "afterKeyboardEnter": {
+        "cards": 46,
+        "expanded": 2,
+        "ariaTrue": 2,
+        "ariaFalse": 44,
+        "openIds": [
+          0,
+          1
+        ],
+        "heights": [
+          820,
+          77,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "secondHeight": 77,
+        "zeroHeightCount": 44,
+        "focused": "cl-b1"
+      },
+      "afterTab": "cl-b2",
+      "tabbableCount": 46
+    },
+    "headerCompare": {
+      "equalAfterNormalize": true,
+      "indexHeaderLength": 1218,
+      "changelogHeaderLength": 1302,
+      "indexNormalized": "<header class=\"site-header\" id=\"site-header\"><div class=\"container header-inner\"><a class=\"brand\" href=\"#top\" aria-label=\"奶娃启动器，回到页面顶部\"><img class=\"brand-logo\" src=\"assets/img/logo.png\" alt=\"\" width=\"36\" height=\"36\"><span class=\"brand-name\">奶娃启动器<em>NaiWa Launcher</em></span></a><nav class=\"nav\" id=\"primary-nav\" aria-label=\"主导航\"><ul class=\"nav-list\"><li><a href=\"#features\">功能</a></li><li><a href=\"#download\">下载</a></li><li><a href=\"#faq\">常见问题</a></li><li><a href=\"changelog.html\">更新日志</a></li><li><a href=\"#community\">社区</a></li></ul><div class=\"nav-actions\"><a class=\"nav-source is-ready\" data-dl=\"repo\" data-dl-keep-label=\"\" href=\"https://github.com/JIJIGUOWANG123/NaiWaLauncher\" rel=\"noopener noreferrer\" target=\"_blank\">开放源代码</a></div></nav><button class=\"nav-toggle\" id=\"nav-toggle\" type=\"button\" aria-expanded=\"false\" aria-controls=\"primary-nav\" aria-label=\"打开菜单\"><span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span><span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span><span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span></button></div></header>"
+    }
+  },
+  "console": [],
+  "errors": [],
+  "windowOpen": [
+    {
+      "url": "https://wwaof.lanzouc.com/b0umlo3ij",
+      "from": "file:///D:/minecraft/HTML/index.html",
+      "t": "02:48:22.957"
+    }
+  ],
+  "consoleErrors": []
+}
