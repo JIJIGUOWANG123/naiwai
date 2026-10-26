@@ -1,20 +1,20 @@
-[02:48:12] shot index.html -> index-1440.png 1440x9044 pageHeight=9044 overflow=0
-[02:48:14] shot index.html -> index-820.png 820x10949 pageHeight=10949 overflow=0
-[02:48:16] shot index.html -> index-390.png 390x11412 pageHeight=11412 overflow=0
-[02:48:17] click #cl-b1 at {"x":713,"y":724,"w":810,"h":56}
-[02:48:18] click #cl-b1 at {"x":713,"y":492,"w":810,"h":56}
-[02:48:19] click #fq-b1 at {"x":713,"y":492,"w":812,"h":66}
-[02:48:20] click #fq-b1 at {"x":713,"y":492,"w":812,"h":66}
-[02:48:22] click lanzou at {"x":790,"y":509,"w":1440,"h":900}
-[02:48:22] window-open https://wwaof.lanzouc.com/b0umlo3ij from file:///D:/minecraft/HTML/index.html
-[02:48:27] changelog width 1440 overflow 0
-[02:48:27] changelog width 820 overflow 0
-[02:48:28] changelog width 390 overflow 0
-[02:48:30] shot changelog.html -> changelog-1440.png 1440x4877 pageHeight=4877 overflow=0
-[02:48:31] shot changelog-folded.png 1440x900 overflow=0
-[02:48:33] click #cl-b1 at {"x":713,"y":492,"w":810,"h":56}
-[02:48:35] shot changelog.html -> changelog-expanded.png 1440x4954 pageHeight=4954 overflow=0
-[02:48:36] click #clog-expand-all at {"x":975,"y":343,"w":91,"h":37}
-[02:48:37] click #clog-collapse-all at {"x":1073,"y":343,"w":91,"h":37}
-[02:48:40] keyboard focus id=cl-b1 page=changelog.html
-[02:48:41] done. consoleErrors=0 loadErrors=0 windowOpen=[{"url":"https://wwaof.lanzouc.com/b0umlo3ij","from":"file:///D:/minecraft/HTML/index.html","t":"02:48:22.957"}]
+[04:14:05] shot index.html -> index-1440.png 1440x9062 pageHeight=9062 overflow=0
+[04:14:07] shot index.html -> index-820.png 820x10913 pageHeight=10913 overflow=0
+[04:14:09] shot index.html -> index-390.png 390x11348 pageHeight=11348 overflow=0
+[04:14:10] click #cl-b1 at {"x":713,"y":724,"w":810,"h":56}
+[04:14:11] click #cl-b1 at {"x":713,"y":492,"w":810,"h":56}
+[04:14:12] click #fq-b1 at {"x":713,"y":492,"w":812,"h":66}
+[04:14:14] click #fq-b1 at {"x":713,"y":492,"w":812,"h":66}
+[04:14:16] click lanzou at {"x":790,"y":509,"w":1440,"h":900}
+[04:14:16] window-open https://wwaof.lanzouc.com/b0umlo3ij from file:///D:/minecraft/HTML/index.html
+[04:14:20] changelog width 1440 overflow 0
+[04:14:21] changelog width 820 overflow 0
+[04:14:21] changelog width 390 overflow 0
+[04:14:23] shot changelog.html -> changelog-1440.png 1440x4818 pageHeight=4818 overflow=0
+[04:14:24] shot changelog-folded.png 1440x900 overflow=0
+[04:14:26] click #cl-b1 at {"x":713,"y":492,"w":810,"h":56}
+[04:14:28] shot changelog.html -> changelog-expanded.png 1440x5638 pageHeight=5638 overflow=0
+[04:14:30] click #clog-expand-all at {"x":975,"y":343,"w":91,"h":37}
+[04:14:31] click #clog-collapse-all at {"x":1073,"y":343,"w":91,"h":37}
+[04:14:33] keyboard focus id=cl-b1 page=changelog.html
+[04:14:34] done. consoleErrors=0 loadErrors=0 windowOpen=[{"url":"https://wwaof.lanzouc.com/b0umlo3ij","from":"file:///D:/minecraft/HTML/index.html","t":"04:14:16.155"}]

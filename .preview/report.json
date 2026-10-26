@@ -23,17 +23,17 @@
       "versionLikeText": [
         {
           "tag": "span",
+          "text": "0.5.4",
+          "inSection": "changelog"
+        },
+        {
+          "tag": "span",
           "text": "0.5.3",
           "inSection": "changelog"
         },
         {
           "tag": "span",
           "text": "0.5.2",
-          "inSection": "changelog"
-        },
-        {
-          "tag": "span",
-          "text": "0.5.1",
           "inSection": "changelog"
         }
       ],
@@ -132,9 +132,9 @@
       ],
       "changelogAccordionItems": 3,
       "changelogVersions": [
+        "0.5.4",
         "0.5.3",
-        "0.5.2",
-        "0.5.1"
+        "0.5.2"
       ],
       "changelogCta": {
         "href": "changelog.html",
@@ -149,24 +149,24 @@
         {
           "file": "index-1440.png",
           "width": 1440,
-          "height": 9044,
-          "pageHeight": 9044,
+          "height": 9062,
+          "pageHeight": 9062,
           "truncated": false,
           "overflow": 0
         },
         {
           "file": "index-820.png",
           "width": 820,
-          "height": 10949,
-          "pageHeight": 10949,
+          "height": 10913,
+          "pageHeight": 10913,
           "truncated": false,
           "overflow": 0
         },
         {
           "file": "index-390.png",
           "width": 390,
-          "height": 11412,
-          "pageHeight": 11412,
+          "height": 11348,
+          "pageHeight": 11348,
           "truncated": false,
           "overflow": 0
         }
@@ -175,7 +175,7 @@
         "recentOpen": {
           "id": "cl-b1",
           "aria": "true",
-          "height": 77
+          "height": 249
         },
         "recentClosed": {
           "id": "cl-b1",
@@ -208,29 +208,29 @@
     "changelog": {
       "title": "更新日志 — 奶娃启动器 NaiWa Launcher",
       "headerHtml": "<header class=\"site-header\" id=\"site-header\">\n  <div class=\"container header-inner\">\n    <a class=\"brand\" href=\"index.html\" aria-label=\"奶娃启动器，回到页面顶部\">\n      <img class=\"brand-logo\" src=\"assets/img/logo.png\" alt=\"\" width=\"36\" height=\"36\">\n      <span class=\"brand-name\">奶娃启动器<em>NaiWa Launcher</em></span>\n    </a>\n\n    <nav class=\"nav\" id=\"primary-nav\" aria-label=\"主导航\">\n      <ul class=\"nav-list\">\n        <li><a href=\"index.html#features\">功能</a></li>\n        <li><a href=\"index.html#download\">下载</a></li>\n        <li><a href=\"index.html#faq\">常见问题</a></li>\n        <li><a href=\"changelog.html\" class=\"is-active\" aria-current=\"page\">更新日志</a></li>\n        <li><a href=\"index.html#community\">社区</a></li>\n      </ul>\n      <div class=\"nav-actions\">\n        <a class=\"nav-source is-ready\" data-dl=\"repo\" data-dl-keep-label=\"\" href=\"https://github.com/JIJIGUOWANG123/NaiWaLauncher\" rel=\"noopener noreferrer\" target=\"_blank\">开放源代码</a>\n      </div>\n    </nav>\n\n    <button class=\"nav-toggle\" id=\"nav-toggle\" type=\"button\" aria-expanded=\"false\" aria-controls=\"primary-nav\" aria-label=\"打开菜单\">\n      <span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span>\n      <span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span>\n      <span class=\"nav-toggle-bar\" aria-hidden=\"true\"></span>\n    </button>\n  </div>\n</header>",
-      "entryCount": 46,
-      "cardCount": 46,
-      "groupCount": 139,
-      "itemCount": 421,
+      "entryCount": 47,
+      "cardCount": 47,
+      "groupCount": 142,
+      "itemCount": 429,
       "expandedCount": 1,
       "ariaTrue": 1,
-      "ariaFalse": 45,
+      "ariaFalse": 46,
       "openIds": [
         0
       ],
-      "firstHeight": 820,
-      "zeroHeightCount": 45,
-      "zeroHeightSkippingFirst": 45,
+      "firstHeight": 689,
+      "zeroHeightCount": 46,
+      "zeroHeightSkippingFirst": 46,
       "btnTagNames": [
         "BUTTON"
       ],
       "ariaLinked": true,
       "panelIds": true,
       "firstVersions": [
+        "0.5.4",
         "0.5.3",
         "0.5.2",
-        "0.5.1",
-        "0.5.0"
+        "0.5.1"
       ],
       "lastVersion": "0.1.0",
       "has051": true,
@@ -271,8 +271,8 @@
         {
           "file": "changelog-1440.png",
           "width": 1440,
-          "height": 4877,
-          "pageHeight": 4877,
+          "height": 4818,
+          "pageHeight": 4818,
           "truncated": false,
           "overflow": 0
         }
@@ -290,17 +290,18 @@
         "h": 56
       },
       "afterClickSecond": {
-        "cards": 46,
+        "cards": 47,
         "expanded": 2,
         "ariaTrue": 2,
-        "ariaFalse": 44,
+        "ariaFalse": 45,
         "openIds": [
           0,
           1
         ],
         "heights": [
+          689,
           820,
-          77,
+          0,
           0,
           0,
           0,
@@ -346,22 +347,22 @@
           0,
           0
         ],
-        "secondHeight": 77,
-        "zeroHeightCount": 44,
+        "secondHeight": 820,
+        "zeroHeightCount": 45,
         "focused": "cl-b1"
       },
       "expandedShot": {
         "file": "changelog-expanded.png",
         "width": 1440,
-        "height": 4954,
-        "pageHeight": 4954,
+        "height": 5638,
+        "pageHeight": 5638,
         "truncated": false,
         "overflow": 0
       },
       "afterExpandAll": {
-        "cards": 46,
-        "expanded": 46,
-        "ariaTrue": 46,
+        "cards": 47,
+        "expanded": 47,
+        "ariaTrue": 47,
         "ariaFalse": 0,
         "openIds": [
           0,
@@ -409,9 +410,11 @@
           42,
           43,
           44,
-          45
+          45,
+          46
         ],
         "heights": [
+          689,
           820,
           77,
           773,
@@ -459,17 +462,18 @@
           267,
           2255
         ],
-        "secondHeight": 77,
+        "secondHeight": 820,
         "zeroHeightCount": 0,
         "focused": "clog-expand-all"
       },
       "afterCollapseAll": {
-        "cards": 46,
+        "cards": 47,
         "expanded": 0,
         "ariaTrue": 0,
-        "ariaFalse": 46,
+        "ariaFalse": 47,
         "openIds": [],
         "heights": [
+          0,
           0,
           0,
           0,
@@ -518,23 +522,24 @@
           0
         ],
         "secondHeight": 0,
-        "zeroHeightCount": 46,
+        "zeroHeightCount": 47,
         "focused": "clog-collapse-all"
       },
       "focusedBeforeEnter": "cl-b1",
       "focusPage": "changelog.html",
       "afterKeyboardEnter": {
-        "cards": 46,
+        "cards": 47,
         "expanded": 2,
         "ariaTrue": 2,
-        "ariaFalse": 44,
+        "ariaFalse": 45,
         "openIds": [
           0,
           1
         ],
         "heights": [
+          689,
           820,
-          77,
+          0,
           0,
           0,
           0,
@@ -580,12 +585,12 @@
           0,
           0
         ],
-        "secondHeight": 77,
-        "zeroHeightCount": 44,
+        "secondHeight": 820,
+        "zeroHeightCount": 45,
         "focused": "cl-b1"
       },
       "afterTab": "cl-b2",
-      "tabbableCount": 46
+      "tabbableCount": 47
     },
     "headerCompare": {
       "equalAfterNormalize": true,
@@ -600,7 +605,7 @@
     {
       "url": "https://wwaof.lanzouc.com/b0umlo3ij",
       "from": "file:///D:/minecraft/HTML/index.html",
-      "t": "02:48:22.957"
+      "t": "04:14:16.155"
     }
   ],
   "consoleErrors": []

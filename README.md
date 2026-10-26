@@ -20,11 +20,11 @@ HTML/
 ## 一、改下载地址与版本号
 
 **只改 `assets/js/main.js` 顶部这一块**，页面上所有下载按钮都由它渲染
-（`VERSION` 只用来拼免安装包文件名，**不会渲染到页面**——站点不标注版本号）：
+（`VERSION` 只用来拼免安装包文件名，**不会渲染到页面**；页面上显示的版本号是 HTML 里静态写的 `.ver-tag`）：
 
 ```js
-/** 当前版本号：会同步到页面上所有 data-version 的位置 */
-var VERSION = "0.5.1";
+/** 当前版本号：只用于拼免安装包文件名，不渲染到页面 */
+var VERSION = "0.5.4";
 
 var REPO_URL      = "https://github.com/JIJIGUOWANG123/NaiWaLauncher";
 var RELEASES_URL  = REPO_URL + "/releases";
@@ -43,8 +43,9 @@ var DOWNLOAD = {
   `https://github.com/JIJIGUOWANG123/NaiWaLauncher/releases`（即 `DOWNLOAD.source`）。
 - 想换成自己的下载站？把 `DOWNLOAD.source` 换成你的地址即可，其余按钮跟着变。
 - 把某一项留成 `"#"` 或空字符串，对应按钮会自动禁用并显示「即将上线」，**不会把用户送到 404**。
-- 版本号：页面上**不显示**任何版本号（用户明确要求「页面不标注版本」），`VERSION` 只影响便携包文件名。
-  不要再加 `data-version` 元素——`hydrateVersion()` 已经不再往页面写版本号。
+- 版本号：`VERSION` 只拼便携包文件名，**不渲染到页面**；站上显示的版本号（首页「最近三条」与
+  `changelog.html` 里的 `.ver-tag`）是 **HTML 里静态写死**的，发版要手动改，两处都要同步。
+  不要再加 `data-version` 元素——`hydrateVersion()` 只往 `[data-dl-file-name="portable"]` 写文件名。
 
 ### 页面里链接是怎么来的
 
@@ -155,7 +156,7 @@ OSS / COS / R2 这类直接上传目录、把 `index.html` 设为默认首页即
 | --- | --- | --- |
 | `main.js` → `DOWNLOAD.source` | GitHub Releases 地址 | 已配置 |
 | `main.js` → `REPO_URL` | `https://github.com/JIJIGUOWANG123/NaiWaLauncher` | 已配置 |
-| `main.js` → `VERSION` | `0.5.1`（只用于便携包文件名，页面不显示） | 已配置 |
+| `main.js` → `VERSION` | `0.5.4`（只用于便携包文件名，不渲染到页面） | 已配置 |
 | 页脚 | ICP 备案号 / 公网安备 | **待填写**（`<span class="beian-placeholder">`） |
 | 社区区 | GitHub 仓库 / Releases / 交流群（QQ 群 619915692） | 已配置（麦块社区卡片已按要求移除） |
 | `<head>` | `og:image` 用的是相对路径 `assets/img/home.png` | 建议上线后改成绝对 URL |

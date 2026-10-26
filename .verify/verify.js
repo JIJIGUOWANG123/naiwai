@@ -316,7 +316,7 @@ async function main() {
   results.pages.changelog.afterClickSecond = JSON.parse(await js(INTERACT_ASSERT));
   results.pages.changelog.expandedShot = await shoot("changelog-expanded.png", 1440);
 
-  /* 全部展开 → 45 条全开；全部收起 → 全部收起（含最新一条） */
+  /* 全部展开 → 47 条全开；全部收起 → 全部收起（含最新一条） */
   await go("changelog.html", 1440);
   await clickSel("#clog-expand-all");
   results.pages.changelog.afterExpandAll = JSON.parse(await js(INTERACT_ASSERT));

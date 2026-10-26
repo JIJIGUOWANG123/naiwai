@@ -326,11 +326,30 @@
         <div class="clog-item is-open">
           <h3 class="clog-head">
             <button class="clog-btn" type="button" id="cl-b0" aria-expanded="true" aria-controls="cl-p0">
-              <span class="clog-title"><span class="ver-tag">0.5.3</span><span class="clog-sub">设置页重新分四类</span></span>
+              <span class="clog-title"><span class="ver-tag">0.5.4</span><span class="clog-sub">低版本启动失败的真因修好了</span></span>
               <span class="clog-icon" aria-hidden="true"></span>
             </button>
           </h3>
           <div class="clog-panel" id="cl-p0" role="region" aria-labelledby="cl-b0">
+            <div class="clog-body">
+              <ul class="clog-list">
+                <li>低版本（1.16.5 等）「没装模组也启动失败」的真因修好了：版本描述合并时把 lwjgl 的 Windows 条目与 natives 条目当成重复丢掉了，去重键改成 <code>group:artifact:classifier</code> + 平台 rules + 下载变体。</li>
+                <li>已经装坏的实例不用重装：启动前会自动把缺失的游戏库补回版本描述并写回磁盘（含 natives），失败只记一条告警、绝不拦启动。</li>
+                <li>启动失败诊断新增「游戏库缺失」分类，不再把缺游戏库误报成模组问题；「可能相关的模组」只列真的装了的模组。</li>
+                <li>个性化背景三种来源互斥：点来源卡片即启用，卡片里的「启用 XX」开关已删除；老配置读取时自动收敛到当前来源。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="clog-item">
+          <h3 class="clog-head">
+            <button class="clog-btn" type="button" id="cl-b1" aria-expanded="false" aria-controls="cl-p1">
+              <span class="clog-title"><span class="ver-tag">0.5.3</span><span class="clog-sub">设置页重新分四类</span></span>
+              <span class="clog-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="clog-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
             <div class="clog-body">
               <ul class="clog-list">
                 <li>设置页改成「基础 / 下载 / 风格 / 其他」四个标签，按用途归类；「个性化 / 启动 / 其它」三个独立页面<strong>并入设置</strong>，侧栏只留一个「设置」。</li>
@@ -345,35 +364,15 @@
 
         <div class="clog-item">
           <h3 class="clog-head">
-            <button class="clog-btn" type="button" id="cl-b1" aria-expanded="false" aria-controls="cl-p1">
-              <span class="clog-title"><span class="ver-tag">0.5.2</span><span class="clog-sub">关于页新增「官方网站」入口</span></span>
-              <span class="clog-icon" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="clog-panel" id="cl-p1" role="region" aria-labelledby="cl-b1">
-            <div class="clog-body">
-              <ul class="clog-list">
-                <li>关于页「链接与致谢」新增条目「官方网站」（下载与更新日志），指向 <code>https://jijiguowang123.github.io/naiwai/</code>，排在致谢最前面；致谢共 26 项。</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="clog-item">
-          <h3 class="clog-head">
             <button class="clog-btn" type="button" id="cl-b2" aria-expanded="false" aria-controls="cl-p2">
-              <span class="clog-title"><span class="ver-tag">0.5.1</span><span class="clog-sub">实例布局改成和 PCL2 一样</span></span>
+              <span class="clog-title"><span class="ver-tag">0.5.2</span><span class="clog-sub">关于页新增「官方网站」入口</span></span>
               <span class="clog-icon" aria-hidden="true"></span>
             </button>
           </h3>
           <div class="clog-panel" id="cl-p2" role="region" aria-labelledby="cl-b2">
             <div class="clog-body">
               <ul class="clog-list">
-                <li>一个实例 = <code>versions\&lt;实例名&gt;\</code> 一个目录，版本 json、client jar、natives、mods、config、saves 都在里面；建实例后会清掉不再需要的共享原版目录。</li>
-                <li>实例页新增「迁移旧版本布局」：检测到旧实例才可用，执行顺序是复制 → 逐文件校验 → 原子改名 → 改记录 → 删源，失败保留原文件，可续做、重复点幂等。</li>
-                <li>设置新增「游戏资源清理」：先显示 libraries / assets 占用，必须勾选确认才能清理；白名单只允许清 <code>libraries</code>、<code>assets</code> 与没人使用的原版版本目录。</li>
-                <li>清理后启动会自动按需补齐依赖，离线或镜像不可用时会给出可读原因并中止，不再撞「启动失败」。</li>
-                <li>在线与本地整合包安装同样使用新布局。</li>
+                <li>关于页「链接与致谢」新增条目「官方网站」（下载与更新日志），指向 <code>https://jijiguowang123.github.io/naiwai/</code>，排在致谢最前面；致谢共 26 项。</li>
               </ul>
             </div>
           </div>
