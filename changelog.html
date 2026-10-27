@@ -61,12 +61,45 @@
              id="v-x-y-z"、id="toggle-x-y-z"、aria-controls="rel-x-y-z" 三处必须一致；
              新的一条加 is-open 且 aria-expanded="true"，上一条去掉 is-open 改成 false —— 全站永远只有 1 条默认展开；
              最多保留最近 5 条，超过 5 条就把最旧的一条整段删掉。 -->
-        <article class="release is-open" id="v-1-0-0">
+        <article class="release is-open" id="v-1-0-1">
           <h3 class="release-head">
-            <button class="release-toggle" type="button" id="toggle-1-0-0" aria-expanded="true" aria-controls="rel-1-0-0">
-              <span class="release-ver">v1.0.0</span>
+            <button class="release-toggle" type="button" id="toggle-1-0-1" aria-expanded="true" aria-controls="rel-1-0-1">
+              <span class="release-ver">v1.0.1</span>
               <span class="release-tag">最新</span>
-              <span class="release-date">即将发布</span>
+              <span class="release-date">2026-10-27</span>
+              <span class="release-sum">修复 1.0.0 的真机反馈，并补上第三方账号登录</span>
+              <svg class="release-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6.2 9.4 5.8 5.8 5.8-5.8"/></svg>
+            </button>
+          </h3>
+          <div class="release-body" id="rel-1-0-1" role="region" aria-labelledby="toggle-1-0-1">
+            <h4>修复</h4>
+            <ul>
+              <li>壁纸引擎可以正常应用，视频壁纸在预览框与背景层都能播放。</li>
+              <li>本地图不再提示「目录不存在」：默认目录改到当前数据根下的 backgrounds，并会自动创建。</li>
+              <li>官方皮肤可以直接上传到 Microsoft 账号（内置皮肤没有磁盘路径的问题已修）。</li>
+              <li>离开皮肤页再回来不会变回 Steve：正版账号显示 Microsoft 账号当前使用的皮肤，并带缓存。</li>
+              <li>「恢复正版皮肤」不再重复下载：已在本地就直接复用，接口 60 秒节流、按钮 30 秒冷却。</li>
+              <li>Java 版本列表补全：选「全部」合并所有来源，选单个镜像能看到该源的全部大版本。</li>
+              <li>新建实例可以选加载器与具体版本（Fabric / Forge / NeoForge）。</li>
+              <li>下载源不再被误判为「不可用」：探测改为对真实清单读取 1 字节，只有超时或服务端错误才算失败。</li>
+            </ul>
+            <h4>新增</h4>
+            <ul>
+              <li>第三方账号登录（Yggdrasil / authlib-injector，例如 LittleSkin）：三标签添加账号、站点地址与密码、刷新登录，首次自动下载 authlib-injector 并在启动时挂载。</li>
+              <li>第三方账号在皮肤页为只读预览：只显示该账号在皮肤站正在使用的皮肤，上传与修改按钮全部禁用。</li>
+            </ul>
+            <h4>其他</h4>
+            <ul>
+              <li>首次安装默认「关闭窗口时：每次询问」「更新方式：手动更新」。</li>
+              <li>整合包在资源列表与详情里统一显示「创建并安装」。</li>
+            </ul>
+          </div>
+        </article>
+        <article class="release" id="v-1-0-0">
+          <h3 class="release-head">
+            <button class="release-toggle" type="button" id="toggle-1-0-0" aria-expanded="false" aria-controls="rel-1-0-0">
+              <span class="release-ver">v1.0.0</span>
+              <span class="release-date">2026-10-27</span>
               <span class="release-sum">Rust + Tauri 2 重写后的第一个正式版本</span>
               <svg class="release-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6.2 9.4 5.8 5.8 5.8-5.8"/></svg>
             </button>
@@ -101,9 +134,16 @@
               <li>模组、光影与资源包都支持一键检查更新与批量更新，更新前会把原文件备份到实例目录里。</li>
               <li>1.20 及以上版本的存档可以「进入该存档」直接启动游戏；更低版本会提示不支持。</li>
             </ul>
+            <h4>种子地图</h4>
+            <ul>
+              <li>内置 cubiomes（MIT）在本地计算指定种子的地形：输入种子即可看到生物群系地图，支持拖拽平移与 1 / 2 / 4 / 8 / 16 / 32 / 64 像素每方块的离散缩放。</li>
+              <li>图层可开关：地貌阴影、悬停显示群系名与坐标、16×16 区块线、结构标记。</li>
+              <li>结构搜索覆盖村庄、海底神殿、林地府邸、要塞、下界要塞、堡垒、掠夺者前哨、沉船、海底废墟与宝藏；「高亮地形」可按群系名把目标区域留亮、其余压暗。</li>
+              <li>坐标栏可前往指定 X/Z、复制 TP 指令、跳到出生点；支持 1.21.x 到 26.3 的版本选择，全部计算在本机完成，不联网。</li>
+            </ul>
             <h4>主页新闻</h4>
             <ul>
-              <li>主页读取 Minecraft 官方新闻接口（launchercontent），最多显示最新 5 条，带封面图与中文译文；可切换「原文」，「阅读全文」跳转到中文官网对应的文章页。</li>
+              <li>主页读取 Minecraft 官方新闻接口（launchercontent），显示最新一条，带封面图与中文译文；可切换「原文」，「阅读全文」跳转到中文官网对应的文章页。</li>
             </ul>
             <h4>皮肤</h4>
             <ul>
@@ -113,6 +153,8 @@
               <li>官方默认皮肤共 9 套（Steve、Alex、Ari、Efe、Kai、Makena、Noor、Sunny、Zuri），每套都带经典与纤细模型。</li>
               <li>正版账号可以把当前预览的皮肤上传到 Microsoft 账号并同步披风设置（上传前有二次确认）；离线与第三方账号只做本地应用。</li>
               <li>披风设置：仅正版账号会列出可选披风，离线与第三方账号会明确提示不支持。</li>
+              <li>本地皮肤支持导入、拖入与删除（删除当前皮肤会回退到 Steve），内置皮肤只出现在「官方皮肤」里，不再混进本地列表。</li>
+              <li>「恢复正版皮肤」按钮：一键取回 Microsoft 账号当前正在使用的那套皮肤，先本地预览再落盘保存；账号用的是默认皮肤时会提示并套用 Steve / Alex。</li>
             </ul>
             <h4>开服与联机</h4>
             <ul>
