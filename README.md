@@ -1,202 +1,113 @@
-# 奶娃启动器 · 官网静态站（HTML/）
+# 咕咕启动器 · Gugu Launcher 官网
 
-纯静态产品站：没有框架、没有构建步骤、没有外部依赖。双击 `index.html` 就能看，
-丢到任意静态托管（GitHub Pages / Cloudflare Pages / Vercel / Nginx / 对象存储）就能上线。
+纯静态站点：没有构建步骤、没有 npm 依赖、没有任何 CDN 引用，双击 `index.html` 或丢到任意静态服务器就能跑，完全离线可用。
+
+- 仓库：https://github.com/JIJIGUOWANG123/Gugu-Launcher
+- 发布渠道：**只有 GitHub Releases** —— https://github.com/JIJIGUOWANG123/Gugu-Launcher/releases/latest
+- 页面：`index.html`（首页）、`changelog.html`（更新日志）
+
+## 目录结构
 
 ```
-HTML/
-├── index.html              页面结构（单页，含 Hero / 功能 / 分区展示 / 下载 / 更新日志 / FAQ / 社区）
-├── changelog.html          更新日志独立页（页头/导航/页脚与首页同源，内容为 CHANGELOG.md 的静态镜像）
-├── README.md               本文件
-├── assets/
-│   ├── css/style.css       全部样式（设计令牌 + 组件 + 三档断点 + 深色偏好）
-│   ├── js/main.js          全部交互（下载链接配置、汉堡菜单、滚动淡入、手风琴）
-│   └── img/                站点素材：logo.png + 五张应用截图（1440×900）
-└── .preview/               验收截图与报告（可整目录删除，不参与线上部署）
+静态网页/
+├── index.html            首页：Hero / 特性 / 界面预览 / 下载
+├── changelog.html        更新日志（当前只有 v1.0.0 一条，手风琴，最多留 5 条）
+├── .nojekyll             GitHub Pages 用：禁用 Jekyll 处理
+├── README.md             本文件
+└── assets/
+    ├── css/style.css      全部样式（主题变量在这里）
+    ├── js/main.js         主题切换、手风琴、灯箱、版本号注入（VERSION 在这里）
+    └── img/               截图 + logo.png（站内标识）+ favicon.ico（本地副本，不引用站外图片）
 ```
 
----
+## 本地预览
 
-## 一、改下载地址与版本号
-
-**只改 `assets/js/main.js` 顶部这一块**，页面上所有下载按钮都由它渲染
-（`VERSION` 只用来拼免安装包文件名，**不会渲染到页面**；页面上显示的版本号是 HTML 里静态写的 `.ver-tag`）：
-
-```js
-/** 当前版本号：只用于拼免安装包文件名，不渲染到页面 */
-var VERSION = "0.5.4";
-
-var REPO_URL      = "https://github.com/JIJIGUOWANG123/NaiWaLauncher";
-var RELEASES_URL  = REPO_URL + "/releases";
-var LATEST_DOWNLOAD = RELEASES_URL + "/latest/download";
-
-var DOWNLOAD = {
-  setup:    LATEST_DOWNLOAD + "/NaiWaLauncher-Setup.exe",                        // 安装版
-  single:   LATEST_DOWNLOAD + "/NaiWaLauncher.exe",                              // 单文件版
-  portable: LATEST_DOWNLOAD + "/NaiWaLauncher-" + VERSION + "-portable-x64.zip", // 便携版
-  source:   RELEASES_URL,                                                        // Releases 页
-  repo:     REPO_URL                                                             // 仓库首页
-};
-```
-
-- 站点上**只有一个下载入口**：Hero 主按钮、导航「下载」、下载区按钮、页脚「下载」全部指向
-  `https://github.com/JIJIGUOWANG123/NaiWaLauncher/releases`（即 `DOWNLOAD.source`）。
-- 想换成自己的下载站？把 `DOWNLOAD.source` 换成你的地址即可，其余按钮跟着变。
-- 把某一项留成 `"#"` 或空字符串，对应按钮会自动禁用并显示「即将上线」，**不会把用户送到 404**。
-- 版本号：`VERSION` 只拼便携包文件名，**不渲染到页面**；站上显示的版本号（首页「最近三条」与
-  `changelog.html` 里的 `.ver-tag`）是 **HTML 里静态写死**的，发版要手动改，两处都要同步。
-  不要再加 `data-version` 元素——`hydrateVersion()` 只往 `[data-dl-file-name="portable"]` 写文件名。
-
-### 页面里链接是怎么来的
-
-HTML 上带 `data-dl="source|repo"` 的元素会被 `hydrateDownloads()` 补齐 `href`
-（外部链接自动加 `target="_blank" rel="noopener noreferrer"`）。
-新增一个下载按钮 = 在 HTML 里写 `<a class="btn" data-dl="source" href="#">…</a>`，不用改 JS。
-
----
-
-## 二、本地预览
-
-三种方式，任选一种：
-
-1. **直接双击** `index.html`（file:// 也能跑，图标、字体、交互都正常）。
-2. **起一个静态服务器**（推荐，行为最接近线上）：
-
-   ```bash
-   cd HTML
-   npx serve .          # 或 python -m http.server 8080
-   ```
-
-   然后打开 http://localhost:8080/ 。
-
-3. 已经装了 Node 的环境也可以 `npx http-server . -p 8080`。
-
----
-
-## 三、部署
-
-### 1. 任意静态托管
-
-把 `HTML/` 里的内容（`index.html`、`assets/`）整体上传到站点根目录即可。
-`.preview/` 与 `.verify/` 是本地验收产物，**不要上传**。
-
-### 2. GitHub Pages
-
-```bash
-# 在仓库根目录
-git subtree push --prefix HTML origin gh-pages
-```
-
-或在仓库 **Settings → Pages** 里把 Source 选成 `gh-pages` 分支 / 根目录。
-发布后访问 `https://<用户名>.github.io/<仓库名>/`。
-
-> 注意：站点里的下载链接指向 GitHub Releases，与 Pages 站点同域无关，不需要额外配置。
-
-### 3. Nginx
-
-```nginx
-server {
-    listen 80;
-    server_name launcher.example.com;
-    root /var/www/naiwa-html;      # HTML/ 里的内容
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    # 静态资源长缓存，HTML 不缓存（改了立即生效）
-    location ~* \.(css|js|png|jpg|svg|webp|woff2)$ {
-        expires 7d;
-        add_header Cache-Control "public, max-age=604800";
-    }
-    location = /index.html {
-        add_header Cache-Control "no-cache";
-    }
-
-    gzip on;
-    gzip_types text/css application/javascript image/svg+xml;
-}
-```
-
-### 4. 对象存储 / CDN
-
-OSS / COS / R2 这类直接上传目录、把 `index.html` 设为默认首页即可，不需要服务端渲染。
-
----
-
-## 四、更新日志页（`changelog.html`）
-
-这一页与 `index.html` 共用同一套页头、导航、页脚和 `assets/js/main.js`，
-内容区是**静态写死的 HTML**（来源：仓库根目录的 `CHANGELOG.md`）。
-
-- 转换规则：`## 版本号` → 一张版本卡片、`###` → 卡片内小标题、`- ` → 列表项；只做转义，**不改内容**。
-- 卡片结构：`article.clog-item` → `h2.clog-head > button.clog-btn`（`aria-expanded` + `aria-controls`）
-  → `div.clog-panel > div.clog-body`。版本号在 `.ver-tag`，标题行副标题 `.clog-sub` 取该版本第一个小标题；
-  小标题与副标题重复时给那个 `h3.clog-group` 加 `is-echo`，展开后不再重复显示。首页「最近三条」用同一套类名。
-- **默认只展开第一条**（最新版）：只有它带 `is-open` + `aria-expanded="true"`，其余收起（`max-height:0`）。
-  点标题行展开/收起，高度由 `main.js` 量 `scrollHeight` 设 `max-height`
-  （Chromium 140 上 `grid-template-rows: 0fr→1fr` 实测不生效，不要换回去）。
-- 右上角「全部展开 / 全部收起」（`#clog-expand-all` / `#clog-collapse-all`），只作用于 `.clog-item`。
-- 页面顶部有一行「完整历史见 GitHub：CHANGELOG.md」，指向仓库里的原文。
-- **为什么不做动态拉取**：本站 CSP 是 `default-src 'self'`，页面自己也承诺不发外部请求；
-  用 `fetch()` 去拉 GitHub 会同时踩 CSP、CORS 与国内网络不稳三个坑，静态写入一次最稳。
-- 如果以后确实要改成运行时拉取，需要**同时**放宽两处：
-  1. `<meta http-equiv="Content-Security-Policy">` 的 `connect-src` 放行目标域名
-     （例如 `connect-src 'self' https://raw.githubusercontent.com`，当前只有 `'self'`）；
-  2. 目标地址要允许跨域（raw.githubusercontent.com 允许；api.github.com 有速率限制）。
-- 改完 `CHANGELOG.md` 后要重新生成这一页：替换 `<div class="clog" id="clog-list">…</div>` 里的内容即可，
-  导航与页脚不用动（导航里的「更新日志」在首页是指向 `changelog.html` 的链接，在本页高亮自己）。
-
----
-
-## 五、内容与配置清单（部署前逐项确认）
-
-| 位置 | 内容 | 状态 |
-| --- | --- | --- |
-| `main.js` → `DOWNLOAD.source` | GitHub Releases 地址 | 已配置 |
-| `main.js` → `REPO_URL` | `https://github.com/JIJIGUOWANG123/NaiWaLauncher` | 已配置 |
-| `main.js` → `VERSION` | `0.5.4`（只用于便携包文件名，不渲染到页面） | 已配置 |
-| 页脚 | ICP 备案号 / 公网安备 | **待填写**（`<span class="beian-placeholder">`） |
-| 社区区 | GitHub 仓库 / Releases / 交流群（QQ 群 619915692） | 已配置（麦块社区卡片已按要求移除） |
-| `<head>` | `og:image` 用的是相对路径 `assets/img/home.png` | 建议上线后改成绝对 URL |
-
-> `og:image` 必须是**绝对 URL**（`https://你的域名/assets/img/home.png`），部分平台不解析相对路径。
-
----
-
-## 六、设计说明
-
-- **配色**：主色玫红 `#cb2245` / `#ed4661`，点缀暖金 `#ecb85d` / `#f2d495`；
-  底色近白 `#fffdfc`，正文 `#17151a`，次要文字 `#6c6772`。全部收敛在 `style.css` 顶部的 CSS 变量里。
-- **字体**：默认走系统字体栈（`Inter → Segoe UI → PingFang SC → Microsoft YaHei`），离线也好看。
-  想用 Inter CDN，在 `index.html` `<head>` 里取消那一行注释即可；
-  **记得同时把 Content-Security-Policy 的 `style-src` / `font-src` 加上 `https://fonts.googleapis.com https://fonts.gstatic.com`**，否则会被 CSP 拦掉。
-- **布局**：容器最大 1160px；Hero 居中 + 叠层截图；功能为 9 张编号卡片（3×3）；
-  分区展示左右交替；下载区单按钮居中；更新日志用折叠卡片、FAQ 用手风琴（同一套 JS）；社区为链接卡。
-- **断点**：`>1024px` 桌面三栏、`≤1024px` 两栏 + 汉堡菜单、`≤768px` 单栏、`≤480px` 紧凑排版。
-  任意宽度都保证 `scrollWidth ≤ clientWidth`（无横向滚动）。
-- **深色偏好**：`@media (prefers-color-scheme: dark)` 覆盖一套配色；浅色始终是默认且优先。
-- **无障碍**：`lang="zh-CN"`、语义标签、跳转到主内容的 skip link、`:focus-visible` 焦点环、
-  手风琴用 `aria-expanded`/`aria-controls`、汉堡按钮 `aria-expanded`、Esc 可收起菜单。
-- **动效**：滚动到视口淡入（IntersectionObserver，带滚动兜底扫描）、
-  `prefers-reduced-motion: reduce` 时全部关闭。
-
----
-
-## 七、验收脚本（可选，仅本地用）
-
-`.verify/verify.js` 是一个无头 Electron 脚本：加载 `index.html` 与 `changelog.html`、收集控制台输出、
-跑 DOM 断言、按 1440 / 820 / 390 三档整页截图到 `.preview/`（另出一张 `changelog.html` 的整页图）。
+直接双击 `index.html` 即可。若想更接近线上环境（相对路径、锚点跳转都一样）：
 
 ```powershell
-# 在仓库根目录
-Remove-Item Env:\ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
-Start-Process -FilePath "node_modules\electron\dist\electron.exe" `
-  -ArgumentList "HTML\.verify\verify.js" -Wait
-Get-Content "HTML\.preview\report.json"
+cd "D:\minecraft\静态网页"
+python -m http.server 8080
+# 打开 http://127.0.0.1:8080/
 ```
 
-要点：脚本会把 `scroll-behavior` 临时改成 `auto`，否则程序化滚动会被平滑动画拖住，
-导致整页没滚到底、误判「内容没淡入」。Electron 是 GUI 子系统，stdout 不可靠，
-所以结果写进 `.preview/report.json` 与 `.preview/progress.log`。
+> 提示：用 `file://` 打开时，深色记忆依赖的 localStorage 在部分浏览器里会被限制，站点会自动降级为「当次有效」，不影响功能。
+
+## 加一条更新日志
+
+只改 `changelog.html` 一个文件。当前它只有 **v1.0.0 一条**——这是咕咕启动器的第一个版本，0.x 系列版本并不存在，不要补写历史版本；模板与维护规则写在 `<div class="releases">` 上方的注释里：
+
+1. 复制一段 `<article class="release">` 整体，粘贴到 `<div class="releases">` 的**最前面**。
+2. 把 `id="v-x-y-z"`、`id="toggle-x-y-z"`、`aria-controls="rel-x-y-z"` 里的 `x-y-z` 换成版本号（点号写成横线，如 v1.1.0 → `1-1-0`）。三处必须一致。
+3. 新版本块加上 `is-open` 类，按钮写 `aria-expanded="true"`；**同时把上一条的 `is-open` 去掉、改成 `aria-expanded="false"`** —— 全站永远只有 1 条默认展开。
+4. `<span class="release-tag">` 写「最新」；占位版本写「开发中」，并同时给 `class="release-tag is-planned"`。
+5. 数一下版本块：**超过 5 条就把最旧的一条整段删掉**，行数保持恒定，页面永远只展示最近 5 个版本。
+
+## 改版本号
+
+版本号只有一处需要改：`assets/js/main.js` 第一行的
+
+```js
+var VERSION = "1.0.0";
+```
+
+首页 Hero 徽标、下载标题里的版本号都带 `data-version` 属性，页面加载时由脚本统一填进去（HTML 里保留静态兜底文本，禁用 JS 时也显示得出来）。改完再在 `changelog.html` 里补一条同版本号的记录。
+
+## 改下载链接
+
+下载区只指向 GitHub Releases，没有网盘、没有镜像站。URL 出现在 `index.html` 的以下位置，改的时候全局替换同一个地址即可（搜 `releases/latest`）：
+
+- Hero 的「下载启动器」按钮
+- 下载区右上「从 GitHub 下载」按钮
+- 下载区的「安装版」卡片（与上面的按钮指向同一个 Releases 地址）
+- 页脚与顶栏的仓库链接（搜 `Gugu-Launcher`）
+
+新增下载入口时同理：只能指向 GitHub，不要加第三方网盘、镜像或「其它下载方式」区块，站点自检脚本会拒绝非 github.com 的下载域名。
+
+## 改主题色 / 深浅色
+
+`assets/css/style.css` 顶部：
+
+- `:root` 是浅色，`[data-theme="dark"]` 是深色，两套一起改；
+- `--accent` 品牌主色（按钮、图标、徽标）；`--accent-strong` 是**正文级**安全色，换主色时记得同步它，保证浅底正文对比度 ≥ 4.5:1；
+- `--bg / --fg / --muted / --line` 两套各自定义。
+
+切换按钮在页面右上角：默认浅色显示月亮，点击切深色显示太阳，选择存在 localStorage 的 `gugu-theme` 键里。
+
+## 部署到 GitHub Pages
+
+产物就是本目录，**把 `静态网页/` 里的全部文件放到仓库根目录**（或放到 `docs/` 再在 Pages 里指定该目录），然后：
+
+1. 确认 `.nojekyll` 已一并提交（否则 Jekyll 会跳过以下划线开头的文件/目录）。
+2. 仓库 → Settings → Pages → Build and deployment：Source 选 **Deploy from a branch**，Branch 选 `main`、目录选 `/ (root)`（用了 `docs/` 就选 `/docs`），Save。
+3. 等 Actions 跑完，地址形如 `https://jijiguowang123.github.io/<仓库名>/`。
+4. 要自定义域名：在同一页面填 Custom domain 并按提示加 DNS 记录；勾选 Enforce HTTPS 后站内没有 http 资源，不会有混合内容告警。
+
+命令行发布（仅供参考，按团队流程来）：
+
+```powershell
+git add .
+git commit -m "site: 更新官网"
+git push origin main
+```
+
+## 哪些东西不要上传
+
+本目录是**站点产物目录**，仓库里只应该有它。以下属于本地工作环境，不进仓库，也不要从站内引用：
+
+- `D:\minecraft\图片素材\` —— 原始截图与 UI 素材；只有**复制进 `assets/img/` 的那几张**会随站点发布；
+- `D:\minecraft\所有版本备份\`、`D:\minecraft\备份\` —— 旧站与历史版本备份，仅作参考；
+- `D:\minecraft\测试代码\` —— 自检脚本，不发布；
+- 新工程的 `src/`、`src-tauri/`、`源代码/` 等源码目录；
+- 任何 `node_modules/`、`.env`、编辑器缓存。
+
+换截图时：新图压到宽度 ≤ 1200 像素、整站图片总量 ≤ 4 MB，再覆盖 `assets/img/` 里的同名文件，`<img>` 上的 `alt` 与宽高属性要跟着改。
+
+## 自检
+
+静态检查脚本在站点目录之外的 `D:\minecraft\测试代码\html-check.mjs`（纯 Node，无依赖）：
+
+```powershell
+& 'C:\Users\JIJIKING\.dsh\dsh-runtimes\dsh-primary-runtime\dependencies\node\bin\node.exe' "D:\minecraft\测试代码\html-check.mjs"
+```
+
+检查内容：标签闭合与 id 唯一、`<img>` 的 alt 与图片是否存在、相对 `href`/`src` 是否有对应文件、锚点能否跳、更新日志条数与手风琴 `aria-controls`、主题变量、两页导航是否一致、外链是否只指向 GitHub（不允许 http 资源与非 GitHub 域名）、深浅两套正文对比度是否 ≥ 4.5:1。
