@@ -61,11 +61,41 @@
              id="v-x-y-z"、id="toggle-x-y-z"、aria-controls="rel-x-y-z" 三处必须一致；
              新的一条加 is-open 且 aria-expanded="true"，上一条去掉 is-open 改成 false —— 全站永远只有 1 条默认展开；
              最多保留最近 5 条，超过 5 条就把最旧的一条整段删掉。 -->
-        <article class="release is-open" id="v-1-0-1">
+        <article class="release is-open" id="v-1-0-2">
           <h3 class="release-head">
-            <button class="release-toggle" type="button" id="toggle-1-0-1" aria-expanded="true" aria-controls="rel-1-0-1">
-              <span class="release-ver">v1.0.1</span>
+            <button class="release-toggle" type="button" id="toggle-1-0-2" aria-expanded="true" aria-controls="rel-1-0-2">
+              <span class="release-ver">v1.0.2</span>
               <span class="release-tag">最新</span>
+              <span class="release-date">2026-10-28</span>
+              <span class="release-sum">修掉网络、皮肤页白屏与下载进度，新增镜像与资源下载源</span>
+              <svg class="release-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6.2 9.4 5.8 5.8 5.8-5.8"/></svg>
+            </button>
+          </h3>
+          <div class="release-body" id="rel-1-0-2" role="region" aria-labelledby="toggle-1-0-2">
+            <h4>修复</h4>
+            <ul>
+              <li>网络层改用 Windows 系统证书库，修掉新闻取不到、检查更新失败、翻译时好时坏这三处同时出现的问题。</li>
+              <li>皮肤页打开后整窗空白、导航消失：已修形状兼容问题，并给每个页面加了错误边界。</li>
+              <li>关闭自动翻译后资源页仍显示中文：现在显示原文且不再发起翻译请求。</li>
+              <li>下载进度一直 0%：依赖补齐会正常上报进度，总量未知时显示已下载大小而不是 0%。</li>
+              <li>部分镜像误代理资源文件导致批量 404：现在只代理依赖库，资源文件走完整镜像或官方源。</li>
+              <li>手动双击安装包会装出第二份：现在沿用上次目录原地覆盖，且不删除 .mc 数据。</li>
+              <li>测速结果永远一样：点测速即强制重新探测。</li>
+            </ul>
+            <h4>新增</h4>
+            <ul>
+              <li>8 个 BMCLAPI 镜像（明叔、南大、兰大、齐鲁工大、哈工大、河南、中科大、南阳理工），全页一个测速按钮统一测速。</li>
+              <li>镜像自动回退链：首选失败自动切换下一可用镜像，最后回落官方源。</li>
+              <li>资源下载源三选一：官方原站 / MCIM 镜像 / 自动选择，带独立测速与「当前命中」提示。</li>
+              <li>实例图标可选择渐变色、21 张内置方块图标或上传自定义图片；实例内存上限改为本机物理内存。</li>
+              <li>关于页更新日志读取仓库 CHANGELOG 的最新版本，并可跳转 GitHub 查看完整日志。</li>
+            </ul>
+          </div>
+        </article>
+        <article class="release" id="v-1-0-1">
+          <h3 class="release-head">
+            <button class="release-toggle" type="button" id="toggle-1-0-1" aria-expanded="false" aria-controls="rel-1-0-1">
+              <span class="release-ver">v1.0.1</span>
               <span class="release-date">2026-10-27</span>
               <span class="release-sum">修复 1.0.0 的真机反馈，并补上第三方账号登录</span>
               <svg class="release-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6.2 9.4 5.8 5.8 5.8-5.8"/></svg>
